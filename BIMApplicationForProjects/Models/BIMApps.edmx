@@ -1,0 +1,640 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BIMApplicationForProjects.Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="01_Projects">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ProjectID" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="ProjectName" Type="nvarchar" MaxLength="150" />
+          <Property Name="ARCdesigner" Type="nvarchar" MaxLength="250" />
+          <Property Name="ARCmakeModel" Type="bit" />
+          <Property Name="STRdesigner" Type="nvarchar" MaxLength="250" />
+          <Property Name="STRmakeModel" Type="bit" />
+          <Property Name="MEPdesigner" Type="nvarchar" MaxLength="250" />
+          <Property Name="MEPmakeModel" Type="bit" />
+          <Property Name="CIvilDesigner" Type="nvarchar" MaxLength="250" />
+          <Property Name="CivilMakeModel" Type="bit" />
+          <Property Name="LandscapeDesigner" Type="nvarchar" MaxLength="250" />
+          <Property Name="LandscapeMakeModel" Type="bit" />
+          <Property Name="Phase" Type="int" />
+          <Property Name="BIMtarget" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="02_AppLists">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="250" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="ProjectPhase" Type="int" />
+        </EntityType>
+        <EntityType Name="02a_AppResults">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="AppListID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AppListID" Type="int" Nullable="false" />
+          <Property Name="Result" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="02b_AppWorkDetails">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="AppListID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AppListID" Type="int" Nullable="false" />
+          <Property Name="WorkName" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="03_ProjectAppDetails">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="ProjectID" />
+            <PropertyRef Name="AppID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectID" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="AppID" Type="int" Nullable="false" />
+          <Property Name="DateRequest" Type="date" />
+          <Property Name="UserRequest" Type="nvarchar" MaxLength="200" />
+          <Property Name="isAccept" Type="bit" />
+          <Property Name="OtherRequest" Type="nvarchar(max)" />
+          <Property Name="BIMerID" Type="int" Nullable="false" />
+          <Property Name="BIMerName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="04_ProjectPhase">
+          <Key>
+            <PropertyRef Name="PhaseID" />
+          </Key>
+          <Property Name="PhaseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PhaseName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Desription" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="05_BIMtarget">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="TargetName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Project_Type" Type="nchar" MaxLength="10" />
+          <Property Name="Descipline_Group" Type="nvarchar" MaxLength="50" />
+          <Property Name="Tender" Type="bit" />
+          <Property Name="Design" Type="bit" />
+          <Property Name="Site" Type="bit" />
+          <Property Name="Architech" Type="bit" />
+          <Property Name="Structure" Type="bit" />
+          <Property Name="MEP" Type="bit" />
+          <Property Name="Civil" Type="bit" />
+          <Property Name="Facade" Type="bit" />
+        </EntityType>
+        <EntityType Name="05a_TargetDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="ProjectID" />
+            <PropertyRef Name="TargetID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectID" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="TargetID" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_01_Projects_04_ProjectPhase">
+          <End Role="04_ProjectPhase" Type="Self.04_ProjectPhase" Multiplicity="0..1" />
+          <End Role="01_Projects" Type="Self.01_Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="04_ProjectPhase">
+              <PropertyRef Name="PhaseID" />
+            </Principal>
+            <Dependent Role="01_Projects">
+              <PropertyRef Name="Phase" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_02_AppLists_04_ProjectPhase">
+          <End Role="04_ProjectPhase" Type="Self.04_ProjectPhase" Multiplicity="0..1" />
+          <End Role="02_AppLists" Type="Self.02_AppLists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="04_ProjectPhase">
+              <PropertyRef Name="PhaseID" />
+            </Principal>
+            <Dependent Role="02_AppLists">
+              <PropertyRef Name="ProjectPhase" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_02a_AppResults_02_AppLists">
+          <End Role="02_AppLists" Type="Self.02_AppLists" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="02a_AppResults" Type="Self.02a_AppResults" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="02_AppLists">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="02a_AppResults">
+              <PropertyRef Name="AppListID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_02b_AppWorkDetails_02_AppLists">
+          <End Role="02_AppLists" Type="Self.02_AppLists" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="02b_AppWorkDetails" Type="Self.02b_AppWorkDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="02_AppLists">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="02b_AppWorkDetails">
+              <PropertyRef Name="AppListID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_03_ProjectAppDetails_01_Projects">
+          <End Role="01_Projects" Type="Self.01_Projects" Multiplicity="1" />
+          <End Role="03_ProjectAppDetails" Type="Self.03_ProjectAppDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="01_Projects">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="03_ProjectAppDetails">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_03_ProjectAppDetails_02_AppLists">
+          <End Role="02_AppLists" Type="Self.02_AppLists" Multiplicity="1" />
+          <End Role="03_ProjectAppDetails" Type="Self.03_ProjectAppDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="02_AppLists">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="03_ProjectAppDetails">
+              <PropertyRef Name="AppID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_05a_TargetDetail_01_Projects">
+          <End Role="01_Projects" Type="Self.01_Projects" Multiplicity="1" />
+          <End Role="05a_TargetDetail" Type="Self.05a_TargetDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="01_Projects">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="05a_TargetDetail">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_05a_TargetDetail_05_BIMtarget">
+          <End Role="05_BIMtarget" Type="Self.05_BIMtarget" Multiplicity="1" />
+          <End Role="05a_TargetDetail" Type="Self.05a_TargetDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="05_BIMtarget">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="05a_TargetDetail">
+              <PropertyRef Name="TargetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BIMApplicationForProjectsModelsStoreContainer">
+          <EntitySet Name="01_Projects" EntityType="Self.01_Projects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="02_AppLists" EntityType="Self.02_AppLists" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="02a_AppResults" EntityType="Self.02a_AppResults" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="02b_AppWorkDetails" EntityType="Self.02b_AppWorkDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="03_ProjectAppDetails" EntityType="Self.03_ProjectAppDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="04_ProjectPhase" EntityType="Self.04_ProjectPhase" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="05_BIMtarget" EntityType="Self.05_BIMtarget" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="05a_TargetDetail" EntityType="Self.05a_TargetDetail" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_01_Projects_04_ProjectPhase" Association="Self.FK_01_Projects_04_ProjectPhase">
+            <End Role="04_ProjectPhase" EntitySet="04_ProjectPhase" />
+            <End Role="01_Projects" EntitySet="01_Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_02_AppLists_04_ProjectPhase" Association="Self.FK_02_AppLists_04_ProjectPhase">
+            <End Role="04_ProjectPhase" EntitySet="04_ProjectPhase" />
+            <End Role="02_AppLists" EntitySet="02_AppLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_02a_AppResults_02_AppLists" Association="Self.FK_02a_AppResults_02_AppLists">
+            <End Role="02_AppLists" EntitySet="02_AppLists" />
+            <End Role="02a_AppResults" EntitySet="02a_AppResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK_02b_AppWorkDetails_02_AppLists" Association="Self.FK_02b_AppWorkDetails_02_AppLists">
+            <End Role="02_AppLists" EntitySet="02_AppLists" />
+            <End Role="02b_AppWorkDetails" EntitySet="02b_AppWorkDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_03_ProjectAppDetails_01_Projects" Association="Self.FK_03_ProjectAppDetails_01_Projects">
+            <End Role="01_Projects" EntitySet="01_Projects" />
+            <End Role="03_ProjectAppDetails" EntitySet="03_ProjectAppDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_03_ProjectAppDetails_02_AppLists" Association="Self.FK_03_ProjectAppDetails_02_AppLists">
+            <End Role="02_AppLists" EntitySet="02_AppLists" />
+            <End Role="03_ProjectAppDetails" EntitySet="03_ProjectAppDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_05a_TargetDetail_01_Projects" Association="Self.FK_05a_TargetDetail_01_Projects">
+            <End Role="01_Projects" EntitySet="01_Projects" />
+            <End Role="05a_TargetDetail" EntitySet="05a_TargetDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_05a_TargetDetail_05_BIMtarget" Association="Self.FK_05a_TargetDetail_05_BIMtarget">
+            <End Role="05_BIMtarget" EntitySet="05_BIMtarget" />
+            <End Role="05a_TargetDetail" EntitySet="05a_TargetDetail" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BIMApplicationForProjects.Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C01_Projects">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ProjectID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProjectName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ARCdesigner" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ARCmakeModel" Type="Boolean" />
+          <Property Name="STRdesigner" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="STRmakeModel" Type="Boolean" />
+          <Property Name="MEPdesigner" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="MEPmakeModel" Type="Boolean" />
+          <Property Name="CIvilDesigner" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CivilMakeModel" Type="Boolean" />
+          <Property Name="LandscapeDesigner" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="LandscapeMakeModel" Type="Boolean" />
+          <Property Name="Phase" Type="Int32" />
+          <Property Name="BIMtarget" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="C04_ProjectPhase" Relationship="Self.FK_01_Projects_04_ProjectPhase" FromRole="C01_Projects" ToRole="C04_ProjectPhase" />
+          <NavigationProperty Name="C05a_TargetDetail" Relationship="Self.FK_05a_TargetDetail_01_Projects" FromRole="C01_Projects" ToRole="C05a_TargetDetail" />
+          <NavigationProperty Name="C03_ProjectAppDetails" Relationship="BIMApplicationForProjects.Models.FK_03_ProjectAppDetails_01_Projects" FromRole="C01_Projects" ToRole="C03_ProjectAppDetails" />
+        </EntityType>
+        <EntityType Name="C04_ProjectPhase">
+          <Key>
+            <PropertyRef Name="PhaseID" />
+          </Key>
+          <Property Name="PhaseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PhaseName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Desription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="C01_Projects" Relationship="Self.FK_01_Projects_04_ProjectPhase" FromRole="C04_ProjectPhase" ToRole="C01_Projects" />
+          <NavigationProperty Name="C02_AppLists" Relationship="BIMApplicationForProjects.Models.FK_02_AppLists_04_ProjectPhase" FromRole="C04_ProjectPhase" ToRole="C02_AppLists" />
+        </EntityType>
+        <EntityType Name="C05_BIMtarget">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TargetName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Project_Type" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Descipline_Group" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tender" Type="Boolean" />
+          <Property Name="Design" Type="Boolean" />
+          <Property Name="Site" Type="Boolean" />
+          <Property Name="Architech" Type="Boolean" />
+          <Property Name="Structure" Type="Boolean" />
+          <Property Name="MEP" Type="Boolean" />
+          <Property Name="Civil" Type="Boolean" />
+          <Property Name="Facade" Type="Boolean" />
+          <NavigationProperty Name="C05a_TargetDetail" Relationship="Self.FK_05a_TargetDetail_05_BIMtarget" FromRole="C05_BIMtarget" ToRole="C05a_TargetDetail" />
+        </EntityType>
+        <EntityType Name="C05a_TargetDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="ProjectID" />
+            <PropertyRef Name="TargetID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TargetID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="C01_Projects" Relationship="Self.FK_05a_TargetDetail_01_Projects" FromRole="C05a_TargetDetail" ToRole="C01_Projects" />
+          <NavigationProperty Name="C05_BIMtarget" Relationship="Self.FK_05a_TargetDetail_05_BIMtarget" FromRole="C05a_TargetDetail" ToRole="C05_BIMtarget" />
+        </EntityType>
+        <Association Name="FK_01_Projects_04_ProjectPhase">
+          <End Role="C04_ProjectPhase" Type="Self.C04_ProjectPhase" Multiplicity="0..1" />
+          <End Role="C01_Projects" Type="Self.C01_Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C04_ProjectPhase">
+              <PropertyRef Name="PhaseID" />
+            </Principal>
+            <Dependent Role="C01_Projects">
+              <PropertyRef Name="Phase" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_05a_TargetDetail_01_Projects">
+          <End Role="C01_Projects" Type="Self.C01_Projects" Multiplicity="1" />
+          <End Role="C05a_TargetDetail" Type="Self.C05a_TargetDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C01_Projects">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="C05a_TargetDetail">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_05a_TargetDetail_05_BIMtarget">
+          <End Role="C05_BIMtarget" Type="Self.C05_BIMtarget" Multiplicity="1" />
+          <End Role="C05a_TargetDetail" Type="Self.C05a_TargetDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C05_BIMtarget">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="C05a_TargetDetail">
+              <PropertyRef Name="TargetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProjectsDbContext" annotation:LazyLoadingEnabled="false">
+          <EntitySet Name="C01_Projects" EntityType="Self.C01_Projects" />
+          <EntitySet Name="C04_ProjectPhase" EntityType="Self.C04_ProjectPhase" />
+          <EntitySet Name="C05_BIMtarget" EntityType="Self.C05_BIMtarget" />
+          <EntitySet Name="C05a_TargetDetail" EntityType="Self.C05a_TargetDetail" />
+          <AssociationSet Name="FK_01_Projects_04_ProjectPhase" Association="Self.FK_01_Projects_04_ProjectPhase">
+            <End Role="C04_ProjectPhase" EntitySet="C04_ProjectPhase" />
+            <End Role="C01_Projects" EntitySet="C01_Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_05a_TargetDetail_01_Projects" Association="Self.FK_05a_TargetDetail_01_Projects">
+            <End Role="C01_Projects" EntitySet="C01_Projects" />
+            <End Role="C05a_TargetDetail" EntitySet="C05a_TargetDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_05a_TargetDetail_05_BIMtarget" Association="Self.FK_05a_TargetDetail_05_BIMtarget">
+            <End Role="C05_BIMtarget" EntitySet="C05_BIMtarget" />
+            <End Role="C05a_TargetDetail" EntitySet="C05a_TargetDetail" />
+          </AssociationSet>
+          <EntitySet Name="C02_AppLists" EntityType="BIMApplicationForProjects.Models.C02_AppLists" />
+          <EntitySet Name="C02a_AppResults" EntityType="BIMApplicationForProjects.Models.C02a_AppResults" />
+          <AssociationSet Name="FK_02a_AppResults_02_AppLists" Association="BIMApplicationForProjects.Models.FK_02a_AppResults_02_AppLists">
+            <End Role="C02_AppLists" EntitySet="C02_AppLists" />
+            <End Role="C02a_AppResults" EntitySet="C02a_AppResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK_02_AppLists_04_ProjectPhase" Association="BIMApplicationForProjects.Models.FK_02_AppLists_04_ProjectPhase">
+            <End Role="C04_ProjectPhase" EntitySet="C04_ProjectPhase" />
+            <End Role="C02_AppLists" EntitySet="C02_AppLists" />
+          </AssociationSet>
+          <EntitySet Name="C02b_AppWorkDetails" EntityType="BIMApplicationForProjects.Models.C02b_AppWorkDetails" />
+          <AssociationSet Name="FK_02b_AppWorkDetails_02_AppLists" Association="BIMApplicationForProjects.Models.FK_02b_AppWorkDetails_02_AppLists">
+            <End Role="C02_AppLists" EntitySet="C02_AppLists" />
+            <End Role="C02b_AppWorkDetails" EntitySet="C02b_AppWorkDetails" />
+          </AssociationSet>
+          <EntitySet Name="C03_ProjectAppDetails" EntityType="BIMApplicationForProjects.Models.C03_ProjectAppDetails" />
+          <AssociationSet Name="FK_03_ProjectAppDetails_01_Projects" Association="BIMApplicationForProjects.Models.FK_03_ProjectAppDetails_01_Projects">
+            <End Role="C01_Projects" EntitySet="C01_Projects" />
+            <End Role="C03_ProjectAppDetails" EntitySet="C03_ProjectAppDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_03_ProjectAppDetails_02_AppLists" Association="BIMApplicationForProjects.Models.FK_03_ProjectAppDetails_02_AppLists">
+            <End Role="C02_AppLists" EntitySet="C02_AppLists" />
+            <End Role="C03_ProjectAppDetails" EntitySet="C03_ProjectAppDetails" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="C02_AppLists">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="C02a_AppResults" Relationship="BIMApplicationForProjects.Models.FK_02a_AppResults_02_AppLists" FromRole="C02_AppLists" ToRole="C02a_AppResults" />
+          <Property Name="ProjectPhase" Type="Int32" />
+          <NavigationProperty Name="C04_ProjectPhase" Relationship="BIMApplicationForProjects.Models.FK_02_AppLists_04_ProjectPhase" FromRole="C02_AppLists" ToRole="C04_ProjectPhase" />
+          <NavigationProperty Name="C02b_AppWorkDetails" Relationship="BIMApplicationForProjects.Models.FK_02b_AppWorkDetails_02_AppLists" FromRole="C02_AppLists" ToRole="C02b_AppWorkDetails" />
+          <NavigationProperty Name="C03_ProjectAppDetails" Relationship="BIMApplicationForProjects.Models.FK_03_ProjectAppDetails_02_AppLists" FromRole="C02_AppLists" ToRole="C03_ProjectAppDetails" />
+        </EntityType>
+        <EntityType Name="C02a_AppResults">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="AppListID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AppListID" Type="Int32" Nullable="false" />
+          <Property Name="Result" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="C02_AppLists" Relationship="BIMApplicationForProjects.Models.FK_02a_AppResults_02_AppLists" FromRole="C02a_AppResults" ToRole="C02_AppLists" />
+        </EntityType>
+        <Association Name="FK_02a_AppResults_02_AppLists">
+          <End Type="BIMApplicationForProjects.Models.C02_AppLists" Role="C02_AppLists" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="BIMApplicationForProjects.Models.C02a_AppResults" Role="C02a_AppResults" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C02_AppLists">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="C02a_AppResults">
+              <PropertyRef Name="AppListID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_02_AppLists_04_ProjectPhase">
+          <End Type="BIMApplicationForProjects.Models.C04_ProjectPhase" Role="C04_ProjectPhase" Multiplicity="0..1" />
+          <End Type="BIMApplicationForProjects.Models.C02_AppLists" Role="C02_AppLists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C04_ProjectPhase">
+              <PropertyRef Name="PhaseID" />
+            </Principal>
+            <Dependent Role="C02_AppLists">
+              <PropertyRef Name="ProjectPhase" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="C02b_AppWorkDetails">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="AppListID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AppListID" Type="Int32" Nullable="false" />
+          <Property Name="WorkName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="C02_AppLists" Relationship="BIMApplicationForProjects.Models.FK_02b_AppWorkDetails_02_AppLists" FromRole="C02b_AppWorkDetails" ToRole="C02_AppLists" />
+        </EntityType>
+        <Association Name="FK_02b_AppWorkDetails_02_AppLists">
+          <End Type="BIMApplicationForProjects.Models.C02_AppLists" Role="C02_AppLists" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="BIMApplicationForProjects.Models.C02b_AppWorkDetails" Role="C02b_AppWorkDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C02_AppLists">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="C02b_AppWorkDetails">
+              <PropertyRef Name="AppListID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="C03_ProjectAppDetails">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="ProjectID" />
+            <PropertyRef Name="AppID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="AppID" Type="Int32" Nullable="false" />
+          <Property Name="DateRequest" Type="DateTime" Precision="0" />
+          <Property Name="UserRequest" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="isAccept" Type="Boolean" />
+          <Property Name="OtherRequest" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BIMerID" Type="Int32" Nullable="false" />
+          <Property Name="BIMerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="C01_Projects" Relationship="BIMApplicationForProjects.Models.FK_03_ProjectAppDetails_01_Projects" FromRole="C03_ProjectAppDetails" ToRole="C01_Projects" />
+          <NavigationProperty Name="C02_AppLists" Relationship="BIMApplicationForProjects.Models.FK_03_ProjectAppDetails_02_AppLists" FromRole="C03_ProjectAppDetails" ToRole="C02_AppLists" />
+        </EntityType>
+        <Association Name="FK_03_ProjectAppDetails_01_Projects">
+          <End Type="BIMApplicationForProjects.Models.C01_Projects" Role="C01_Projects" Multiplicity="1" />
+          <End Type="BIMApplicationForProjects.Models.C03_ProjectAppDetails" Role="C03_ProjectAppDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C01_Projects">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="C03_ProjectAppDetails">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_03_ProjectAppDetails_02_AppLists">
+          <End Type="BIMApplicationForProjects.Models.C02_AppLists" Role="C02_AppLists" Multiplicity="1" />
+          <End Type="BIMApplicationForProjects.Models.C03_ProjectAppDetails" Role="C03_ProjectAppDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C02_AppLists">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="C03_ProjectAppDetails">
+              <PropertyRef Name="AppID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BIMApplicationForProjectsModelsStoreContainer" CdmEntityContainer="ProjectsDbContext">
+          <EntitySetMapping Name="C01_Projects">
+            <EntityTypeMapping TypeName="BIMApplicationForProjects.Models.C01_Projects">
+              <MappingFragment StoreEntitySet="01_Projects">
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ARCdesigner" ColumnName="ARCdesigner" />
+                <ScalarProperty Name="ARCmakeModel" ColumnName="ARCmakeModel" />
+                <ScalarProperty Name="STRdesigner" ColumnName="STRdesigner" />
+                <ScalarProperty Name="STRmakeModel" ColumnName="STRmakeModel" />
+                <ScalarProperty Name="MEPdesigner" ColumnName="MEPdesigner" />
+                <ScalarProperty Name="MEPmakeModel" ColumnName="MEPmakeModel" />
+                <ScalarProperty Name="CIvilDesigner" ColumnName="CIvilDesigner" />
+                <ScalarProperty Name="CivilMakeModel" ColumnName="CivilMakeModel" />
+                <ScalarProperty Name="LandscapeDesigner" ColumnName="LandscapeDesigner" />
+                <ScalarProperty Name="LandscapeMakeModel" ColumnName="LandscapeMakeModel" />
+                <ScalarProperty Name="Phase" ColumnName="Phase" />
+                <ScalarProperty Name="BIMtarget" ColumnName="BIMtarget" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C04_ProjectPhase">
+            <EntityTypeMapping TypeName="BIMApplicationForProjects.Models.C04_ProjectPhase">
+              <MappingFragment StoreEntitySet="04_ProjectPhase">
+                <ScalarProperty Name="PhaseID" ColumnName="PhaseID" />
+                <ScalarProperty Name="PhaseName" ColumnName="PhaseName" />
+                <ScalarProperty Name="Desription" ColumnName="Desription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C05_BIMtarget">
+            <EntityTypeMapping TypeName="BIMApplicationForProjects.Models.C05_BIMtarget">
+              <MappingFragment StoreEntitySet="05_BIMtarget">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TargetName" ColumnName="TargetName" />
+                <ScalarProperty Name="Project_Type" ColumnName="Project_Type" />
+                <ScalarProperty Name="Descipline_Group" ColumnName="Descipline_Group" />
+                <ScalarProperty Name="Tender" ColumnName="Tender" />
+                <ScalarProperty Name="Design" ColumnName="Design" />
+                <ScalarProperty Name="Site" ColumnName="Site" />
+                <ScalarProperty Name="Architech" ColumnName="Architech" />
+                <ScalarProperty Name="Structure" ColumnName="Structure" />
+                <ScalarProperty Name="MEP" ColumnName="MEP" />
+                <ScalarProperty Name="Civil" ColumnName="Civil" />
+                <ScalarProperty Name="Facade" ColumnName="Facade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C05a_TargetDetail">
+            <EntityTypeMapping TypeName="BIMApplicationForProjects.Models.C05a_TargetDetail">
+              <MappingFragment StoreEntitySet="05a_TargetDetail">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="TargetID" ColumnName="TargetID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C02_AppLists">
+            <EntityTypeMapping TypeName="BIMApplicationForProjects.Models.C02_AppLists">
+              <MappingFragment StoreEntitySet="02_AppLists">
+                <ScalarProperty Name="ProjectPhase" ColumnName="ProjectPhase" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C02a_AppResults">
+            <EntityTypeMapping TypeName="BIMApplicationForProjects.Models.C02a_AppResults">
+              <MappingFragment StoreEntitySet="02a_AppResults">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="AppListID" ColumnName="AppListID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C02b_AppWorkDetails">
+            <EntityTypeMapping TypeName="BIMApplicationForProjects.Models.C02b_AppWorkDetails">
+              <MappingFragment StoreEntitySet="02b_AppWorkDetails">
+                <ScalarProperty Name="WorkName" ColumnName="WorkName" />
+                <ScalarProperty Name="AppListID" ColumnName="AppListID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C03_ProjectAppDetails">
+            <EntityTypeMapping TypeName="BIMApplicationForProjects.Models.C03_ProjectAppDetails">
+              <MappingFragment StoreEntitySet="03_ProjectAppDetails">
+                <ScalarProperty Name="BIMerName" ColumnName="BIMerName" />
+                <ScalarProperty Name="BIMerID" ColumnName="BIMerID" />
+                <ScalarProperty Name="OtherRequest" ColumnName="OtherRequest" />
+                <ScalarProperty Name="isAccept" ColumnName="isAccept" />
+                <ScalarProperty Name="UserRequest" ColumnName="UserRequest" />
+                <ScalarProperty Name="DateRequest" ColumnName="DateRequest" />
+                <ScalarProperty Name="AppID" ColumnName="AppID" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

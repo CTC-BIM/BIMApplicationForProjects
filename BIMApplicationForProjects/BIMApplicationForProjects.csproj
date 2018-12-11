@@ -49,6 +49,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -174,12 +176,58 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AppListsController.cs" />
+    <Compile Include="Controllers\AppResultsController.cs" />
+    <Compile Include="Controllers\AppWorkDetailsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProjectAppDetailsController.cs" />
+    <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BIMApps.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BIMApps.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BIMApps.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BIMApps.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BIMApps.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BIMApps.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BIMAppsMetadata.cs" />
+    <Compile Include="Models\C01_Projects.cs">
+      <DependentUpon>BIMApps.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C02a_AppResults.cs">
+      <DependentUpon>BIMApps.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C02b_AppWorkDetails.cs">
+      <DependentUpon>BIMApps.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C02_AppLists.cs">
+      <DependentUpon>BIMApps.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C03_ProjectAppDetails.cs">
+      <DependentUpon>BIMApps.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C03_ProjectAppDetailsMetadata.cs" />
+    <Compile Include="Models\C04_ProjectPhase.cs">
+      <DependentUpon>BIMApps.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C05a_TargetDetail.cs">
+      <DependentUpon>BIMApps.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C05_BIMtarget.cs">
+      <DependentUpon>BIMApps.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -194,8 +242,26 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\BIMApps.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BIMApps.edmx</DependentUpon>
+      <LastGenOutput>BIMApps.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\BIMApps.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BIMApps.edmx</DependentUpon>
+      <LastGenOutput>BIMApps.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Models\BIMApps.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BIMApps.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\BIMApps.edmx.diagram">
+      <DependentUpon>BIMApps.edmx</DependentUpon>
+    </Content>
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -241,6 +307,32 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Projects\Create.cshtml" />
+    <Content Include="Views\Projects\Delete.cshtml" />
+    <Content Include="Views\Projects\Details.cshtml" />
+    <Content Include="Views\Projects\Edit.cshtml" />
+    <Content Include="Views\Projects\Index.cshtml" />
+    <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\AppLists\Create.cshtml" />
+    <Content Include="Views\AppLists\Delete.cshtml" />
+    <Content Include="Views\AppLists\Details.cshtml" />
+    <Content Include="Views\AppLists\Edit.cshtml" />
+    <Content Include="Views\AppLists\Index.cshtml" />
+    <Content Include="Views\AppResults\Create.cshtml" />
+    <Content Include="Views\AppResults\Delete.cshtml" />
+    <Content Include="Views\AppResults\Details.cshtml" />
+    <Content Include="Views\AppResults\Edit.cshtml" />
+    <Content Include="Views\AppResults\Index.cshtml" />
+    <Content Include="Views\AppWorkDetails\Create.cshtml" />
+    <Content Include="Views\AppWorkDetails\Delete.cshtml" />
+    <Content Include="Views\AppWorkDetails\Details.cshtml" />
+    <Content Include="Views\AppWorkDetails\Edit.cshtml" />
+    <Content Include="Views\AppWorkDetails\Index.cshtml" />
+    <Content Include="Views\ProjectAppDetails\Create.cshtml" />
+    <Content Include="Views\ProjectAppDetails\Delete.cshtml" />
+    <Content Include="Views\ProjectAppDetails\Details.cshtml" />
+    <Content Include="Views\ProjectAppDetails\Edit.cshtml" />
+    <Content Include="Views\ProjectAppDetails\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -257,6 +349,9 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

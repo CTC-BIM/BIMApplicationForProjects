@@ -1,0 +1,35 @@
+﻿@model BIMApplicationForProjects.Models.C02b_AppWorkDetails
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>C02b_AppWorkDetails</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C02_AppLists.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C02_AppLists.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

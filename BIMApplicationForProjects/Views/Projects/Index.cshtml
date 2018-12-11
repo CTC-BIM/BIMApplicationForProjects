@@ -1,0 +1,242 @@
+﻿@model IEnumerable<BIMApplicationForProjects.Models.C01_Projects>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var phase = ViewBag.Phase as List<BIMApplicationForProjects.Models.C04_ProjectPhase>;
+}
+
+<h2>Danh sách dự án <small class="text-info">Project List</small></h2>
+
+<p class="btn btn-warning" style="margin-bottom:10px">
+    @Html.ActionLink("Đăng ký dự án", "Create")
+</p>
+
+<div class="container">
+    <table class="table table-condensed table-bordered table-hover">
+        <tr>
+            <th>#</th>
+            <th>Tên dự án</th>
+            <th>Phase</th>
+            <th>Kiến trúc</th>
+            <th>Kết cấu</th>
+            <th>Cơ điện</th>
+            <th>Hạ tầng</th>
+            <th>Cảnh quan</th>
+            <th>Mô hình ARC</th>
+            <th>Mô hình STR</th>
+            <th>Mô hình MEP</th>
+            <th>Mô hình Hạ tầng</th>
+            <th>Mô hình Cảnh quan</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="text-danger text-uppercase">
+                    @Html.ActionLink(item.ProjectID, "Details", new { id = int.Parse(item.ProjectID) }, new { @class = "text-danger" })
+                </td>
+
+                <td class="text-danger text-uppercase">
+                    @Html.ActionLink(item.ProjectName, "Details", new { id = int.Parse(item.ProjectID) }, new { @class = "text-danger" })
+                </td>
+                @foreach (var _ID in phase)
+                {
+                    if (_ID.PhaseID == item.Phase)
+                    {
+                        <td class="text-danger">@_ID.PhaseName</td>
+                    }
+                }
+                <td class="text-info bg-info">@item.ARCdesigner</td>
+                <td class="text-info bg-info">@item.STRdesigner</td>
+                <td class="text-info bg-info">@item.MEPdesigner</td>
+                <td class="text-info bg-info">@item.CIvilDesigner</td>
+                <td class="text-info bg-info">@item.LandscapeDesigner</td>
+                <td class="text-center">
+                    @if (item.ARCmakeModel.HasValue)
+                    {
+                        if (item.ARCmakeModel.Value)
+                        {
+                            <a>Yes</a>
+                        }
+                        else
+                        {
+                            <a>No</a>
+                        }
+                    }
+                    else
+                    {
+                        <a>No</a>
+                    }
+                </td>
+                <td class="text-center">
+                    @if (item.STRmakeModel.HasValue)
+                    {
+                        if (item.STRmakeModel.Value)
+                        {
+                            <a>Yes</a>
+                        }
+                        else
+                        {
+                            <a>No</a>
+                        }
+                    }
+                    else
+                    {
+                        <a>No</a>
+                    }
+                </td>
+                <td class="text-center">
+                    @if (item.MEPmakeModel.HasValue)
+                    {
+                        if (item.MEPmakeModel.Value)
+                        {
+                            <a>Yes</a>
+                        }
+                        else
+                        {
+                            <a>No</a>
+                        }
+                    }
+                    else
+                    {
+                        <a>No</a>
+                    }
+                </td>
+
+                <td class="text-center">
+                    @if (item.CivilMakeModel.HasValue)
+                    {
+                        if (item.CivilMakeModel.Value)
+                        {
+                            <a>Yes</a>
+                        }
+                        else
+                        {
+                            <a>No</a>
+                        }
+                    }
+                    else
+                    {
+                        <a>No</a>
+                    }
+                </td>
+                <td class="text-center">
+                    @if (item.LandscapeMakeModel.HasValue)
+                    {
+                        if (item.LandscapeMakeModel.Value)
+                        {
+                            <a>Yes</a>
+                        }
+                        else
+                        {
+                            <a>No</a>
+                        }
+                    }
+                    else
+                    {
+                        <a>No</a>
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+<!--
+@*<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProjectName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ARCdesigner)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ARCmakeModel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.STRdesigner)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.STRmakeModel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MEPdesigner)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MEPmakeModel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CIvilDesigner)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CivilMakeModel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LandscapeDesigner)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LandscapeMakeModel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BIMtarget)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.C04_ProjectPhase.PhaseName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProjectName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ARCdesigner)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ARCmakeModel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.STRdesigner)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.STRmakeModel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MEPdesigner)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MEPmakeModel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CIvilDesigner)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CivilMakeModel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LandscapeDesigner)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LandscapeMakeModel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BIMtarget)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.C04_ProjectPhase.PhaseName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ProjectID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ProjectID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ProjectID })
+            </td>
+        </tr>
+    }
+
+</table>*@
+    -->

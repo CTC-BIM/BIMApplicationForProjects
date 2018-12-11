@@ -23,9 +23,10 @@
                 <ul class="nav navbar-nav">
                     @*<li>@Html.ActionLink("Projects", "Index", "Home")</li>*@
                     <li>@Html.ActionLink("Projects","Index","Projects")</li>
-                    <li>@Html.ActionLink("BIM App", "Index", "ProjectAppDetails")</li>
-                    <li>@Html.ActionLink("MenuList", "Index", "AppLists")</li>
-                    <li>@Html.ActionLink("AppResult", "Index", "AppResults")</li>
+                    <li>@Html.ActionLink("Application Manage","","")</li>
+                    <li>@Html.ActionLink("BIM App for Projects", "About", "Home")</li>
+                    <li>@Html.ActionLink("Project Phase", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("BIM Target","","")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -34,8 +35,8 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer class="nav navbar-fixed-bottom navbar-inverse text-center">
-            <p style="color:white">&copy; @DateTime.Now.Year - Coteccons BIM team</p>
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
 

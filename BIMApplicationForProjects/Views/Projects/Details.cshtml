@@ -1,0 +1,257 @@
+﻿@model BIMApplicationForProjects.Models.C01_Projects
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <div class="row bg-danger">
+        <h2>Project Info</h2>
+
+        <div class="container">
+            <table class="table table-condensed table-bordered table-hover">
+                <tr>
+                    <th>#</th>
+                    <th>Tên dự án</th>
+                    <th>Phase</th>
+                    <th>Kiến trúc</th>
+                    <th>Kết cấu</th>
+                    <th>Cơ điện</th>
+                    <th>Hạ tầng</th>
+                    <th>Cảnh quan</th>
+                    <th>Mô hình ARC</th>
+                    <th>Mô hình STR</th>
+                    <th>Mô hình MEP</th>
+                    <th>Mô hình Hạ tầng</th>
+                    <th>Mô hình Cảnh quan</th>
+                </tr>
+                <tr>
+                    <td class="text-danger text-uppercase">@Model.ProjectID</td>
+                    <td class="text-danger text-uppercase">@Model.ProjectName</td>
+
+                    @*@foreach (var _ID in Model)
+                    {
+                        if (_ID.PhaseID == Model.Phase)
+                        {
+                            <td class="text-danger">@_ID.PhaseName</td>
+                        }
+                    }*@
+
+                    <td class="text-info bg-info">@Model.ARCdesigner</td>
+                    <td class="text-info bg-info">@Model.STRdesigner</td>
+                    <td class="text-info bg-info">@Model.MEPdesigner</td>
+                    <td class="text-info bg-info">@Model.CIvilDesigner</td>
+                    <td class="text-info bg-info">@Model.LandscapeDesigner</td>
+                    <td class="text-center">
+                        @if (Model.ARCmakeModel.HasValue)
+                        {
+                            if (Model.ARCmakeModel.Value)
+                            {
+                                <a>Yes</a>
+                            }
+                            else
+                            {
+                                <a>No</a>
+                            }
+                        }
+                        else
+                        {
+                            <a>No</a>
+                        }
+                    </td>
+                    <td class="text-center">
+                        @if (Model.STRmakeModel.HasValue)
+                        {
+                            if (Model.STRmakeModel.Value)
+                            {
+                                <a>Yes</a>
+                            }
+                            else
+                            {
+                                <a>No</a>
+                            }
+                        }
+                        else
+                        {
+                            <a>No</a>
+                        }
+                    </td>
+                    <td class="text-center">
+                        @if (Model.MEPmakeModel.HasValue)
+                        {
+                            if (Model.MEPmakeModel.Value)
+                            {
+                                <a>Yes</a>
+                            }
+                            else
+                            {
+                                <a>No</a>
+                            }
+                        }
+                        else
+                        {
+                            <a>No</a>
+                        }
+                    </td>
+
+                    <td class="text-center">
+                        @if (Model.CivilMakeModel.HasValue)
+                        {
+                            if (Model.CivilMakeModel.Value)
+                            {
+                                <a>Yes</a>
+                            }
+                            else
+                            {
+                                <a>No</a>
+                            }
+                        }
+                        else
+                        {
+                            <a>No</a>
+                        }
+                    </td>
+                    <td class="text-center">
+                        @if (Model.LandscapeMakeModel.HasValue)
+                        {
+                            if (Model.LandscapeMakeModel.Value)
+                            {
+                                <a>Yes</a>
+                            }
+                            else
+                            {
+                                <a>No</a>
+                            }
+                        }
+                        else
+                        {
+                            <a>No</a>
+                        }
+                    </td>
+                </tr>
+
+
+            </table>
+        </div>
+
+    </div>
+    <div class="row bg-primary">
+        <h2>Project Application</h2>
+    </div>
+</div>
+
+<div>
+    <h4>C01_Projects</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ProjectName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProjectName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ARCdesigner)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ARCdesigner)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ARCmakeModel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ARCmakeModel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.STRdesigner)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.STRdesigner)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.STRmakeModel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.STRmakeModel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MEPdesigner)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MEPdesigner)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MEPmakeModel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MEPmakeModel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CIvilDesigner)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CIvilDesigner)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CivilMakeModel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CivilMakeModel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LandscapeDesigner)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LandscapeDesigner)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LandscapeMakeModel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LandscapeMakeModel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BIMtarget)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BIMtarget)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C04_ProjectPhase.PhaseName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C04_ProjectPhase.PhaseName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ProjectID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

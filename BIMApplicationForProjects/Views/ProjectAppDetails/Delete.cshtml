@@ -1,0 +1,89 @@
+﻿@model BIMApplicationForProjects.Models.C03_ProjectAppDetails
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>C03_ProjectAppDetails</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DateRequest)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateRequest)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserRequest)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserRequest)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isAccept)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isAccept)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OtherRequest)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OtherRequest)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BIMerID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BIMerID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BIMerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BIMerName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C01_Projects.ProjectName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C01_Projects.ProjectName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C02_AppLists.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C02_AppLists.Name)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
