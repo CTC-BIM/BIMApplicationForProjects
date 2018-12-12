@@ -17,15 +17,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("BIM Applications", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <a href=@Url.Action("Index","Home")>
+                    <img src="~/Assets/Logo/RoundTrans.png" class="img50x50" />
+                    @*@Html.ActionLink("BIM Apps", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+                </a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     @*<li>@Html.ActionLink("Projects", "Index", "Home")</li>*@
-                    <li>@Html.ActionLink("Projects","Index","Projects")</li>
-                    <li>@Html.ActionLink("BIM App", "Index", "ProjectAppDetails")</li>
+                    <li>@Html.ActionLink("Projects", "Index", "Projects")</li>
                     <li>@Html.ActionLink("MenuList", "Index", "AppLists")</li>
                     <li>@Html.ActionLink("AppResult", "Index", "AppResults")</li>
+                    <li>@Html.ActionLink("Projects Detail", "Index", "ProjectAppDetails")</li>
+
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -42,5 +46,11 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <style>
+        .img50x50 {
+            height: 50px;
+            width: 50px;
+        }
+    </style>
 </body>
 </html>

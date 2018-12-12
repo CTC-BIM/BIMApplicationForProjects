@@ -65,8 +65,11 @@
           <Property Name="UserRequest" Type="nvarchar" MaxLength="200" />
           <Property Name="isAccept" Type="bit" />
           <Property Name="OtherRequest" Type="nvarchar(max)" />
-          <Property Name="BIMerID" Type="int" Nullable="false" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
           <Property Name="BIMerName" Type="nvarchar" MaxLength="50" />
+          <Property Name="DeadLine" Type="date" />
+          <Property Name="ResultID" Type="int" />
+          <Property Name="RequestID" Type="int" />
         </EntityType>
         <EntityType Name="04_ProjectPhase">
           <Key>
@@ -103,6 +106,27 @@
           <Property Name="ProjectID" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="TargetID" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="06_Status">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="07_Result">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="08_RequestType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_01_Projects_04_ProjectPhase">
           <End Role="04_ProjectPhase" Type="Self.04_ProjectPhase" Multiplicity="0..1" />
@@ -180,6 +204,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_03_ProjectAppDetails_06_Status">
+          <End Role="06_Status" Type="Self.06_Status" Multiplicity="1" />
+          <End Role="03_ProjectAppDetails" Type="Self.03_ProjectAppDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="06_Status">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="03_ProjectAppDetails">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_03_ProjectAppDetails_07_Result">
+          <End Role="07_Result" Type="Self.07_Result" Multiplicity="0..1" />
+          <End Role="03_ProjectAppDetails" Type="Self.03_ProjectAppDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="07_Result">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="03_ProjectAppDetails">
+              <PropertyRef Name="ResultID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_03_ProjectAppDetails_08_RequestType">
+          <End Role="08_RequestType" Type="Self.08_RequestType" Multiplicity="0..1" />
+          <End Role="03_ProjectAppDetails" Type="Self.03_ProjectAppDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="08_RequestType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="03_ProjectAppDetails">
+              <PropertyRef Name="RequestID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_05a_TargetDetail_01_Projects">
           <End Role="01_Projects" Type="Self.01_Projects" Multiplicity="1" />
           <End Role="05a_TargetDetail" Type="Self.05a_TargetDetail" Multiplicity="*" />
@@ -213,6 +273,9 @@
           <EntitySet Name="04_ProjectPhase" EntityType="Self.04_ProjectPhase" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="05_BIMtarget" EntityType="Self.05_BIMtarget" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="05a_TargetDetail" EntityType="Self.05a_TargetDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="06_Status" EntityType="Self.06_Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="07_Result" EntityType="Self.07_Result" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="08_RequestType" EntityType="Self.08_RequestType" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_01_Projects_04_ProjectPhase" Association="Self.FK_01_Projects_04_ProjectPhase">
             <End Role="04_ProjectPhase" EntitySet="04_ProjectPhase" />
             <End Role="01_Projects" EntitySet="01_Projects" />
@@ -235,6 +298,18 @@
           </AssociationSet>
           <AssociationSet Name="FK_03_ProjectAppDetails_02_AppLists" Association="Self.FK_03_ProjectAppDetails_02_AppLists">
             <End Role="02_AppLists" EntitySet="02_AppLists" />
+            <End Role="03_ProjectAppDetails" EntitySet="03_ProjectAppDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_03_ProjectAppDetails_06_Status" Association="Self.FK_03_ProjectAppDetails_06_Status">
+            <End Role="06_Status" EntitySet="06_Status" />
+            <End Role="03_ProjectAppDetails" EntitySet="03_ProjectAppDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_03_ProjectAppDetails_07_Result" Association="Self.FK_03_ProjectAppDetails_07_Result">
+            <End Role="07_Result" EntitySet="07_Result" />
+            <End Role="03_ProjectAppDetails" EntitySet="03_ProjectAppDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_03_ProjectAppDetails_08_RequestType" Association="Self.FK_03_ProjectAppDetails_08_RequestType">
+            <End Role="08_RequestType" EntitySet="08_RequestType" />
             <End Role="03_ProjectAppDetails" EntitySet="03_ProjectAppDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_05a_TargetDetail_01_Projects" Association="Self.FK_05a_TargetDetail_01_Projects">
@@ -381,6 +456,7 @@
             <End Role="C02_AppLists" EntitySet="C02_AppLists" />
             <End Role="C02b_AppWorkDetails" EntitySet="C02b_AppWorkDetails" />
           </AssociationSet>
+          <EntitySet Name="C06_Status" EntityType="BIMApplicationForProjects.Models.C06_Status" />
           <EntitySet Name="C03_ProjectAppDetails" EntityType="BIMApplicationForProjects.Models.C03_ProjectAppDetails" />
           <AssociationSet Name="FK_03_ProjectAppDetails_01_Projects" Association="BIMApplicationForProjects.Models.FK_03_ProjectAppDetails_01_Projects">
             <End Role="C01_Projects" EntitySet="C01_Projects" />
@@ -388,6 +464,20 @@
           </AssociationSet>
           <AssociationSet Name="FK_03_ProjectAppDetails_02_AppLists" Association="BIMApplicationForProjects.Models.FK_03_ProjectAppDetails_02_AppLists">
             <End Role="C02_AppLists" EntitySet="C02_AppLists" />
+            <End Role="C03_ProjectAppDetails" EntitySet="C03_ProjectAppDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_03_ProjectAppDetails_06_Status" Association="BIMApplicationForProjects.Models.FK_03_ProjectAppDetails_06_Status">
+            <End Role="C06_Status" EntitySet="C06_Status" />
+            <End Role="C03_ProjectAppDetails" EntitySet="C03_ProjectAppDetails" />
+          </AssociationSet>
+          <EntitySet Name="C07_Result" EntityType="BIMApplicationForProjects.Models.C07_Result" />
+          <EntitySet Name="C08_RequestType" EntityType="BIMApplicationForProjects.Models.C08_RequestType" />
+          <AssociationSet Name="FK_03_ProjectAppDetails_07_Result" Association="BIMApplicationForProjects.Models.FK_03_ProjectAppDetails_07_Result">
+            <End Role="C07_Result" EntitySet="C07_Result" />
+            <End Role="C03_ProjectAppDetails" EntitySet="C03_ProjectAppDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_03_ProjectAppDetails_08_RequestType" Association="BIMApplicationForProjects.Models.FK_03_ProjectAppDetails_08_RequestType">
+            <End Role="C08_RequestType" EntitySet="C08_RequestType" />
             <End Role="C03_ProjectAppDetails" EntitySet="C03_ProjectAppDetails" />
           </AssociationSet>
         </EntityContainer>
@@ -465,6 +555,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="C06_Status">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="C03_ProjectAppDetails" Relationship="BIMApplicationForProjects.Models.FK_03_ProjectAppDetails_06_Status" FromRole="C06_Status" ToRole="C03_ProjectAppDetails" />
+        </EntityType>
         <EntityType Name="C03_ProjectAppDetails">
           <Key>
             <PropertyRef Name="ID" />
@@ -478,10 +576,16 @@
           <Property Name="UserRequest" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="isAccept" Type="Boolean" />
           <Property Name="OtherRequest" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="BIMerID" Type="Int32" Nullable="false" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
           <Property Name="BIMerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="C01_Projects" Relationship="BIMApplicationForProjects.Models.FK_03_ProjectAppDetails_01_Projects" FromRole="C03_ProjectAppDetails" ToRole="C01_Projects" />
           <NavigationProperty Name="C02_AppLists" Relationship="BIMApplicationForProjects.Models.FK_03_ProjectAppDetails_02_AppLists" FromRole="C03_ProjectAppDetails" ToRole="C02_AppLists" />
+          <NavigationProperty Name="C06_Status" Relationship="BIMApplicationForProjects.Models.FK_03_ProjectAppDetails_06_Status" FromRole="C03_ProjectAppDetails" ToRole="C06_Status" />
+          <Property Name="DeadLine" Type="DateTime" Precision="0" />
+          <Property Name="ResultID" Type="Int32" />
+          <Property Name="RequestID" Type="Int32" />
+          <NavigationProperty Name="C07_Result" Relationship="BIMApplicationForProjects.Models.FK_03_ProjectAppDetails_07_Result" FromRole="C03_ProjectAppDetails" ToRole="C07_Result" />
+          <NavigationProperty Name="C08_RequestType" Relationship="BIMApplicationForProjects.Models.FK_03_ProjectAppDetails_08_RequestType" FromRole="C03_ProjectAppDetails" ToRole="C08_RequestType" />
         </EntityType>
         <Association Name="FK_03_ProjectAppDetails_01_Projects">
           <End Type="BIMApplicationForProjects.Models.C01_Projects" Role="C01_Projects" Multiplicity="1" />
@@ -504,6 +608,58 @@
             </Principal>
             <Dependent Role="C03_ProjectAppDetails">
               <PropertyRef Name="AppID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_03_ProjectAppDetails_06_Status">
+          <End Type="BIMApplicationForProjects.Models.C06_Status" Role="C06_Status" Multiplicity="1" />
+          <End Type="BIMApplicationForProjects.Models.C03_ProjectAppDetails" Role="C03_ProjectAppDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C06_Status">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="C03_ProjectAppDetails">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="C07_Result">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="C03_ProjectAppDetails" Relationship="BIMApplicationForProjects.Models.FK_03_ProjectAppDetails_07_Result" FromRole="C07_Result" ToRole="C03_ProjectAppDetails" />
+        </EntityType>
+        <EntityType Name="C08_RequestType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="C03_ProjectAppDetails" Relationship="BIMApplicationForProjects.Models.FK_03_ProjectAppDetails_08_RequestType" FromRole="C08_RequestType" ToRole="C03_ProjectAppDetails" />
+        </EntityType>
+        <Association Name="FK_03_ProjectAppDetails_07_Result">
+          <End Type="BIMApplicationForProjects.Models.C07_Result" Role="C07_Result" Multiplicity="0..1" />
+          <End Type="BIMApplicationForProjects.Models.C03_ProjectAppDetails" Role="C03_ProjectAppDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C07_Result">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="C03_ProjectAppDetails">
+              <PropertyRef Name="ResultID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_03_ProjectAppDetails_08_RequestType">
+          <End Type="BIMApplicationForProjects.Models.C08_RequestType" Role="C08_RequestType" Multiplicity="0..1" />
+          <End Type="BIMApplicationForProjects.Models.C03_ProjectAppDetails" Role="C03_ProjectAppDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C08_RequestType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="C03_ProjectAppDetails">
+              <PropertyRef Name="RequestID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -599,17 +755,44 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="C06_Status">
+            <EntityTypeMapping TypeName="BIMApplicationForProjects.Models.C06_Status">
+              <MappingFragment StoreEntitySet="06_Status">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="C03_ProjectAppDetails">
             <EntityTypeMapping TypeName="BIMApplicationForProjects.Models.C03_ProjectAppDetails">
               <MappingFragment StoreEntitySet="03_ProjectAppDetails">
+                <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+                <ScalarProperty Name="ResultID" ColumnName="ResultID" />
+                <ScalarProperty Name="DeadLine" ColumnName="DeadLine" />
                 <ScalarProperty Name="BIMerName" ColumnName="BIMerName" />
-                <ScalarProperty Name="BIMerID" ColumnName="BIMerID" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
                 <ScalarProperty Name="OtherRequest" ColumnName="OtherRequest" />
                 <ScalarProperty Name="isAccept" ColumnName="isAccept" />
                 <ScalarProperty Name="UserRequest" ColumnName="UserRequest" />
                 <ScalarProperty Name="DateRequest" ColumnName="DateRequest" />
                 <ScalarProperty Name="AppID" ColumnName="AppID" />
                 <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C07_Result">
+            <EntityTypeMapping TypeName="BIMApplicationForProjects.Models.C07_Result">
+              <MappingFragment StoreEntitySet="07_Result">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C08_RequestType">
+            <EntityTypeMapping TypeName="BIMApplicationForProjects.Models.C08_RequestType">
+              <MappingFragment StoreEntitySet="08_RequestType">
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using BIMApplicationForProjects.Models;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using BIMApplicationForProjects.Models;
 
 namespace BIMApplicationForProjects.Controllers
 {
@@ -18,8 +14,19 @@ namespace BIMApplicationForProjects.Controllers
         public ActionResult Index()
         {
             var c01_Projects = db.C01_Projects.Include(c => c.C04_ProjectPhase);
+            //Phase
             var phase = db.C04_ProjectPhase.ToList();
             ViewBag.Phase = phase;
+            //Project with BIM
+            var BIMproject = db.C03_ProjectAppDetails.ToList();
+            ViewBag.BIMProjects = BIMproject;
+            //AppList Detail
+            var AppList = db.C02_AppLists.ToList();
+            ViewBag.AppList = AppList;
+            //Tình trạng
+            var status = db.C06_Status.ToList();
+            ViewBag.Status = status;
+
             return View(c01_Projects.ToList());
         }
 
@@ -50,7 +57,7 @@ namespace BIMApplicationForProjects.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProjectID,ProjectName,ARCdesigner,ARCmakeModel,STRdesigner,STRmakeModel,MEPdesigner,MEPmakeModel,CIvilDesigner,CivilMakeModel,LandscapeDesigner,LandscapeMakeModel,Phase,BIMtarget")] C01_Projects c01_Projects)
+        public ActionResult Create(C01_Projects c01_Projects)
         {
             if (ModelState.IsValid)
             {
@@ -84,7 +91,7 @@ namespace BIMApplicationForProjects.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProjectID,ProjectName,ARCdesigner,ARCmakeModel,STRdesigner,STRmakeModel,MEPdesigner,MEPmakeModel,CIvilDesigner,CivilMakeModel,LandscapeDesigner,LandscapeMakeModel,Phase,BIMtarget")] C01_Projects c01_Projects)
+        public ActionResult Edit(C01_Projects c01_Projects)
         {
             if (ModelState.IsValid)
             {

@@ -5,73 +5,81 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Danh mục ứng dụng BIM cho dự án <small class="text-danger">List of BIM Application in Projects</small></h2>
+<h2>Danh sách dự án <small class="text-danger">Projects list</small></h2>
 
 <p class="btn btn-warning" style="margin:10px">
     @Html.ActionLink("Thêm ứng dụng | Add new Application", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.DateRequest)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserRequest)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.isAccept)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OtherRequest)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BIMerID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BIMerName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.C01_Projects.ProjectName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.C02_AppLists.Name)
-        </th>
-        <th></th>
-    </tr>
 
-    @foreach (var item in Model)
-    {
+<div>
+
+</div>
+
+
+@*
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateRequest)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserRequest)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.isAccept)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OtherRequest)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BIMerID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BIMerName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.C01_Projects.ProjectName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.C02_AppLists.Name)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.DateRequest)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserRequest)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.isAccept)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OtherRequest)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BIMerID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BIMerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.C01_Projects.ProjectName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.C02_AppLists.Name)
+            </th>
+            <th></th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateRequest)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserRequest)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.isAccept)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OtherRequest)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BIMerID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BIMerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.C01_Projects.ProjectName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.C02_AppLists.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
+
+    </table>
+*@

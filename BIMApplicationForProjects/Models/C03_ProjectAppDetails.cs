@@ -21,10 +21,16 @@ namespace BIMApplicationForProjects.Models
         public string UserRequest { get; set; }
         public Nullable<bool> isAccept { get; set; }
         public string OtherRequest { get; set; }
-        public int BIMerID { get; set; }
+        public int StatusID { get; set; }
         public string BIMerName { get; set; }
+        public Nullable<System.DateTime> DeadLine { get; set; }
+        public Nullable<int> ResultID { get; set; }
+        public Nullable<int> RequestID { get; set; }
     
         public virtual C01_Projects C01_Projects { get; set; }
         public virtual C02_AppLists C02_AppLists { get; set; }
+        public virtual C06_Status C06_Status { get; set; }
+        public virtual C07_Result C07_Result { get; set; }
+        public virtual C08_RequestType C08_RequestType { get; set; }
     }
 }

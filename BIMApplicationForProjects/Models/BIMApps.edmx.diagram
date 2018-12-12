@@ -5,8 +5,8 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="855f4ea12db34db2b61198b6a4c1d8c7" Name="Diagram1">
-        <EntityTypeShape EntityType="BIMApplicationForProjects.Models.C01_Projects" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="BIMApplicationForProjects.Models.C04_ProjectPhase" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BIMApplicationForProjects.Models.C01_Projects" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BIMApplicationForProjects.Models.C04_ProjectPhase" Width="1.875" PointX="2.625" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="BIMApplicationForProjects.Models.C05_BIMtarget" Width="1.5" PointX="8.125" PointY="8" IsExpanded="true" />
         <EntityTypeShape EntityType="BIMApplicationForProjects.Models.C05a_TargetDetail" Width="1.5" PointX="5.25" PointY="7.375" IsExpanded="true" />
         <AssociationConnector Association="BIMApplicationForProjects.Models.FK_01_Projects_04_ProjectPhase" ManuallyRouted="false" />
@@ -18,9 +18,15 @@
         <AssociationConnector Association="BIMApplicationForProjects.Models.FK_02_AppLists_04_ProjectPhase" />
         <EntityTypeShape EntityType="BIMApplicationForProjects.Models.C02b_AppWorkDetails" Width="1.5" PointX="10.25" PointY="4.125" />
         <AssociationConnector Association="BIMApplicationForProjects.Models.FK_02b_AppWorkDetails_02_AppLists" />
-        <EntityTypeShape EntityType="BIMApplicationForProjects.Models.C03_ProjectAppDetails" Width="1.5" PointX="5.25" PointY="2.625" />
+        <EntityTypeShape EntityType="BIMApplicationForProjects.Models.C06_Status" Width="1.5" PointX="7.625" PointY="5.25" />
+        <EntityTypeShape EntityType="BIMApplicationForProjects.Models.C03_ProjectAppDetails" Width="1.5" PointX="5.5" PointY="2.375" />
         <AssociationConnector Association="BIMApplicationForProjects.Models.FK_03_ProjectAppDetails_01_Projects" />
         <AssociationConnector Association="BIMApplicationForProjects.Models.FK_03_ProjectAppDetails_02_AppLists" />
+        <AssociationConnector Association="BIMApplicationForProjects.Models.FK_03_ProjectAppDetails_06_Status" />
+        <EntityTypeShape EntityType="BIMApplicationForProjects.Models.C07_Result" Width="1.5" PointX="3" PointY="5.25" />
+        <EntityTypeShape EntityType="BIMApplicationForProjects.Models.C08_RequestType" Width="1.5" PointX="3" PointY="3" />
+        <AssociationConnector Association="BIMApplicationForProjects.Models.FK_03_ProjectAppDetails_07_Result" />
+        <AssociationConnector Association="BIMApplicationForProjects.Models.FK_03_ProjectAppDetails_08_RequestType" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

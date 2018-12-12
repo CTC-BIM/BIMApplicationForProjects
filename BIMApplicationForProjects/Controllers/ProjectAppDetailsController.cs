@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using BIMApplicationForProjects.Models;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using BIMApplicationForProjects.Models;
 
 namespace BIMApplicationForProjects.Controllers
 {
@@ -43,25 +40,80 @@ namespace BIMApplicationForProjects.Controllers
             ViewBag.AppID = new SelectList(db.C02_AppLists, "ID", "Name");
             return View();
         }
+        public ActionResult CreateID(string id)
+        {
+            try
+            {
+                if (id == null || id.Trim() == "") throw new Exception("Không tìm thấy ID này");
+                C01_Projects projectName = db.C01_Projects.Find(id);
+                ViewBag.AppID = new SelectList(db.C02_AppLists, "ID", "Name");
+                ViewBag.ProjectID = projectName.ProjectID;
+                ViewBag.ProjectName = projectName.ProjectName;
+
+                return View("CreateID");
+            }
+
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Có lỗi " + ex.Message;
+                return View("CreateID");
+            }
+        }
 
         // POST: ProjectAppDetails/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ProjectID,AppID,DateRequest,UserRequest,isAccept,OtherRequest,BIMerID,BIMerName")] C03_ProjectAppDetails c03_ProjectAppDetails)
+        public ActionResult Create(C03_ProjectAppDetails curEnity)
         {
             if (ModelState.IsValid)
             {
-                db.C03_ProjectAppDetails.Add(c03_ProjectAppDetails);
+                C03_ProjectAppDetails newEnity = new C03_ProjectAppDetails();
+                newEnity.AppID = curEnity.AppID;
+                newEnity.ProjectID = curEnity.ProjectID;
+                newEnity.DateRequest = curEnity.DateRequest;
+                newEnity.OtherRequest = curEnity.OtherRequest;
+                newEnity.DeadLine = curEnity.DeadLine;
+                newEnity.StatusID = 1;
+                newEnity.UserRequest = curEnity.UserRequest;
+
+                db.C03_ProjectAppDetails.Add(newEnity);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                return RedirectToAction("Index", "Projects");
             }
 
-            ViewBag.ProjectID = new SelectList(db.C01_Projects, "ProjectID", "ProjectName", c03_ProjectAppDetails.ProjectID);
-            ViewBag.AppID = new SelectList(db.C02_AppLists, "ID", "Name", c03_ProjectAppDetails.AppID);
-            return View(c03_ProjectAppDetails);
+            ViewBag.ProjectID = new SelectList(db.C01_Projects, "ProjectID", "ProjectName", curEnity.ProjectID);
+            ViewBag.AppID = new SelectList(db.C02_AppLists, "ID", "Name", curEnity.AppID);
+            return View(curEnity);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateID(C03_ProjectAppDetails curEnity, string id)
+        {
+            if (ModelState.IsValid)
+            {
+                C03_ProjectAppDetails newEnity = new C03_ProjectAppDetails();
+                newEnity.AppID = curEnity.AppID;
+                newEnity.ProjectID = id;
+                newEnity.DateRequest = curEnity.DateRequest;
+                newEnity.OtherRequest = curEnity.OtherRequest;
+                newEnity.DeadLine = curEnity.DeadLine;
+                newEnity.StatusID = 1;
+                newEnity.UserRequest = curEnity.UserRequest;
+
+                db.C03_ProjectAppDetails.Add(newEnity);
+                db.SaveChanges();
+
+                return RedirectToAction("Index", "Projects");
+            }
+
+            ViewBag.ProjectID = new SelectList(db.C01_Projects, "ProjectID", "ProjectName", curEnity.ProjectID);
+            ViewBag.AppID = new SelectList(db.C02_AppLists, "ID", "Name", curEnity.AppID);
+            return View(curEnity);
+        }
+
 
         // GET: ProjectAppDetails/Edit/5
         public ActionResult Edit(int? id)
@@ -85,7 +137,7 @@ namespace BIMApplicationForProjects.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ProjectID,AppID,DateRequest,UserRequest,isAccept,OtherRequest,BIMerID,BIMerName")] C03_ProjectAppDetails c03_ProjectAppDetails)
+        public ActionResult Edit([Bind(Include = "ID,ProjectID,AppID,DateRequest,UserRequest,isAccept,OtherRequest,StatusID,BIMerName")] C03_ProjectAppDetails c03_ProjectAppDetails)
         {
             if (ModelState.IsValid)
             {

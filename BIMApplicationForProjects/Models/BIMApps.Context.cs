@@ -33,6 +33,9 @@ namespace BIMApplicationForProjects.Models
         public virtual DbSet<C02_AppLists> C02_AppLists { get; set; }
         public virtual DbSet<C02a_AppResults> C02a_AppResults { get; set; }
         public virtual DbSet<C02b_AppWorkDetails> C02b_AppWorkDetails { get; set; }
+        public virtual DbSet<C06_Status> C06_Status { get; set; }
         public virtual DbSet<C03_ProjectAppDetails> C03_ProjectAppDetails { get; set; }
+        public virtual DbSet<C07_Result> C07_Result { get; set; }
+        public virtual DbSet<C08_RequestType> C08_RequestType { get; set; }
     }
 }

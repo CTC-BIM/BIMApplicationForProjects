@@ -218,7 +218,6 @@
     <Compile Include="Models\C03_ProjectAppDetails.cs">
       <DependentUpon>BIMApps.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\C03_ProjectAppDetailsMetadata.cs" />
     <Compile Include="Models\C04_ProjectPhase.cs">
       <DependentUpon>BIMApps.tt</DependentUpon>
     </Compile>
@@ -228,12 +227,27 @@
     <Compile Include="Models\C05_BIMtarget.cs">
       <DependentUpon>BIMApps.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\C06_Status.cs">
+      <DependentUpon>BIMApps.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C07_Result.cs">
+      <DependentUpon>BIMApps.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C08_RequestType.cs">
+      <DependentUpon>BIMApps.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Icons\R_icon.ico" />
+    <Content Include="Assets\Logo\Lego.JPG" />
+    <Content Include="Assets\Logo\Lego.png" />
+    <Content Include="Assets\Logo\Round.JPG" />
+    <Content Include="Assets\Logo\RoundBue.JPG" />
+    <Content Include="Assets\Logo\RoundTrans.png" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -333,6 +347,7 @@
     <Content Include="Views\ProjectAppDetails\Details.cshtml" />
     <Content Include="Views\ProjectAppDetails\Edit.cshtml" />
     <Content Include="Views\ProjectAppDetails\Index.cshtml" />
+    <Content Include="Views\ProjectAppDetails\CreateID.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -356,6 +371,9 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Assets\Icons\R_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

@@ -74,14 +74,22 @@ namespace BIMApplicationForProjects.Models
     #endregion
 
     #region C03_ProjectAppDetails
-
+    [MetadataType(typeof(C03_ProjectAppDetails.C03_ProjectAppDetailsMetadata))]
     public partial class C03_ProjectAppDetails
     {
         internal class C03_ProjectAppDetailsMetadata
         {
             private C03_ProjectAppDetailsMetadata() { }
 
+            [Display(Name = "Ngày Yêu cầu")]
+            [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd")]
+            [DataType(DataType.Date)]
+            public DateTime DateRequest;
 
+            [Display(Name = "Ngày hoàn thành")]
+            [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd")]
+            [DataType(DataType.Date)]
+            public DateTime DeadLine;
         }
     }
     #endregion
