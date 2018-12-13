@@ -242,6 +242,13 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\AppImages\Coordinate_Main.png" />
+    <Content Include="Assets\AppImages\Coordinate_Sub1.png" />
+    <Content Include="Assets\AppImages\Coordinate_Sub2.png" />
+    <Content Include="Assets\AppImages\Coordinate_Sub3.png" />
+    <Content Include="Assets\AppImages\Coordinate_Sub4.png" />
+    <Content Include="Assets\AppImages\NoImage.png" />
+    <Content Include="Assets\Icons\AddRecord.png" />
     <Content Include="Assets\Icons\R_icon.ico" />
     <Content Include="Assets\Logo\Lego.JPG" />
     <Content Include="Assets\Logo\Lego.png" />
@@ -348,6 +355,9 @@
     <Content Include="Views\ProjectAppDetails\Edit.cshtml" />
     <Content Include="Views\ProjectAppDetails\Index.cshtml" />
     <Content Include="Views\ProjectAppDetails\CreateID.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\MyBool.cshtml" />
+    <Content Include="Views\Projects\_AppListPartialView.cshtml" />
+    <Content Include="Views\AppLists\UserIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

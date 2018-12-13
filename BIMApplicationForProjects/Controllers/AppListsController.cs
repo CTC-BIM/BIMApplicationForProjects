@@ -21,6 +21,13 @@ namespace BIMApplicationForProjects.Controllers
             return View(c02_AppLists.ToList());
         }
 
+        // GET: AppLists
+        public ActionResult UserIndex()
+        {
+            var c02_AppLists = db.C02_AppLists.OrderBy(s => s.ProjectPhase).Include(c => c.C04_ProjectPhase).Include(c => c.C02a_AppResults);
+            return View(c02_AppLists.ToList());
+        }
+
         // GET: AppLists/Details/5
         public ActionResult Details(int? id)
         {

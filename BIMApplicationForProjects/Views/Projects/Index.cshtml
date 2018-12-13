@@ -9,6 +9,11 @@
     var AppList = ViewBag.AppList as List<BIMApplicationForProjects.Models.C02_AppLists>;
 
     var status = ViewBag.Status as List<BIMApplicationForProjects.Models.C06_Status>;
+
+    var Result = ViewBag.Result as List<BIMApplicationForProjects.Models.C07_Result>;
+
+    var RequestType = ViewBag.RequestType as List<BIMApplicationForProjects.Models.C08_RequestType>;
+
     string error = ViewBag.Error;
 }
 
@@ -25,10 +30,11 @@
 <div class="container-fluid">
     <table class="table table-condensed table-bordered table-hover">
         <tr>
-            <th class="bg-primary text-center col-lg-1">#</th>
-            <th class="bg-primary text-center col-lg-3">Tên dự án - Project Name</th>
-            <th class="bg-primary text-center col-lg-1">Giai đoạn - Project Phase</th>
-            <th class="bg-primary text-center col-lg-1">Ứng dụng - BIM</th>
+            <th class="bg-primary text-center col-md-1">#</th>
+            <th class="bg-primary text-center col-md-3">Tên dự án - Project Name</th>
+            <th class="bg-primary text-center col-md-2">Chủ trì dự án - Project Manager</th>
+            <th class="bg-primary text-center col-md-2">Giai đoạn - Project Phase</th>
+            <th class="bg-primary text-center col-md-1">Ứng dụng - BIM</th>
         </tr>
         @foreach (var item in Model)
         {
@@ -40,15 +46,16 @@
                 <td class="text-danger text-uppercase">
                     @Html.ActionLink(item.ProjectName, "Details", new { id = item.ProjectID }, new { @class = "text-danger" })
                 </td>
+                <td><b>@item.PMname</b></td>
                 @foreach (var _ID in phase)
                 {
                     if (_ID.PhaseID == item.Phase)
                     {
-                        <td class="text-danger">@_ID.PhaseName</td>
+                        <td>@_ID.PhaseName</td>
                     }
                 }
                 <td class="text-info text-center">
-                    @Html.ActionLink("Thêm ứng dụng", "CreateID", "ProjectAppDetails", new {id = item.ProjectID }, new { @class = "text-danger" })
+                    @Html.ActionLink("Thêm ứng dụng", "CreateID", "ProjectAppDetails", new { id = item.ProjectID }, new { @class = "text-info" })
                 </td>
             </tr>
         }
@@ -57,7 +64,7 @@
 </div>
 
 @*Danh sách ứng dụng cho từng dự án*@
-<div class="container">
+<div class="container-fluid table-bordered" style="margin:5px; border-color:#ff0000">
     @foreach (BIMApplicationForProjects.Models.C01_Projects item in Model)
     {
         <table class="table table-condensed table-bordered table-hover" style="margin:0;margin-top:10px;">
@@ -65,15 +72,16 @@
                 <th>@item.ProjectID - @item.ProjectName</th>
             </tr>
             <tr>
-                <th class="col-lg-2 bg-info text-center">Tên Ứng dụng</th>
-                <th class="col-lg-1 bg-info text-center">Yêu cầu</th>
-                <th class="col-lg-2 bg-info text-center">Thời gian yêu cầu</th>
-                @*<th class="col-lg-2 bg-info text-center">Ngày yêu cầu sản phẩm</th>*@
+                <th class="col-md-2 bg-info text-center">Tên Ứng dụng</th>
+                <th class="col-md-1 bg-info text-center">Sản phẩm</th>
+                <th class="col-md-2 bg-info text-center">Thời gian yêu cầu</th>
+                <th class="col-md-2 bg-info text-center">Yêu cầu khác</th>
+                <th class="col-md-1 bg-info text-center">Tình trạng</th>
+                <th class="col-md-2 bg-info text-center">Chi tiết</th>
 
-                <th class="col-lg-2 bg-info text-center">Phụ trách BIM</th>
-                <th class="col-lg-2 bg-info text-center">Yêu cầu khác</th>
-                <th class="col-lg-1 bg-info text-center">Tình trạng</th>
-                <th class="col-lg-2 bg-info text-center">Chi tiết</th>
+                <th class="col-md-1 bg-success text-center">Phụ trách BIM</th>
+                <th class="col-md-1 bg-success text-center">Kết quả</th>
+
             </tr>
         </table>
         foreach (BIMApplicationForProjects.Models.C03_ProjectAppDetails Appitem in BIMprojects)
@@ -82,40 +90,71 @@
                 @if (Appitem.ProjectID == item.ProjectID)
                 {
                 <tr>
+                    @*------------------TÊN ỨNG DỤNG--------------------*@
                     @foreach (var appitem in AppList)
                     {
                         if (Appitem.AppID == appitem.ID)
                         {
-                            <td class="col-sm-2"><b class="text-danger">@appitem.Name</b></td>
+                            <td class="col-md-2"><b class="text-danger">@appitem.Name</b></td>
                         }
                     }
-                    <td class="col-lg-1 text-center">@Appitem.UserRequest</td>
-                    <td class="col-lg-2 text-center">@string.Format("{0:dd/MMM}", @Appitem.DateRequest) to @string.Format("{0:dd/MMM/yyyy}", @Appitem.DeadLine)</td>
-                    @*<td class="col-lg-2 text-center"></td>*@
+                    @* Thay thế Cột UserRequest khi Login *@
+                    @*<td class="col-md-1 text-center">@Appitem.UserRequest</td>*@
 
-
-                    @if (!string.IsNullOrEmpty(Appitem.BIMerName))
+                    @*-----------------LOẠI YÊU CẦU---------------------*@
+                    @foreach (BIMApplicationForProjects.Models.C08_RequestType Requestitem in RequestType)
                     {
-                        <td class="col-lg-2 text-center text-info"><b>@Appitem.BIMerName</b></td>
+                        if (Appitem.RequestID == Requestitem.ID)
+                        {
+                            <td class="col-md-1 text-center">@Requestitem.TypeName</td>
+                        }
                     }
-                    else
-                    {
-                        <td class="col-lg-2 text-center text-info">Đang cập nhật</td>
-                    }
-                    <td class="col-lg-2">@Appitem.OtherRequest</td>
+                    @*-----------------THỜI GIAN-------------------- *@
+                    <td class="col-md-2 text-center">@string.Format("{0:dd/MMM}", @Appitem.DateRequest) <b class="text-danger">to</b> @string.Format("{0:dd/MMM/yyyy}", @Appitem.DeadLine)</td>
 
+                    @*----------------YÊU CẦU KHÁC---------------------*@
+                    <td class="col-md-2">@Appitem.OtherRequest</td>
+
+                    @*----------------TÌNH TRẠNG---------------------*@
                     @foreach (var statusitem in status)
                     {
                         if (Appitem.StatusID == statusitem.ID)
                         {
-                            <td class="col-lg-1">@statusitem.Name</td>
+                            <td class="col-md-1">@statusitem.Name</td>
                         }
                     }
-                    <td class="col-lg-2 text-center">Result</td>
+
+                    @*----------------CHI TIẾT---------------------*@
+                            <td class="col-md-2 text-center">
+                                @Html.ActionLink("Xem", "Details", "Projects", new { id = item.ProjectID }, null) |
+                                @Html.ActionLink("Sửa", "Edit", "ProjectAppDetails", new { id = Appitem.ID }, null) |
+                                @Html.ActionLink("Hủy", "Delete", "ProjectAppDetails", new { id = Appitem.ID }, null)
+                            </td>
+
+                    @*-------------PHỤ TRÁCH BIM---------------------*@
+                    @if (!string.IsNullOrEmpty(Appitem.BIMerName))
+                    {
+                        <td class="col-md-1 text-center text-info"><b>@Appitem.BIMerName</b></td>
+                    }
+                    else
+                    {
+                        <td class="col-md-1 text-center text-info">Đang cập nhật</td>
+                    }
+
+                    @*----------------KẾT QUẢ---------------------*@
+                    @foreach (BIMApplicationForProjects.Models.C07_Result ResultItem in Result)
+                    {
+                        if (@Appitem.ResultID == ResultItem.ID)
+                        {
+                            <td class="col-md-1 text-center">@ResultItem.Name</td>
+                        }
+                    }
+
                 </tr>
 
                 }
             </table>
+            
         }
     }
 </div>

@@ -13,37 +13,47 @@
     @Html.AntiForgeryToken()
 
 <div class="form-horizontal table-bordered" style="margin:5px; border-color:#ff0000">
-    <h4 style="margin:5px">Vui lòng điền một số thông tin Dự án <small class="text-danger">Please fill some Project infomations</small>:</h4>
+    <h4 style="margin:5px">Vui lòng điền một số thông tin <small class="text-danger">Please fill some infomations</small></h4>
     <hr />
-    <h4 class="page-header" style="margin:5px">Thông tin Dự án</h4>
+    <h4 class="page-header" style="margin:5px">Thông tin Dự án <small class="text-danger">Project infomations</small></h4>
     <div>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group form-inline">
-            <div class="col-md-4">
+            <div class="col-md-5">
                 <label class="control-label col-md-7">Mã dự án | <small class="text-info">Project ID</small></label>
                 <div class="col-md-5">
                     @Html.EditorFor(model => model.ProjectID, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.ProjectID, "", new { @class = "text-danger" })
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-7">
                 <label class="control-label col-md-7">Tên dự án | <small class="text-info">Project Name</small></label>
                 <div class="col-md-5">
                     @Html.EditorFor(model => model.ProjectName, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.ProjectName, "", new { @class = "text-danger" })
                 </div>
             </div>
-            <div class="col-md-4">
+            </div>
+        <div class="form-group form-inline">
+            <div class="col-md-5">
+                <label class="control-label col-md-7">Chủ trì dự án | <small class="text-info">Project Manager</small></label>
+                <div class="col-md-5">
+                    @Html.EditorFor(model => model.PMname, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PMname, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-7">
                 <label class="control-label col-md-7">Giai đoạn | <small class="text-info">Project Phase</small></label>
                 <div class="col-md-5">
                     @Html.DropDownList("Phase", null, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Phase, "", new { @class = "text-danger" })
                 </div>
             </div>
+
         </div>
     </div>
-
-    <h4 class="page-header" style="margin:5px">Thông tin Đơn vị thiết kế</h4>
+    <hr />
+    <h4 class="page-header" style="margin:5px">Thông tin Đơn vị thiết kế và Mô hình <small class="text-danger">Design and Model infomations</small></h4>
     <div>
         @* Architech *@
         <div class="form-group form-inline">
@@ -115,7 +125,7 @@
                 <label class="control-label col-md-8">Mô hình | <small class="text-info">Civil Model</small></label>
                 <div class="col-md-4">
                     <div class="checkbox">
-                        @Html.EditorFor(model => model.CivilMakeModel, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.CivilMakeModel, new { htmlAttributes = new { @class = "form-control Boolean" } })
                         @Html.ValidationMessageFor(model => model.CivilMakeModel, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -147,12 +157,13 @@
         <div class="btn btn-warning col-sm-2">
             @Html.ActionLink("<< Back to List", "Index")
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-offset-1 col-md-2">
             <input type="submit" value="Create" class="btn btn-primary" />
         </div>
     </div>
     <hr />
 </div>
+
 }
 
 

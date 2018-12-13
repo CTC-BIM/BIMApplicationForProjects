@@ -28,7 +28,7 @@ namespace BIMApplicationForProjects.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            C02a_AppResults c02a_AppResults = db.C02a_AppResults.Find(id);
+            List<C02a_AppResults> c02a_AppResults = db.C02a_AppResults.Where(s => s.AppListID == id).ToList();
             if (c02a_AppResults == null)
             {
                 return HttpNotFound();

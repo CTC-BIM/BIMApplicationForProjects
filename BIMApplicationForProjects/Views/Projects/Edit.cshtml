@@ -11,138 +11,169 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>C01_Projects</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ProjectID)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ProjectName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ProjectName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ProjectName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ARCdesigner, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ARCdesigner, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ARCdesigner, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ARCmakeModel, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.ARCmakeModel)
-                    @Html.ValidationMessageFor(model => model.ARCmakeModel, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.STRdesigner, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.STRdesigner, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.STRdesigner, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.STRmakeModel, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.STRmakeModel)
-                    @Html.ValidationMessageFor(model => model.STRmakeModel, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MEPdesigner, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MEPdesigner, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MEPdesigner, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MEPmakeModel, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.MEPmakeModel)
-                    @Html.ValidationMessageFor(model => model.MEPmakeModel, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CIvilDesigner, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CIvilDesigner, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CIvilDesigner, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CivilMakeModel, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.CivilMakeModel)
-                    @Html.ValidationMessageFor(model => model.CivilMakeModel, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.LandscapeDesigner, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LandscapeDesigner, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LandscapeDesigner, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.LandscapeMakeModel, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.LandscapeMakeModel)
-                    @Html.ValidationMessageFor(model => model.LandscapeMakeModel, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Phase, "Phase", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("Phase", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Phase, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.BIMtarget, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.BIMtarget, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.BIMtarget, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
         </div>
     </div>
+
+
+    @* New Form *@
+
+    <div class="form-horizontal table-bordered" style="margin:5px; border-color:#ff0000">
+        <h4 style="margin:5px">Vui lòng điền một số thông tin <small class="text-danger">Please fill some infomations</small></h4>
+        <hr />
+        <h4 class="page-header" style="margin:5px">Thông tin Dự án <small class="text-danger">Project infomations</small></h4>
+        <div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group form-inline">
+                <div class="col-md-5">
+                    <label class="control-label col-md-7">Mã dự án | <small class="text-info">Project ID</small></label>
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.ProjectID, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ProjectID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <label class="control-label col-md-7">Tên dự án | <small class="text-info">Project Name</small></label>
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.ProjectName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ProjectName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-inline">
+                <div class="col-md-5">
+                    <label class="control-label col-md-7">Chủ trì dự án | <small class="text-info">Project Manager</small></label>
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.PMname, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.PMname, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <label class="control-label col-md-7">Giai đoạn | <small class="text-info">Project Phase</small></label>
+                    <div class="col-md-5">
+                        @Html.DropDownList("Phase", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Phase, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <hr />
+        <h4 class="page-header" style="margin:5px">Thông tin Đơn vị thiết kế và Mô hình <small class="text-danger">Design and Model infomations</small></h4>
+        <div>
+            @* Architech *@
+            <div class="form-group form-inline">
+                <div class="col-md-6">
+                    <label class="control-label col-md-6">Kiến trúc | <small class="text-info">Architech designer</small></label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.ARCdesigner, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ARCdesigner, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="control-label col-md-8">Mô hình | <small class="text-info">Architech Model</small></label>
+                    <div class="col-md-4">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.ARCmakeModel, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ARCmakeModel, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @* Structure *@
+            <div class="form-group form-inline">
+                <div class="col-md-6">
+                    <label class="control-label col-md-6">Kết cấu | <small class="text-info">Structure designer</small></label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.STRdesigner, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.STRdesigner, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="control-label col-md-8">Mô hình | <small class="text-info">Structure Model</small></label>
+                    <div class="col-md-4">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.STRmakeModel, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.STRmakeModel, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @* MEP *@
+            <div class="form-group form-inline">
+                <div class="col-md-6">
+                    <label class="control-label col-md-6">Cơ Điện | <small class="text-info">MEP designer</small></label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.MEPdesigner, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.STRdesigner, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="control-label col-md-8">Mô hình | <small class="text-info">MEP Model</small></label>
+                    <div class="col-md-4">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.MEPmakeModel, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.MEPmakeModel, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @* Civil *@
+            <div class="form-group form-inline">
+                <div class="col-md-6">
+                    <label class="control-label col-md-6">Hạ tầng | <small class="text-info">Civil designer</small></label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.CIvilDesigner, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CIvilDesigner, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="control-label col-md-8">Mô hình | <small class="text-info">Civil Model</small></label>
+                    <div class="col-md-4">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.CivilMakeModel, new { htmlAttributes = new { @class = "form-control Boolean" } })
+                            @Html.ValidationMessageFor(model => model.CivilMakeModel, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @* cảnh quang *@
+            <div class="form-group form-inline">
+                <div class="col-md-6">
+                    <label class="control-label col-md-6">Cảnh quan | <small class="text-info">Landscape designer</small></label>
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.LandscapeDesigner, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.LandscapeDesigner, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="control-label col-md-8">Mô hình | <small class="text-info">Landscape Model</small></label>
+                    <div class="col-md-4">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.LandscapeMakeModel, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.LandscapeMakeModel, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group form-inline" style="margin:5px">
+            <div class="btn btn-warning col-sm-2">
+                @Html.ActionLink("<< Back to List", "Index")
+            </div>
+            <div class="col-sm-offset-1 col-md-2">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+        <hr />
+    </div>
+
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

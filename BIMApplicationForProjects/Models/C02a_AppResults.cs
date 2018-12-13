@@ -18,6 +18,11 @@ namespace BIMApplicationForProjects.Models
         public int AppListID { get; set; }
         public string Result { get; set; }
         public string Description { get; set; }
+        public string ResultMainImage { get; set; }
+        public string ResultImage1 { get; set; }
+        public string ResultImage2 { get; set; }
+        public string ResultImage3 { get; set; }
+        public string ResultImage4 { get; set; }
     
         public virtual C02_AppLists C02_AppLists { get; set; }
     }

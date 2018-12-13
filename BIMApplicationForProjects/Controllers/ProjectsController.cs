@@ -1,4 +1,5 @@
 ﻿using BIMApplicationForProjects.Models;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -26,6 +27,12 @@ namespace BIMApplicationForProjects.Controllers
             //Tình trạng
             var status = db.C06_Status.ToList();
             ViewBag.Status = status;
+            //Kết quả - Result
+            var result = db.C07_Result.ToList();
+            ViewBag.Result = result;
+            //Request Type
+            var RequestType = db.C08_RequestType.ToList();
+            ViewBag.RequestType = RequestType;
 
             return View(c01_Projects.ToList());
         }
@@ -37,12 +44,68 @@ namespace BIMApplicationForProjects.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            //Phase
+            var phase = db.C04_ProjectPhase.ToList();
+            ViewBag.Phase = phase;
+            //Project with BIM
+            var BIMproject = db.C03_ProjectAppDetails.ToList();
+            ViewBag.BIMProjects = BIMproject;
+            //AppList Detail
+            var AppList = db.C02_AppLists.ToList();
+            ViewBag.AppList = AppList;
+            //Tình trạng
+            var status = db.C06_Status.ToList();
+            ViewBag.Status = status;
+            //Kết quả - Result
+            var result = db.C07_Result.ToList();
+            ViewBag.Result = result;
+            //Request Type
+            var RequestType = db.C08_RequestType.ToList();
+            ViewBag.RequestType = RequestType;
             C01_Projects c01_Projects = db.C01_Projects.Find(id);
+
             if (c01_Projects == null)
             {
                 return HttpNotFound();
             }
             return View(c01_Projects);
+        }
+        public ActionResult _AppListPartialView(string id)
+        {
+            if (id == null || id.Trim() == "") return RedirectToAction("Index", "Projects");
+            try
+            {
+                var phase = db.C04_ProjectPhase.ToList();
+                ViewBag.Phase = phase;
+                //Project with BIM
+                var BIMproject = db.C03_ProjectAppDetails.ToList();
+                ViewBag.BIMProjects = BIMproject;
+                //AppList Detail
+                var AppList = db.C02_AppLists.ToList();
+                ViewBag.AppList = AppList;
+                //Tình trạng
+                var status = db.C06_Status.ToList();
+                ViewBag.Status = status;
+                //Kết quả - Result
+                var result = db.C07_Result.ToList();
+                ViewBag.Result = result;
+                //Request Type
+                var RequestType = db.C08_RequestType.ToList();
+                ViewBag.RequestType = RequestType;
+                
+                C01_Projects project = db.C01_Projects.FirstOrDefault(s => s.ProjectID == id);
+                ViewBag.Project = project;
+
+                List<C03_ProjectAppDetails> items = db.C03_ProjectAppDetails.Where(s => s.ProjectID == id).ToList();
+
+                return PartialView(items);
+            }
+            catch (System.Exception ex)
+            {
+                ViewBag.Error = "Có lỗi " + ex.Message;
+                return RedirectToAction("Index", "Projects");
+            }
+
         }
 
         // GET: Projects/Create
@@ -96,11 +159,12 @@ namespace BIMApplicationForProjects.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(c01_Projects).State = EntityState.Modified;
-                db.SaveChanges();
+                db.SaveChanges();          
+
                 return RedirectToAction("Index");
             }
             ViewBag.Phase = new SelectList(db.C04_ProjectPhase, "PhaseID", "PhaseName", c01_Projects.Phase);
-            return View(c01_Projects);
+            return View("Details",c01_Projects);
         }
 
         // GET: Projects/Delete/5

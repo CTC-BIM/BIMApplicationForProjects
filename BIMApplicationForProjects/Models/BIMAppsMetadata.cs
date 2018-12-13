@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace BIMApplicationForProjects.Models
 {
@@ -14,7 +11,7 @@ namespace BIMApplicationForProjects.Models
         {
             private C01_ProjectsMetadata() { }
 
-            [Required(ErrorMessage ="Không để trống | Not blank")]
+            [Required(ErrorMessage = "Không để trống | Not blank")]
             public string ProjectID;
 
             [Required(ErrorMessage = "Không để trống | Not blank")]
@@ -24,13 +21,18 @@ namespace BIMApplicationForProjects.Models
             public string ARCdesigner;
 
             [Display(Name = "Include Model")]
+            [UIHint("MyBool")]
             public bool ARCmakeModel;
 
             [Display(Name = "Kết cấu|STR")]
             public string STRdesigner;
 
             [Display(Name = "Include Model")]
+            [UIHint("MyBool")]
             public bool STRmakeModel;
+
+
+
         }
     }
 
@@ -43,10 +45,18 @@ namespace BIMApplicationForProjects.Models
         {
             private C02_AppListsMetadata() { }
 
+            [Display(Name = "Tên ứng dụng | Aplication Name")]
+            public string Name;
+
+            [Display(Name = "Chú thích | Description")]
+            public string Description;
+
+            [Display(Name = "Giai đoạn dự án | Project Phase")]
+            public Nullable<int> ProjectPhase;
 
         }
-    }
 
+    }
     #endregion
 
     #region C02a_AppResult
@@ -63,7 +73,7 @@ namespace BIMApplicationForProjects.Models
 
     #region C02b_AppWorkDetail
     [MetadataType(typeof(C02b_AppWorkDetails.C02b_AppWorkDetailsMetadata))]
-    public partial  class C02b_AppWorkDetails
+    public partial class C02b_AppWorkDetails
     {
         internal class C02b_AppWorkDetailsMetadata
         {
@@ -90,6 +100,12 @@ namespace BIMApplicationForProjects.Models
             [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd")]
             [DataType(DataType.Date)]
             public DateTime DeadLine;
+
+            [DataType(DataType.MultilineText)]
+            public string OtherRequest;
+
+            [DataType(DataType.MultilineText)]
+            public string Resource;
         }
     }
     #endregion

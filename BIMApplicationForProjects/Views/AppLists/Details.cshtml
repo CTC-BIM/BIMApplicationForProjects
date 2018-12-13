@@ -1,43 +1,87 @@
 ﻿@model BIMApplicationForProjects.Models.C02_AppLists
 
 @{
-    ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "BIM Application Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Chi tiết các ứng dụng BIM cho dự án <small class="text-primary">BIM application details</small></h2>
 
 <div>
-    <h4>C02_AppLists</h4>
+    Tên Ứng dụng:<h3> @Model.Name</h3>
+    Mục đích: <h3>@Model.Description</h3>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.C04_ProjectPhase.PhaseName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.C04_ProjectPhase.PhaseName)
-        </dd>
-
-    </dl>
 </div>
-<p>
+<div class="form-horizontal table table-bordered">
+    <div class="form-group form-inline col-lg-12">
+        @* MainImage *@
+        <div class="bg-danger col-lg-6 form-group-lg">
+            @if (string.IsNullOrEmpty(Model.MainImage))
+            {
+                <img src="~/Assets/AppImages/NoImage.png" alt="Alternate Text" class="mainImg" />
+            }
+            else
+            {
+                <img src="~/Assets/AppImages/@Model.MainImage" alt="Alternate Text" class="mainImg" />
+            }
+        </div>
+        <div class="col-lg-6 form-group">
+            <div class="bg-info subImg">
+                @if (string.IsNullOrEmpty(Model.SubImage1))
+                {
+                    <img src="~/Assets/AppImages/NoImage.png" alt="Alternate Text" class="subImg" />
+                }
+                else
+                {
+                    <img src="~/Assets/AppImages/@Model.SubImage1" alt="Alternate Text" class="subImg" />
+                }                
+            </div>
+            <div class="bg-success subImg">
+                @if (string.IsNullOrEmpty(Model.SubImage2))
+                {
+                    <img src="~/Assets/AppImages/NoImage.png" alt="Alternate Text" class="subImg" />
+                }
+                else
+                {
+                    <img src="~/Assets/AppImages/@Model.SubImage2" alt="Alternate Text" class="subImg" />
+                }
+            </div>
+            <div class="bg-warning subImg">
+                @if (string.IsNullOrEmpty(Model.SubImage3))
+                {
+                    <img src="~/Assets/AppImages/NoImage.png" alt="Alternate Text" class="subImg" />
+                }
+                else
+                {
+                    <img src="~/Assets/AppImages/@Model.SubImage3" alt="Alternate Text" class="subImg" />
+                }
+                
+            </div>
+            <div class="bg-primary subImg">
+                @if (string.IsNullOrEmpty(Model.SubImage4))
+                {
+                    <img src="~/Assets/AppImages/NoImage.png" alt="Alternate Text" class="subImg" />
+                }
+                else
+                {
+                    <img src="~/Assets/AppImages/@Model.SubImage4" alt="Alternate Text" class="subImg" />
+                }
+            </div>
+        </div>
+
+    </div>
+</div>
+<hr />
+<div>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+    @Html.ActionLink("Back to List", "UserIndex")
+</div>
+<style>
+    .mainImg {
+        max-height: 600px; width:400px;
+    }
+
+    .subImg {
+        max-height: 250px; width:500px;
+    }
+</style>

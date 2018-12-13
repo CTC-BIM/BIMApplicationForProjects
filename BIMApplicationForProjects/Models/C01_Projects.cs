@@ -35,6 +35,8 @@ namespace BIMApplicationForProjects.Models
         public Nullable<bool> LandscapeMakeModel { get; set; }
         public Nullable<int> Phase { get; set; }
         public string BIMtarget { get; set; }
+        public Nullable<System.DateTime> DateCreate { get; set; }
+        public string PMname { get; set; }
     
         public virtual C04_ProjectPhase C04_ProjectPhase { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -3,255 +3,176 @@
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var phase = ViewBag.Phase as List<BIMApplicationForProjects.Models.C04_ProjectPhase>;
+
+    var BIMprojects = ViewBag.BIMProjects as List<BIMApplicationForProjects.Models.C03_ProjectAppDetails>;
+    var AppList = ViewBag.AppList as List<BIMApplicationForProjects.Models.C02_AppLists>;
+
+    var status = ViewBag.Status as List<BIMApplicationForProjects.Models.C06_Status>;
+
+    var Result = ViewBag.Result as List<BIMApplicationForProjects.Models.C07_Result>;
+
+    var RequestType = ViewBag.RequestType as List<BIMApplicationForProjects.Models.C08_RequestType>;
 }
 
 <div>
-    <div class="row bg-danger">
-        <h2>Project Info</h2>
-
-        <div class="container">
-            <table class="table table-condensed table-bordered table-hover">
-                <tr>
-                    <th>#</th>
-                    <th>Tên dự án</th>
-                    <th>Phase</th>
-                    <th>Kiến trúc</th>
-                    <th>Kết cấu</th>
-                    <th>Cơ điện</th>
-                    <th>Hạ tầng</th>
-                    <th>Cảnh quan</th>
-                    <th>Mô hình ARC</th>
-                    <th>Mô hình STR</th>
-                    <th>Mô hình MEP</th>
-                    <th>Mô hình Hạ tầng</th>
-                    <th>Mô hình Cảnh quan</th>
-                </tr>
-                <tr>
-                    <td class="text-danger text-uppercase">@Model.ProjectID</td>
-                    <td class="text-danger text-uppercase">@Model.ProjectName</td>
-
-                    @*@foreach (var _ID in Model)
+    <div class="row">
+        <h2>Thông tin dự án <small class="text-primary">Project Info: </small></h2>
+        <h1 class="text-center"> <b class="" style="margin:10px"> @Model.ProjectID - @Model.ProjectName </b></h1>
+        <div class="col-lg-12 form-inline text-left">
+            <div class="col-lg-6"><h4>Chủ trì dự án <small class="text-primary">Project Manager: </small>@Model.PMname</h4></div>
+            <div class="col-lg-6">
+                <h4>
+                    Giai đoạn dự án <small class="text-info">Project Phase:</small>
+                    @foreach (BIMApplicationForProjects.Models.C04_ProjectPhase item in phase)
                     {
-                        if (_ID.PhaseID == Model.Phase)
+                        if (Model.Phase == item.PhaseID)
                         {
-                            <td class="text-danger">@_ID.PhaseName</td>
+                            <b class="text-warning">@item.PhaseName</b>
                         }
-                    }*@
-
-                    <td class="text-info bg-info">@Model.ARCdesigner</td>
-                    <td class="text-info bg-info">@Model.STRdesigner</td>
-                    <td class="text-info bg-info">@Model.MEPdesigner</td>
-                    <td class="text-info bg-info">@Model.CIvilDesigner</td>
-                    <td class="text-info bg-info">@Model.LandscapeDesigner</td>
-                    <td class="text-center">
-                        @if (Model.ARCmakeModel.HasValue)
+                    }
+                </h4>
+            </div>
+        </div>
+        <hr />
+        <h4>Thông tin thiết kế <small class="text-primary">Designers information:</small></h4>
+        <div class="container-fluid row">
+            <div class="col-lg-6">
+                <ul class="form-group">
+                    <li class="form-control">Kiến trúc | <small class="text-primary">Architech: </small><b>@Model.ARCdesigner</b></li>
+                    <li class="form-control">Kết cấu | <small class="text-primary">Structure: </small><b>@Model.STRdesigner</b></li>
+                    <li class="form-control">Cơ Điện | <small class="text-primary">MEP: </small><b>@Model.MEPdesigner</b></li>
+                    <li class="form-control">Hạ tầng | <small class="text-primary">Civil: </small><b>@Model.CIvilDesigner</b></li>
+                    <li class="form-control">Cảnh quan | <small class="text-primary">Landscape: </small><b>@Model.LandscapeDesigner</b></li>
+                </ul>
+            </div>
+            <div class="col-lg-6">
+                <ul class="form-group">
+                    <li class="form-control">
+                        Mô hình Kiến trúc | <small class="text-primary">Architech Model: </small>
+                        @if (@Model.ARCmakeModel.HasValue)
                         {
                             if (Model.ARCmakeModel.Value)
                             {
-                                <a>Yes</a>
+                                <b>Yes</b>
                             }
                             else
                             {
-                                <a>No</a>
+                                <b> No </b>
                             }
                         }
                         else
                         {
-                            <a>No</a>
+                            <b>No information</b>
                         }
-                    </td>
-                    <td class="text-center">
-                        @if (Model.STRmakeModel.HasValue)
+                    </li>
+                    <li class="form-control">
+                        Mô hình Kết cấu | <small class="text-primary">Structure Model: </small>
+                        @if (@Model.STRmakeModel.HasValue)
                         {
                             if (Model.STRmakeModel.Value)
                             {
-                                <a>Yes</a>
+                                <b>Yes</b>
                             }
                             else
                             {
-                                <a>No</a>
+                                <b> No </b>
                             }
                         }
                         else
                         {
-                            <a>No</a>
+                            <b>No information</b>
                         }
-                    </td>
-                    <td class="text-center">
-                        @if (Model.MEPmakeModel.HasValue)
+                    </li>
+                    <li class="form-control">
+                        Mô hình Cơ Điện | <small class="text-primary">MEP Model: </small>
+                        @if (@Model.MEPmakeModel.HasValue)
                         {
                             if (Model.MEPmakeModel.Value)
                             {
-                                <a>Yes</a>
+                                <b>Yes</b>
                             }
                             else
                             {
-                                <a>No</a>
+                                <b> No </b>
                             }
                         }
                         else
                         {
-                            <a>No</a>
+                            <b>No information</b>
                         }
-                    </td>
-
-                    <td class="text-center">
-                        @if (Model.CivilMakeModel.HasValue)
+                    </li>
+                    <li class="form-control">
+                        Mô hình Hạ tầng | <small class="text-primary">Civil Model: </small>
+                        @if (@Model.CivilMakeModel.HasValue)
                         {
                             if (Model.CivilMakeModel.Value)
                             {
-                                <a>Yes</a>
+                                <b>Yes</b>
                             }
                             else
                             {
-                                <a>No</a>
+                                <b> No </b>
                             }
                         }
                         else
                         {
-                            <a>No</a>
+                            <b>No information</b>
                         }
-                    </td>
-                    <td class="text-center">
-                        @if (Model.LandscapeMakeModel.HasValue)
+                    </li>
+                    <li class="form-control">
+                        Mô hình Cảnh Quan | <small class="text-primary">Landscape Model: </small>
+                        @if (@Model.LandscapeMakeModel.HasValue)
                         {
                             if (Model.LandscapeMakeModel.Value)
                             {
-                                <a>Yes</a>
+                                <b>Yes</b>
                             }
                             else
                             {
-                                <a>No</a>
+                                <b> No </b>
                             }
                         }
                         else
                         {
-                            <a>No</a>
+                            <b>No information</b>
                         }
-                    </td>
-                </tr>
-
-
-            </table>
+                    </li>
+                </ul>
+            </div>
         </div>
-
     </div>
-    <div class="row bg-primary">
-        <h2>Project Application</h2>
+    <div>
+        <div class="col=lg-12 form-inline form-group">
+            <div class="col-lg-8">
+                <h4>Chi tiết các ứng dụng BIM trong dự án | <small class="text-primary">Detail BIM applications in project</small></h4>
+            </div>
+            <div class="col-lg-4 form-inline form-group">
+                <div class="form-group col-lg-6">
+                    @Html.ActionLink("Cập nhật dự án", "Edit", new { id = Model.ProjectID }, new { @class = "btn btn-primary text-danger form-control" })
+
+                </div>
+                <div class="form-group col-lg-6">
+                    @Html.ActionLink("Thêm ứng dụng", "CreateID", "ProjectAppDetails", new { id = @Model.ProjectID }, new { @class = "btn btn-primary text-danger form-control" })
+
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
-<div>
-    <h4>C01_Projects</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ProjectName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProjectName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ARCdesigner)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ARCdesigner)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ARCmakeModel)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ARCmakeModel)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.STRdesigner)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.STRdesigner)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.STRmakeModel)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.STRmakeModel)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MEPdesigner)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MEPdesigner)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MEPmakeModel)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MEPmakeModel)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CIvilDesigner)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CIvilDesigner)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CivilMakeModel)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CivilMakeModel)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LandscapeDesigner)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LandscapeDesigner)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LandscapeMakeModel)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LandscapeMakeModel)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BIMtarget)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BIMtarget)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.C04_ProjectPhase.PhaseName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.C04_ProjectPhase.PhaseName)
-        </dd>
-
-    </dl>
+<div class="form-group container">
+    @Html.Action("_AppListPartialView", "Projects", new { id = Model.ProjectID })
 </div>
+
+
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ProjectID }) |
+    |
     @Html.ActionLink("Back to List", "Index")
 </p>
+<style>
+    .img50x50 {
+        width: 50px;
+        height: 50px
+    }
+</style>

@@ -26,6 +26,11 @@ namespace BIMApplicationForProjects.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public Nullable<int> ProjectPhase { get; set; }
+        public string MainImage { get; set; }
+        public string SubImage1 { get; set; }
+        public string SubImage2 { get; set; }
+        public string SubImage3 { get; set; }
+        public string SubImage4 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<C02a_AppResults> C02a_AppResults { get; set; }

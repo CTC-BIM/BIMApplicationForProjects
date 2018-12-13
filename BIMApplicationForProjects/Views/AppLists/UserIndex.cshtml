@@ -1,0 +1,59 @@
+﻿@model IEnumerable<BIMApplicationForProjects.Models.C02_AppLists>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Danh mục Ứng dụng BIM cho Dự án <small class="text-danger">BIM menulist for Project</small></h2>
+
+
+<table class="table table-condensed table-bordered table-hover">
+    <tr>
+        <th class="text-center bg-primary">
+            Giai đoạn dự án | Project Phase
+        </th>
+        <th class="text-center bg-primary">
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th class="text-center bg-primary">
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th class="text-center bg-primary"></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.C04_ProjectPhase.PhaseName)
+        </td>
+        <td>
+            @*<b>@Html.DisplayFor(modelItem => item.Name)</b>*@
+            <b>@Html.ActionLink(item.Name, "Details", "AppLists", new { id = item.ID }, null)</b>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @if (string.IsNullOrEmpty(item.MainImage))
+            {
+                <img src="~/Assets/AppImages/NoImage.png" alt="Alternate Text" class="img" />
+            }
+            else
+            {
+                <img src="~/Assets/AppImages/@item.MainImage" alt="Alternate Text" class="img" />
+            }
+
+        </td>
+    </tr>
+}
+
+</table>
+
+<style>
+    .img {
+        width: 150px;
+        height: 150px
+    }
+</style>

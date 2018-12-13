@@ -14,7 +14,7 @@ namespace BIMApplicationForProjects.Controllers
         // GET: ProjectAppDetails
         public ActionResult Index()
         {
-            var c03_ProjectAppDetails = db.C03_ProjectAppDetails.Include(c => c.C01_Projects).Include(c => c.C02_AppLists);
+            var c03_ProjectAppDetails = db.C03_ProjectAppDetails.Include(c => c.C01_Projects).Include(c => c.C02_AppLists).Include(c => c.C07_Result).Include(c => c.C08_RequestType);
             return View(c03_ProjectAppDetails.ToList());
         }
 
@@ -25,7 +25,7 @@ namespace BIMApplicationForProjects.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            C03_ProjectAppDetails c03_ProjectAppDetails = db.C03_ProjectAppDetails.Find(id);
+            C03_ProjectAppDetails c03_ProjectAppDetails = db.C03_ProjectAppDetails.FirstOrDefault(s => s.ID == id);
             if (c03_ProjectAppDetails == null)
             {
                 return HttpNotFound();
@@ -38,17 +38,20 @@ namespace BIMApplicationForProjects.Controllers
         {
             ViewBag.ProjectID = new SelectList(db.C01_Projects, "ProjectID", "ProjectName");
             ViewBag.AppID = new SelectList(db.C02_AppLists, "ID", "Name");
+            ViewBag.RequestID = new SelectList(db.C08_RequestType, "ID", "TypeName");
+
             return View();
         }
         public ActionResult CreateID(string id)
         {
             try
             {
-                if (id == null || id.Trim() == "") throw new Exception("Không tìm thấy ID này");
+                if (id == null || id.Trim() == "") return RedirectToAction("Index","Projects","Không tìm thấy ID này");
                 C01_Projects projectName = db.C01_Projects.Find(id);
                 ViewBag.AppID = new SelectList(db.C02_AppLists, "ID", "Name");
                 ViewBag.ProjectID = projectName.ProjectID;
                 ViewBag.ProjectName = projectName.ProjectName;
+                ViewBag.RequestID = new SelectList(db.C08_RequestType, "ID", "TypeName");
 
                 return View("CreateID");
             }
@@ -77,6 +80,8 @@ namespace BIMApplicationForProjects.Controllers
                 newEnity.DeadLine = curEnity.DeadLine;
                 newEnity.StatusID = 1;
                 newEnity.UserRequest = curEnity.UserRequest;
+                newEnity.ResultID = 1;
+                newEnity.RequestID = curEnity.RequestID;
 
                 db.C03_ProjectAppDetails.Add(newEnity);
                 db.SaveChanges();
@@ -102,6 +107,8 @@ namespace BIMApplicationForProjects.Controllers
                 newEnity.DeadLine = curEnity.DeadLine;
                 newEnity.StatusID = 1;
                 newEnity.UserRequest = curEnity.UserRequest;
+                newEnity.ResultID = 1;
+                newEnity.RequestID = curEnity.RequestID;
 
                 db.C03_ProjectAppDetails.Add(newEnity);
                 db.SaveChanges();
@@ -122,7 +129,7 @@ namespace BIMApplicationForProjects.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            C03_ProjectAppDetails c03_ProjectAppDetails = db.C03_ProjectAppDetails.Find(id);
+            C03_ProjectAppDetails c03_ProjectAppDetails = db.C03_ProjectAppDetails.SingleOrDefault(s => s.ID == id);
             if (c03_ProjectAppDetails == null)
             {
                 return HttpNotFound();
@@ -153,16 +160,21 @@ namespace BIMApplicationForProjects.Controllers
         // GET: ProjectAppDetails/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null) throw new Exception("ID không đúng ");
+                
+                C03_ProjectAppDetails c03_ProjectAppDetails = db.C03_ProjectAppDetails.SingleOrDefault(s => s.ID == id);
+
+                if (c03_ProjectAppDetails == null) throw new Exception("Không tìm thấy ID này ");
+
+                return View(c03_ProjectAppDetails);
             }
-            C03_ProjectAppDetails c03_ProjectAppDetails = db.C03_ProjectAppDetails.Find(id);
-            if (c03_ProjectAppDetails == null)
+            catch (Exception ex)
             {
-                return HttpNotFound();
+                ViewBag.Error = ex.Message;
+                return View();
             }
-            return View(c03_ProjectAppDetails);
         }
 
         // POST: ProjectAppDetails/Delete/5
@@ -170,10 +182,22 @@ namespace BIMApplicationForProjects.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            C03_ProjectAppDetails c03_ProjectAppDetails = db.C03_ProjectAppDetails.Find(id);
-            db.C03_ProjectAppDetails.Remove(c03_ProjectAppDetails);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                if (id < 0) throw new Exception("ID không đúng");
+
+                C03_ProjectAppDetails c03_ProjectAppDetails = db.C03_ProjectAppDetails.Find(id);
+
+                db.C03_ProjectAppDetails.Remove(c03_ProjectAppDetails);
+
+                db.SaveChanges();
+
+                return RedirectToAction("Index", "Projects");
+            }
+            catch (Exception ex)
+            {
+                return ViewBag.Error = ex.Message;
+            }
         }
 
         protected override void Dispose(bool disposing)

@@ -23,6 +23,8 @@
           <Property Name="LandscapeMakeModel" Type="bit" />
           <Property Name="Phase" Type="int" />
           <Property Name="BIMtarget" Type="nchar" MaxLength="10" />
+          <Property Name="DateCreate" Type="date" />
+          <Property Name="PMname" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="02_AppLists">
           <Key>
@@ -32,6 +34,11 @@
           <Property Name="Name" Type="nvarchar" MaxLength="250" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="ProjectPhase" Type="int" />
+          <Property Name="MainImage" Type="nvarchar(max)" />
+          <Property Name="SubImage1" Type="nvarchar(max)" />
+          <Property Name="SubImage2" Type="nvarchar(max)" />
+          <Property Name="SubImage3" Type="nvarchar(max)" />
+          <Property Name="SubImage4" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="02a_AppResults">
           <Key>
@@ -42,6 +49,11 @@
           <Property Name="AppListID" Type="int" Nullable="false" />
           <Property Name="Result" Type="nvarchar(max)" />
           <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="ResultMainImage" Type="nvarchar(max)" />
+          <Property Name="ResultImage1" Type="nvarchar(max)" />
+          <Property Name="ResultImage2" Type="nvarchar(max)" />
+          <Property Name="ResultImage3" Type="nvarchar(max)" />
+          <Property Name="ResultImage4" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="02b_AppWorkDetails">
           <Key>
@@ -70,6 +82,7 @@
           <Property Name="DeadLine" Type="date" />
           <Property Name="ResultID" Type="int" />
           <Property Name="RequestID" Type="int" />
+          <Property Name="Resource" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="04_ProjectPhase">
           <Key>
@@ -346,6 +359,8 @@
           <NavigationProperty Name="C04_ProjectPhase" Relationship="Self.FK_01_Projects_04_ProjectPhase" FromRole="C01_Projects" ToRole="C04_ProjectPhase" />
           <NavigationProperty Name="C05a_TargetDetail" Relationship="Self.FK_05a_TargetDetail_01_Projects" FromRole="C01_Projects" ToRole="C05a_TargetDetail" />
           <NavigationProperty Name="C03_ProjectAppDetails" Relationship="BIMApplicationForProjects.Models.FK_03_ProjectAppDetails_01_Projects" FromRole="C01_Projects" ToRole="C03_ProjectAppDetails" />
+          <Property Name="DateCreate" Type="DateTime" Precision="0" />
+          <Property Name="PMname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="C04_ProjectPhase">
           <Key>
@@ -493,6 +508,11 @@
           <NavigationProperty Name="C04_ProjectPhase" Relationship="BIMApplicationForProjects.Models.FK_02_AppLists_04_ProjectPhase" FromRole="C02_AppLists" ToRole="C04_ProjectPhase" />
           <NavigationProperty Name="C02b_AppWorkDetails" Relationship="BIMApplicationForProjects.Models.FK_02b_AppWorkDetails_02_AppLists" FromRole="C02_AppLists" ToRole="C02b_AppWorkDetails" />
           <NavigationProperty Name="C03_ProjectAppDetails" Relationship="BIMApplicationForProjects.Models.FK_03_ProjectAppDetails_02_AppLists" FromRole="C02_AppLists" ToRole="C03_ProjectAppDetails" />
+          <Property Name="MainImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SubImage1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SubImage2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SubImage3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SubImage4" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="C02a_AppResults">
           <Key>
@@ -504,6 +524,11 @@
           <Property Name="Result" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="C02_AppLists" Relationship="BIMApplicationForProjects.Models.FK_02a_AppResults_02_AppLists" FromRole="C02a_AppResults" ToRole="C02_AppLists" />
+          <Property Name="ResultMainImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ResultImage1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ResultImage2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ResultImage3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ResultImage4" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_02a_AppResults_02_AppLists">
           <End Type="BIMApplicationForProjects.Models.C02_AppLists" Role="C02_AppLists" Multiplicity="1">
@@ -586,6 +611,7 @@
           <Property Name="RequestID" Type="Int32" />
           <NavigationProperty Name="C07_Result" Relationship="BIMApplicationForProjects.Models.FK_03_ProjectAppDetails_07_Result" FromRole="C03_ProjectAppDetails" ToRole="C07_Result" />
           <NavigationProperty Name="C08_RequestType" Relationship="BIMApplicationForProjects.Models.FK_03_ProjectAppDetails_08_RequestType" FromRole="C03_ProjectAppDetails" ToRole="C08_RequestType" />
+          <Property Name="Resource" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_03_ProjectAppDetails_01_Projects">
           <End Type="BIMApplicationForProjects.Models.C01_Projects" Role="C01_Projects" Multiplicity="1" />
@@ -672,6 +698,8 @@
           <EntitySetMapping Name="C01_Projects">
             <EntityTypeMapping TypeName="BIMApplicationForProjects.Models.C01_Projects">
               <MappingFragment StoreEntitySet="01_Projects">
+                <ScalarProperty Name="PMname" ColumnName="PMname" />
+                <ScalarProperty Name="DateCreate" ColumnName="DateCreate" />
                 <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
                 <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
                 <ScalarProperty Name="ARCdesigner" ColumnName="ARCdesigner" />
@@ -729,6 +757,11 @@
           <EntitySetMapping Name="C02_AppLists">
             <EntityTypeMapping TypeName="BIMApplicationForProjects.Models.C02_AppLists">
               <MappingFragment StoreEntitySet="02_AppLists">
+                <ScalarProperty Name="SubImage4" ColumnName="SubImage4" />
+                <ScalarProperty Name="SubImage3" ColumnName="SubImage3" />
+                <ScalarProperty Name="SubImage2" ColumnName="SubImage2" />
+                <ScalarProperty Name="SubImage1" ColumnName="SubImage1" />
+                <ScalarProperty Name="MainImage" ColumnName="MainImage" />
                 <ScalarProperty Name="ProjectPhase" ColumnName="ProjectPhase" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -739,6 +772,11 @@
           <EntitySetMapping Name="C02a_AppResults">
             <EntityTypeMapping TypeName="BIMApplicationForProjects.Models.C02a_AppResults">
               <MappingFragment StoreEntitySet="02a_AppResults">
+                <ScalarProperty Name="ResultImage4" ColumnName="ResultImage4" />
+                <ScalarProperty Name="ResultImage3" ColumnName="ResultImage3" />
+                <ScalarProperty Name="ResultImage2" ColumnName="ResultImage2" />
+                <ScalarProperty Name="ResultImage1" ColumnName="ResultImage1" />
+                <ScalarProperty Name="ResultMainImage" ColumnName="ResultMainImage" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Result" ColumnName="Result" />
                 <ScalarProperty Name="AppListID" ColumnName="AppListID" />
@@ -766,6 +804,7 @@
           <EntitySetMapping Name="C03_ProjectAppDetails">
             <EntityTypeMapping TypeName="BIMApplicationForProjects.Models.C03_ProjectAppDetails">
               <MappingFragment StoreEntitySet="03_ProjectAppDetails">
+                <ScalarProperty Name="Resource" ColumnName="Resource" />
                 <ScalarProperty Name="RequestID" ColumnName="RequestID" />
                 <ScalarProperty Name="ResultID" ColumnName="ResultID" />
                 <ScalarProperty Name="DeadLine" ColumnName="DeadLine" />
