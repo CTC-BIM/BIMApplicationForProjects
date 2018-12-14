@@ -1,0 +1,71 @@
+﻿using System;
+using System.Net.Mail;
+using System.Text;
+using System.Web.Mvc;
+
+namespace BIMApplicationForProjects.Controllers
+{
+    public class MailsController : Controller
+    {
+
+        // GET: Mails
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="UserEmail"></param>
+        /// <param name="EmailNguoiNhan"></param>
+        /// <param name="userNameEmail">userName Email</param>
+        /// <param name="pa">password email</param>
+        /// <returns></returns>
+        public string SendEmails(string UserEmail, string EmailNguoiNhan, string userNameEmail, string pa)
+        {
+            string kq = "NotOK";
+            try
+            {
+                #region Format Email
+                StringBuilder Body = new StringBuilder();
+                Body.Append("<p>Cảm ơn bạn đã đăng ký Ứng dụng, chúng tôi sẽ liên lạc lại cho bạn trong thời gian sớm nhất:</p>");
+                Body.Append("<table>");
+                Body.Append("<tr><td colspan='2'><h4>Thông tin khách hàng</h4></td></tr>");
+                Body.Append("<tr><td>Họ và tên:</td><td>ADMIN/td></tr>");
+                Body.Append("<tr><td>Số điện thoại:</td><td>0908146430</td></tr>");
+                Body.Append("<tr><td>Địa chỉ:</td><td>ADDRESS</td></tr>");
+                Body.Append("<tr><td>Email:</td><td>" + EmailNguoiNhan + "</td></tr>");
+                Body.Append("<tr><td>Nguồn khách:</td><td>" + UserEmail + "</td></tr>");
+                Body.Append("</table>");
+
+                #endregion
+
+                #region Send Email
+                MailMessage mail = new MailMessage();
+                mail.To.Add(UserEmail);
+                mail.From = new MailAddress(EmailNguoiNhan);
+                mail.Subject = "Tiêu đề của mail được gửi";
+                mail.Body = Body.ToString();// phần thân của mail ở trên
+                mail.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient();
+                //smtp.Host = "smtp.gmail.com";
+                //smtp.Host = @"https://hcm-mail.coteccons.vn/mapi/emsmdb/?MailboxId=98c3ca3d-3582-423f-8acf-cafd924410aa@coteccons.vn";
+                smtp.Host = @"mail.coteccons.vn";
+                smtp.Port = 587;
+                smtp.UseDefaultCredentials = true;
+                smtp.Credentials = new System.Net.NetworkCredential(userNameEmail, pa);// tài khoản Gmail của bạn
+                smtp.EnableSsl = true;
+                smtp.Send(mail);
+                return kq = "OK";
+                #endregion
+
+            }
+            catch (Exception ex)
+            {
+                return kq + ex.Message;                
+            }
+
+        }
+    }
+}

@@ -3,83 +3,115 @@
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var currentProject = ViewBag.Project as BIMApplicationForProjects.Models.C01_Projects;
+
+    var phase = ViewBag.Phase as List<BIMApplicationForProjects.Models.C04_ProjectPhase>;
+
+    var BIMprojects = ViewBag.BIMProjects as List<BIMApplicationForProjects.Models.C03_ProjectAppDetails>;
+
+    var AppList = ViewBag.AppList as List<BIMApplicationForProjects.Models.C02_AppLists>;
+
+    var status = ViewBag.Status as List<BIMApplicationForProjects.Models.C06_Status>;
+
+    var Result = ViewBag.Result as List<BIMApplicationForProjects.Models.C07_Result>;
+
+    var RequestType = ViewBag.RequestType as List<BIMApplicationForProjects.Models.C08_RequestType>;
+
+    var ListAppResults = ViewBag.ListAppResults as List<BIMApplicationForProjects.Models.C02a_AppResults>;
 }
 
 <h2>Details</h2>
 
 <div>
-    <h4>C03_ProjectAppDetails</h4>
+    <h3>Chi tiết Yêu cầu | <small class="text-primary text-center">Request details: </small><b class="bg-primary">@Model.AppCode</b></h3>
+    <h4>Người yêu cầu | <small class="text-primary">User Request</small>: <b class="text-danger">@Model.UserRequest</b></h4>
+    <h4>Ngày tạo | <small class="text-primary">Date Request</small>: <b class="text-danger">@string.Format("{0:dd/MMM/yyyy}", Model.DateRequest)</b></h4>
+    <table class="table table-condensed table-bordered table-hover" style="margin:0;margin-top:10px;">
+        @*<tr class="bg-primary">
+                <th>@Model.ProjectID - @ProjectName</th>
+            </tr>*@
+        <tr>
+            <th class="bg-primary text-center">Tên Ứng dụng</th>
+            <th class="bg-primary text-center">Sản phẩm yêu cầu</th>
+            <th class="bg-primary text-center">Thời gian yêu cầu</th>
+            <th class="bg-primary text-center">Yêu cầu khác</th>
+            <th class="bg-primary text-center">Tình trạng</th>
+
+            <th class="bg-success text-center">Phụ trách BIM</th>
+            <th class="bg-success text-center">Kết quả</th>
+        </tr>
+        <tr>
+            @*------------------TÊN ỨNG DỤNG--------------------*@
+            @foreach (var appitem in AppList)
+            {
+                if (Model.AppID == appitem.ID)
+                {
+                    <td>
+                        <b class="text-danger">
+                            @Html.ActionLink(appitem.Name, "Details", "AppLists", new { id = appitem.ID }, null)
+                        </b>
+                    </td>
+                }
+            }
+            @*-----------------LOẠI YÊU CẦU---------------------*@
+            @foreach (BIMApplicationForProjects.Models.C08_RequestType Requestitem in RequestType)
+            {
+                if (Model.RequestID == Requestitem.ID)
+                {
+                    <td class="text-center">@Requestitem.TypeName</td>
+                }
+            }
+            @*-----------------THỜI GIAN-------------------- *@
+            <td class="text-center">@string.Format("{0:dd/MMM/yyyy}", Model.DeadLine)</td>
+
+            @*----------------YÊU CẦU KHÁC---------------------*@
+            <td>@Model.OtherRequest</td>
+
+            @*----------------TÌNH TRẠNG---------------------*@
+            @foreach (var statusitem in status)
+            {
+                if (Model.StatusID == statusitem.ID)
+                {
+                    <td>@statusitem.Name</td>
+                }
+            }
+
+            @*-------------PHỤ TRÁCH BIM---------------------*@
+            @if (!string.IsNullOrEmpty(Model.BIMerName))
+            {
+                <td class="text-center text-info"><b>@Model.BIMerName</b></td>
+            }
+            else
+            {
+                <td class="text-center text-info">Chờ cập nhật Nhân sự</td>
+            }
+
+            @*----------------KẾT QUẢ---------------------*@
+            @foreach (BIMApplicationForProjects.Models.C07_Result ResultItem in Result)
+            {
+                if (Model.ResultID == ResultItem.ID)
+                {
+                    <td class="text-center">@ResultItem.Name</td>
+                }
+            }
+
+        </tr>
+    </table>
     <hr />
+    @*-----------------SẢN PHẨM CỦA ỨNG DỤNG---------------------*@
+    <div class="form-group">
+        <div class="text-center form-control"><b class="text-danger">Sản phẩm thu được của ứng dụng</b></div>
+        <ol class="table table-bordered text-primary">
+            @foreach (var item in ListAppResults)
+            {
+                <li class="form-group" style="margin-top:10px"><b class="text-primary">@item.Result</b></li>
+            }
 
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.DateRequest)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DateRequest)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UserRequest)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserRequest)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.isAccept)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.isAccept)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.OtherRequest)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.OtherRequest)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BIMerID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BIMerID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BIMerName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BIMerName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.C01_Projects.ProjectName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.C01_Projects.ProjectName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.C02_AppLists.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.C02_AppLists.Name)
-        </dd>
-
-    </dl>
-
+        </ol>
+    </div>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index","Projects", new {id = Model.ProjectID })
 </p>

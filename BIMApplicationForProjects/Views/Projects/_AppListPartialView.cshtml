@@ -45,9 +45,11 @@
                         {
                             if (Appitem.AppID == appitem.ID)
                             {
-                                <td class="col-md-2"><b class="text-danger">@appitem.Name</b></td>
+                                <td class="col-md-2"><b class="text-danger">
+                                    @Html.ActionLink(appitem.Name,"Details","AppLists",new {id = appitem.ID },null)
+                                     </b></td>
                             }
-                        }
+                                    }
                         @* Thay thế Cột UserRequest khi Login *@
                         @*<td class="col-md-1 text-center">@Appitem.UserRequest</td>*@
 
@@ -88,7 +90,7 @@
                         }
                         else
                         {
-                            <td class="col-md-1 text-center text-info">Đang cập nhật</td>
+                            <td class="col-md-1 text-center text-info">Chờ cập nhật Nhân sự</td>
                         }
 
                         @*----------------KẾT QUẢ---------------------*@

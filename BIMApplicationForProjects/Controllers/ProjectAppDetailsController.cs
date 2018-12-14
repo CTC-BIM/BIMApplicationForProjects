@@ -2,7 +2,6 @@
 using System;
 using System.Data.Entity;
 using System.Linq;
-using System.Net;
 using System.Web.Mvc;
 
 namespace BIMApplicationForProjects.Controllers
@@ -21,15 +20,34 @@ namespace BIMApplicationForProjects.Controllers
         // GET: ProjectAppDetails/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            C03_ProjectAppDetails c03_ProjectAppDetails = db.C03_ProjectAppDetails.FirstOrDefault(s => s.ID == id);
-            if (c03_ProjectAppDetails == null)
-            {
-                return HttpNotFound();
-            }
+            if (id == null) return RedirectToAction("Index", "Projects");
+            C03_ProjectAppDetails c03_ProjectAppDetails = db.C03_ProjectAppDetails.SingleOrDefault(s => s.ID == id);
+            var AppResults = db.C02a_AppResults.ToList();
+            ViewBag.AppResults = AppResults;
+            if (c03_ProjectAppDetails == null) return RedirectToAction("Error");
+
+            //Phase
+            var phase = db.C04_ProjectPhase.ToList();
+            ViewBag.Phase = phase;
+            //Project with BIM
+            var BIMproject = db.C03_ProjectAppDetails.ToList();
+            ViewBag.BIMProjects = BIMproject;
+            //AppList Detail
+            var AppList = db.C02_AppLists.ToList();
+            ViewBag.AppList = AppList;
+            //Tình trạng
+            var status = db.C06_Status.ToList();
+            ViewBag.Status = status;
+            //Kết quả - Result
+            var result = db.C07_Result.ToList();
+            ViewBag.Result = result;
+            //Request Type
+            var RequestType = db.C08_RequestType.ToList();
+            ViewBag.RequestType = RequestType;
+
+            var ListAppResults = db.C02a_AppResults.Include(s => s.C02_AppLists).Where(s => s.AppListID == c03_ProjectAppDetails.AppID).ToList();
+            ViewBag.ListAppResults = ListAppResults;
+
             return View(c03_ProjectAppDetails);
         }
 
@@ -46,7 +64,7 @@ namespace BIMApplicationForProjects.Controllers
         {
             try
             {
-                if (id == null || id.Trim() == "") return RedirectToAction("Index","Projects","Không tìm thấy ID này");
+                if (id == null || id.Trim() == "") return RedirectToAction("Index", "Projects", "Không tìm thấy ID này");
                 C01_Projects projectName = db.C01_Projects.Find(id);
                 ViewBag.AppID = new SelectList(db.C02_AppLists, "ID", "Name");
                 ViewBag.ProjectID = projectName.ProjectID;
@@ -85,6 +103,8 @@ namespace BIMApplicationForProjects.Controllers
 
                 db.C03_ProjectAppDetails.Add(newEnity);
                 db.SaveChanges();
+                Session["ThongBao"] = "Thêm Ứng dụng cho dự án " + curEnity.ProjectID + " thành công";
+
 
                 return RedirectToAction("Index", "Projects");
             }
@@ -111,8 +131,27 @@ namespace BIMApplicationForProjects.Controllers
                 newEnity.RequestID = curEnity.RequestID;
 
                 db.C03_ProjectAppDetails.Add(newEnity);
+                Session["ThongBao"] = "Thêm Ứng dụng cho dự án " + id + " thành công";
                 db.SaveChanges();
 
+                #region Gui Email
+                using (MailsController email = new MailsController())
+                {
+                    try
+                    {
+                        if (email.SendEmails("truongchinhan2010@gmail.com", "nhantc@coteccons.vn", "nhantc", "Nopass@2018") == "OK")
+                        {
+                            Session["ThongBao"] = "Gửi Email thành công";
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Session["ThongBao"] = "Gửi Email Thất bại vì " + ex.Message;
+                    }
+
+                }
+
+                #endregion
                 return RedirectToAction("Index", "Projects");
             }
 
@@ -125,17 +164,18 @@ namespace BIMApplicationForProjects.Controllers
         // GET: ProjectAppDetails/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            if (id == null) return RedirectToAction("Index", "Projects");
             C03_ProjectAppDetails c03_ProjectAppDetails = db.C03_ProjectAppDetails.SingleOrDefault(s => s.ID == id);
-            if (c03_ProjectAppDetails == null)
-            {
-                return HttpNotFound();
-            }
+            if (c03_ProjectAppDetails == null) return RedirectToAction("Error");
+
             ViewBag.ProjectID = new SelectList(db.C01_Projects, "ProjectID", "ProjectName", c03_ProjectAppDetails.ProjectID);
             ViewBag.AppID = new SelectList(db.C02_AppLists, "ID", "Name", c03_ProjectAppDetails.AppID);
+            ViewBag.StatusID = new SelectList(db.C06_Status, "ID", "Name", c03_ProjectAppDetails.StatusID);
+            ViewBag.ResultID = new SelectList(db.C07_Result, "ID", "Name", c03_ProjectAppDetails.ResultID);
+            ViewBag.RequestID = new SelectList(db.C08_RequestType, "ID", "TypeName", c03_ProjectAppDetails.RequestID);
+            var AppList = db.C02_AppLists.ToList();
+            ViewBag.AppList = AppList;
+
             return View(c03_ProjectAppDetails);
         }
 
@@ -144,17 +184,21 @@ namespace BIMApplicationForProjects.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ProjectID,AppID,DateRequest,UserRequest,isAccept,OtherRequest,StatusID,BIMerName")] C03_ProjectAppDetails c03_ProjectAppDetails)
+        public ActionResult Edit(C03_ProjectAppDetails c03_ProjectAppDetails)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(c03_ProjectAppDetails).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                Session["ThongBao"] = "Cập nhật thông tin đăng ký cho dự án thành công";
+                return RedirectToAction("Index", "Projects");
             }
             ViewBag.ProjectID = new SelectList(db.C01_Projects, "ProjectID", "ProjectName", c03_ProjectAppDetails.ProjectID);
             ViewBag.AppID = new SelectList(db.C02_AppLists, "ID", "Name", c03_ProjectAppDetails.AppID);
-            return View(c03_ProjectAppDetails);
+            ViewBag.StatusID = new SelectList(db.C06_Status, "ID", "Name", c03_ProjectAppDetails.StatusID);
+            ViewBag.ResultID = new SelectList(db.C07_Result, "ID", "Name", c03_ProjectAppDetails.ResultID);
+            ViewBag.RequestID = new SelectList(db.C08_RequestType, "ID", "TypeName", c03_ProjectAppDetails.RequestID);
+            return View("Details", "Projects", c03_ProjectAppDetails);
         }
 
         // GET: ProjectAppDetails/Delete/5
@@ -162,11 +206,19 @@ namespace BIMApplicationForProjects.Controllers
         {
             try
             {
-                if (id == null) throw new Exception("ID không đúng ");
-                
+                if (id == null) return RedirectToAction("Index", "Projects");
+
                 C03_ProjectAppDetails c03_ProjectAppDetails = db.C03_ProjectAppDetails.SingleOrDefault(s => s.ID == id);
 
                 if (c03_ProjectAppDetails == null) throw new Exception("Không tìm thấy ID này ");
+                var project = db.C01_Projects.ToList();
+                ViewBag.Project = project;
+                var status = db.C06_Status.ToList();
+                ViewBag.Status = status;
+                var Applist = db.C02_AppLists.ToList();
+                ViewBag.Applist = Applist;
+                var ResultRequest = db.C08_RequestType.ToList();
+                ViewBag.ResultRequest = ResultRequest;
 
                 return View(c03_ProjectAppDetails);
             }
@@ -186,17 +238,18 @@ namespace BIMApplicationForProjects.Controllers
             {
                 if (id < 0) throw new Exception("ID không đúng");
 
-                C03_ProjectAppDetails c03_ProjectAppDetails = db.C03_ProjectAppDetails.Find(id);
+                C03_ProjectAppDetails c03_ProjectAppDetails = db.C03_ProjectAppDetails.FirstOrDefault(s => s.ID == id);
 
                 db.C03_ProjectAppDetails.Remove(c03_ProjectAppDetails);
 
                 db.SaveChanges();
-
-                return RedirectToAction("Index", "Projects");
+                Session["ThongBao"] = "Hủy đăng ký cho dự án " + id + " thành công";
+                return RedirectToAction("Index", "Projects", ViewBag.ThongBao);
             }
             catch (Exception ex)
             {
-                return ViewBag.Error = ex.Message;
+                ViewBag.Error = ex.Message;
+                return View("Error");
             }
         }
 

@@ -22,6 +22,7 @@ namespace BIMApplicationForProjects.Models
     
         public int ID { get; set; }
         public string TypeName { get; set; }
+        public string TypeName_EN { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<C03_ProjectAppDetails> C03_ProjectAppDetails { get; set; }

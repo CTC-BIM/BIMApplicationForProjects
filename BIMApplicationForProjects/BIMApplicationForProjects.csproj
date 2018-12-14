@@ -180,6 +180,7 @@
     <Compile Include="Controllers\AppResultsController.cs" />
     <Compile Include="Controllers\AppWorkDetailsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MailsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProjectAppDetailsController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
@@ -361,6 +362,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Mails\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

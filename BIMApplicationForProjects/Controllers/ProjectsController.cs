@@ -40,10 +40,8 @@ namespace BIMApplicationForProjects.Controllers
         // GET: Projects/Details/5
         public ActionResult Details(string id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            if (id == null) return RedirectToAction("Index");
+
             //Phase
             var phase = db.C04_ProjectPhase.ToList();
             ViewBag.Phase = phase;
@@ -136,10 +134,8 @@ namespace BIMApplicationForProjects.Controllers
         // GET: Projects/Edit/5
         public ActionResult Edit(string id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            if (id == null) return RedirectToAction("Details",new {id = id });
+
             C01_Projects c01_Projects = db.C01_Projects.Find(id);
             if (c01_Projects == null)
             {
@@ -159,9 +155,12 @@ namespace BIMApplicationForProjects.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(c01_Projects).State = EntityState.Modified;
-                db.SaveChanges();          
-
-                return RedirectToAction("Index");
+                db.SaveChanges();
+                Session["ThongBao"] = "Cập nhật thông tin dự án thành công";
+                var phase = db.C04_ProjectPhase.ToList();
+                ViewBag.Phase = phase;
+                return View("Details", c01_Projects);
+                //return RedirectToAction("Details","Projects", c01_Projects);
             }
             ViewBag.Phase = new SelectList(db.C04_ProjectPhase, "PhaseID", "PhaseName", c01_Projects.Phase);
             return View("Details",c01_Projects);

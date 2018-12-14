@@ -27,6 +27,7 @@ namespace BIMApplicationForProjects.Models
         public Nullable<int> ResultID { get; set; }
         public Nullable<int> RequestID { get; set; }
         public string Resource { get; set; }
+        public string AppCode { get; set; }
     
         public virtual C01_Projects C01_Projects { get; set; }
         public virtual C02_AppLists C02_AppLists { get; set; }

@@ -31,6 +31,7 @@ namespace BIMApplicationForProjects.Models
         public string SubImage2 { get; set; }
         public string SubImage3 { get; set; }
         public string SubImage4 { get; set; }
+        public string Name_EN { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<C02a_AppResults> C02a_AppResults { get; set; }

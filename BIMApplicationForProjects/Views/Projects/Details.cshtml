@@ -14,6 +14,7 @@
     var Result = ViewBag.Result as List<BIMApplicationForProjects.Models.C07_Result>;
 
     var RequestType = ViewBag.RequestType as List<BIMApplicationForProjects.Models.C08_RequestType>;
+    string thongBao = Session["ThongBao"] as string;
 }
 
 <div>
@@ -36,7 +37,17 @@
             </div>
         </div>
         <hr />
-        <h4>Thông tin thiết kế <small class="text-primary">Designers information:</small></h4>
+        <div class="form-group form-inline">
+            <div class="col-lg-9">
+                <h4>Thông tin thiết kế <small class="text-primary">Designers information:</small></h4>
+            </div>
+            <div class="col-lg-3 form-inline">
+                <div class="col-lg-8"></div>
+                <div class="form-group col-lg-offset-3 col-lg-4 form-inline ">
+                    @Html.ActionLink("Cập nhật thông tin dự án", "Edit", new { id = Model.ProjectID }, new { @class = "btn btn-primary text-danger form-control" })
+                </div>
+            </div>
+        </div>
         <div class="container-fluid row">
             <div class="col-lg-6">
                 <ul class="form-group">
@@ -144,16 +155,16 @@
         </div>
     </div>
     <div>
-        <div class="col=lg-12 form-inline form-group">
+        <h5 class="text-danger">@thongBao</h5>
+        <div class="col-lg-12 form-inline form-group">
             <div class="col-lg-8">
                 <h4>Chi tiết các ứng dụng BIM trong dự án | <small class="text-primary">Detail BIM applications in project</small></h4>
             </div>
             <div class="col-lg-4 form-inline form-group">
-                <div class="form-group col-lg-6">
+                @*<div class="form-group col-lg-6">
                     @Html.ActionLink("Cập nhật dự án", "Edit", new { id = Model.ProjectID }, new { @class = "btn btn-primary text-danger form-control" })
-
-                </div>
-                <div class="form-group col-lg-6">
+                </div>*@
+                <div class="col-lg-offset-8 form-group col-lg-2">
                     @Html.ActionLink("Thêm ứng dụng", "CreateID", "ProjectAppDetails", new { id = @Model.ProjectID }, new { @class = "btn btn-primary text-danger form-control" })
 
                 </div>
@@ -165,10 +176,8 @@
     @Html.Action("_AppListPartialView", "Projects", new { id = Model.ProjectID })
 </div>
 
-
 <p>
-    |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index",null,htmlAttributes: new {@class = "btn btn-primary" })
 </p>
 <style>
     .img50x50 {
