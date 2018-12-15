@@ -237,6 +237,10 @@
     <Compile Include="Models\C08_RequestType.cs">
       <DependentUpon>BIMApps.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\C99_History.cs">
+      <DependentUpon>BIMApps.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ChangeLog.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -359,10 +363,10 @@
     <Content Include="Views\Shared\DisplayTemplates\MyBool.cshtml" />
     <Content Include="Views\Projects\_AppListPartialView.cshtml" />
     <Content Include="Views\AppLists\UserIndex.cshtml" />
+    <Content Include="Views\Mails\SendEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Mails\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -37,6 +37,11 @@ namespace BIMApplicationForProjects.Models
         public string BIMtarget { get; set; }
         public Nullable<System.DateTime> DateCreate { get; set; }
         public string PMname { get; set; }
+        public Nullable<int> ARCmodelUsingPercent { get; set; }
+        public Nullable<int> STRmodelUsingPercent { get; set; }
+        public Nullable<int> MEPmodelUsingPercent { get; set; }
+        public Nullable<int> CIVILmodelUsingPercent { get; set; }
+        public Nullable<int> LANDSmodelUsingPercent { get; set; }
     
         public virtual C04_ProjectPhase C04_ProjectPhase { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

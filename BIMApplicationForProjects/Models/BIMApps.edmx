@@ -25,6 +25,11 @@
           <Property Name="BIMtarget" Type="nchar" MaxLength="10" />
           <Property Name="DateCreate" Type="date" />
           <Property Name="PMname" Type="nvarchar" MaxLength="50" />
+          <Property Name="ARCmodelUsingPercent" Type="int" />
+          <Property Name="STRmodelUsingPercent" Type="int" />
+          <Property Name="MEPmodelUsingPercent" Type="int" />
+          <Property Name="CIVILmodelUsingPercent" Type="int" />
+          <Property Name="LANDSmodelUsingPercent" Type="int" />
         </EntityType>
         <EntityType Name="02_AppLists">
           <Key>
@@ -143,6 +148,18 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TypeName" Type="nvarchar" MaxLength="50" />
           <Property Name="TypeName_EN" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="99_History">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectID" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="AppID" Type="int" Nullable="false" />
+          <Property Name="Thoigian" Type="datetime" />
+          <Property Name="NoiDung" Type="nvarchar(max)" />
+          <Property Name="UserChange" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_01_Projects_04_ProjectPhase">
           <End Role="04_ProjectPhase" Type="Self.04_ProjectPhase" Multiplicity="0..1" />
@@ -292,6 +309,7 @@
           <EntitySet Name="06_Status" EntityType="Self.06_Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="07_Result" EntityType="Self.07_Result" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="08_RequestType" EntityType="Self.08_RequestType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="99_History" EntityType="Self.99_History" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_01_Projects_04_ProjectPhase" Association="Self.FK_01_Projects_04_ProjectPhase">
             <End Role="04_ProjectPhase" EntitySet="04_ProjectPhase" />
             <End Role="01_Projects" EntitySet="01_Projects" />
@@ -364,6 +382,11 @@
           <NavigationProperty Name="C03_ProjectAppDetails" Relationship="BIMApplicationForProjects.Models.FK_03_ProjectAppDetails_01_Projects" FromRole="C01_Projects" ToRole="C03_ProjectAppDetails" />
           <Property Name="DateCreate" Type="DateTime" Precision="0" />
           <Property Name="PMname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ARCmodelUsingPercent" Type="Int32" />
+          <Property Name="STRmodelUsingPercent" Type="Int32" />
+          <Property Name="MEPmodelUsingPercent" Type="Int32" />
+          <Property Name="CIVILmodelUsingPercent" Type="Int32" />
+          <Property Name="LANDSmodelUsingPercent" Type="Int32" />
         </EntityType>
         <EntityType Name="C04_ProjectPhase">
           <Key>
@@ -498,6 +521,7 @@
             <End Role="C08_RequestType" EntitySet="C08_RequestType" />
             <End Role="C03_ProjectAppDetails" EntitySet="C03_ProjectAppDetails" />
           </AssociationSet>
+          <EntitySet Name="C99_History" EntityType="BIMApplicationForProjects.Models.C99_History" />
         </EntityContainer>
         <EntityType Name="C02_AppLists">
           <Key>
@@ -695,6 +719,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="C99_History">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ProjectID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="AppID" Type="Int32" Nullable="false" />
+          <Property Name="Thoigian" Type="DateTime" Precision="3" />
+          <Property Name="NoiDung" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserChange" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -704,6 +740,11 @@
           <EntitySetMapping Name="C01_Projects">
             <EntityTypeMapping TypeName="BIMApplicationForProjects.Models.C01_Projects">
               <MappingFragment StoreEntitySet="01_Projects">
+                <ScalarProperty Name="LANDSmodelUsingPercent" ColumnName="LANDSmodelUsingPercent" />
+                <ScalarProperty Name="CIVILmodelUsingPercent" ColumnName="CIVILmodelUsingPercent" />
+                <ScalarProperty Name="MEPmodelUsingPercent" ColumnName="MEPmodelUsingPercent" />
+                <ScalarProperty Name="STRmodelUsingPercent" ColumnName="STRmodelUsingPercent" />
+                <ScalarProperty Name="ARCmodelUsingPercent" ColumnName="ARCmodelUsingPercent" />
                 <ScalarProperty Name="PMname" ColumnName="PMname" />
                 <ScalarProperty Name="DateCreate" ColumnName="DateCreate" />
                 <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
@@ -841,6 +882,19 @@
               <MappingFragment StoreEntitySet="08_RequestType">
                 <ScalarProperty Name="TypeName_EN" ColumnName="TypeName_EN" />
                 <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C99_History">
+            <EntityTypeMapping TypeName="BIMApplicationForProjects.Models.C99_History">
+              <MappingFragment StoreEntitySet="99_History">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="UserChange" ColumnName="UserChange" />
+                <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+                <ScalarProperty Name="Thoigian" ColumnName="Thoigian" />
+                <ScalarProperty Name="AppID" ColumnName="AppID" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

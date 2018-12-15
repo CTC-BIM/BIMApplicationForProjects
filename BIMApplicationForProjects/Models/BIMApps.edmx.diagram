@@ -27,6 +27,7 @@
         <EntityTypeShape EntityType="BIMApplicationForProjects.Models.C08_RequestType" Width="1.875" PointX="2.625" PointY="3" />
         <AssociationConnector Association="BIMApplicationForProjects.Models.FK_03_ProjectAppDetails_07_Result" />
         <AssociationConnector Association="BIMApplicationForProjects.Models.FK_03_ProjectAppDetails_08_RequestType" />
+        <EntityTypeShape EntityType="BIMApplicationForProjects.Models.C99_History" Width="1.5" PointX="10.375" PointY="5.875" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

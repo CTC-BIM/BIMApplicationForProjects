@@ -103,10 +103,11 @@ namespace BIMApplicationForProjects.Controllers
 
                 db.C03_ProjectAppDetails.Add(newEnity);
                 db.SaveChanges();
-                Session["ThongBao"] = "Thêm Ứng dụng cho dự án " + curEnity.ProjectID + " thành công";
-
+                string log = ChangeLog.WriteAppLog(newEnity, "Test user", "Add new record");
+                Session["ThongBao"] = "Thêm Ứng dụng cho dự án " + curEnity.ProjectID + " thành công và ghi Log " + log;
 
                 return RedirectToAction("Index", "Projects");
+                //return RedirectToAction("Index", "Projects");
             }
 
             ViewBag.ProjectID = new SelectList(db.C01_Projects, "ProjectID", "ProjectName", curEnity.ProjectID);
@@ -131,18 +132,31 @@ namespace BIMApplicationForProjects.Controllers
                 newEnity.RequestID = curEnity.RequestID;
 
                 db.C03_ProjectAppDetails.Add(newEnity);
-                Session["ThongBao"] = "Thêm Ứng dụng cho dự án " + id + " thành công";
                 db.SaveChanges();
+
+                string log = ChangeLog.WriteAppLog(newEnity, "Test user", "Add new record");
+                Session["ThongBao"] = "Thêm Ứng dụng cho dự án " + id + " thành công và ghi Log " + log;
+
+                string TenUngDung = db.C02_AppLists.FirstOrDefault(s => s.ID == newEnity.AppID).Name;
 
                 #region Gui Email
                 using (MailsController email = new MailsController())
                 {
                     try
                     {
-                        if (email.SendEmails("truongchinhan2010@gmail.com", "nhantc@coteccons.vn", "nhantc", "Nopass@2018") == "OK")
+                        string nguoiGui = "teamcbimtech@gmail.com";
+                        string UserEmail = "truongchinhan2010@gmail.com";
+                        string AdminEmail= "nhantc@coteccons.vn";
+
+                        if (email.SendToUserEmail(nguoiGui, UserEmail, TenUngDung, newEnity.ProjectID) == "OK")
                         {
-                            Session["ThongBao"] = "Gửi Email thành công";
+                            Session["ThongBao"] = "Gửi Email to User thành công";
                         }
+                        if (email.SendToAdminEmail(UserEmail, AdminEmail, TenUngDung,newEnity.ProjectID) == "OK"/* && email.SendToAdminEmail(UserEmail, "luatnkt@coteccons.vn", TenUngDung, newEnity.ProjectID) == "OK"*/)
+                        {
+                            Session["ThongBao"] += " - Gửi Email to Admin thành công";
+                        }
+
                     }
                     catch (Exception ex)
                     {
@@ -190,7 +204,8 @@ namespace BIMApplicationForProjects.Controllers
             {
                 db.Entry(c03_ProjectAppDetails).State = EntityState.Modified;
                 db.SaveChanges();
-                Session["ThongBao"] = "Cập nhật thông tin đăng ký cho dự án thành công";
+                string log = ChangeLog.WriteAppLog(c03_ProjectAppDetails, "Test user", "Edit App details");
+                Session["ThongBao"] = "Cập nhật thông tin đăng ký cho dự án thành công và ghi log " + log;
                 return RedirectToAction("Index", "Projects");
             }
             ViewBag.ProjectID = new SelectList(db.C01_Projects, "ProjectID", "ProjectName", c03_ProjectAppDetails.ProjectID);
@@ -243,7 +258,8 @@ namespace BIMApplicationForProjects.Controllers
                 db.C03_ProjectAppDetails.Remove(c03_ProjectAppDetails);
 
                 db.SaveChanges();
-                Session["ThongBao"] = "Hủy đăng ký cho dự án " + id + " thành công";
+                string log = ChangeLog.WriteAppLog(c03_ProjectAppDetails, "Test user", "Delete App");
+                Session["ThongBao"] = "Hủy đăng ký cho dự án " + id + " thành công và ghi log " + log;
                 return RedirectToAction("Index", "Projects", ViewBag.ThongBao);
             }
             catch (Exception ex)

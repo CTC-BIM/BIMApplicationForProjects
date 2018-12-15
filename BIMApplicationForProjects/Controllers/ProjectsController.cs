@@ -124,6 +124,9 @@ namespace BIMApplicationForProjects.Controllers
             {
                 db.C01_Projects.Add(c01_Projects);
                 db.SaveChanges();
+
+                string log = ChangeLog.WriteProjectLog(c01_Projects, "Test user", "Add new record");
+                Session["ThongBao"] = "Thêm Dự án " + c01_Projects.ProjectID + " thành công và ghi Log " + log;
                 return RedirectToAction("Index");
             }
 
@@ -156,7 +159,10 @@ namespace BIMApplicationForProjects.Controllers
             {
                 db.Entry(c01_Projects).State = EntityState.Modified;
                 db.SaveChanges();
-                Session["ThongBao"] = "Cập nhật thông tin dự án thành công";
+
+                string log = ChangeLog.WriteProjectLog(c01_Projects, "Test user", "Edit Project details");
+                Session["ThongBao"] = "Cập nhật thông tin dự án " + c01_Projects.ProjectID + " thành công và ghi Log " + log;
+
                 var phase = db.C04_ProjectPhase.ToList();
                 ViewBag.Phase = phase;
                 return View("Details", c01_Projects);
@@ -189,6 +195,10 @@ namespace BIMApplicationForProjects.Controllers
             C01_Projects c01_Projects = db.C01_Projects.Find(id);
             db.C01_Projects.Remove(c01_Projects);
             db.SaveChanges();
+
+            string log = ChangeLog.WriteProjectLog(c01_Projects, "Test user", "Delete Project");
+            Session["ThongBao"] = "Xóa dự án " + c01_Projects.ProjectID + " thành công và ghi Log " + log;
+
             return RedirectToAction("Index");
         }
 
