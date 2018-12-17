@@ -57,7 +57,7 @@ namespace BIMApplicationForProjects.Controllers
             ViewBag.ProjectID = new SelectList(db.C01_Projects, "ProjectID", "ProjectName");
             ViewBag.AppID = new SelectList(db.C02_AppLists, "ID", "Name");
             ViewBag.RequestID = new SelectList(db.C08_RequestType, "ID", "TypeName");
-
+            Session["ThongBao"] = "";
             return View();
         }
         public ActionResult CreateID(string id)

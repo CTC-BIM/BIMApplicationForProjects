@@ -110,6 +110,7 @@ namespace BIMApplicationForProjects.Controllers
         public ActionResult Create()
         {
             ViewBag.Phase = new SelectList(db.C04_ProjectPhase, "PhaseID", "PhaseName");
+            Session["ThongBao"] = "";
             return View();
         }
 
@@ -129,7 +130,7 @@ namespace BIMApplicationForProjects.Controllers
                     db.C01_Projects.Add(c01_Projects);
                     db.SaveChanges();
 
-                    string log = ChangeLog.WriteProjectLog(c01_Projects, "Test user", "Add new record");
+                    string log = ChangeLog.WriteProjectLog(c01_Projects, "Test user", "Add New Project");
                     Session["ThongBao"] = "Thêm Dự án " + c01_Projects.ProjectID + " thành công và ghi Log " + log;
                     return RedirectToAction("Index");
                 }

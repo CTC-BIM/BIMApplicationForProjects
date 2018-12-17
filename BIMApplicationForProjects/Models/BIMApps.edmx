@@ -45,6 +45,18 @@
           <Property Name="SubImage3" Type="nvarchar(max)" />
           <Property Name="SubImage4" Type="nvarchar(max)" />
           <Property Name="Name_EN" Type="nvarchar" MaxLength="250" />
+          <Property Name="Description-EN" Type="nvarchar(max)" />
+          <Property Name="Tender" Type="int" />
+          <Property Name="Design" Type="int" />
+          <Property Name="Construction" Type="int" />
+          <Property Name="Architech" Type="int" />
+          <Property Name="Structure" Type="int" />
+          <Property Name="MEP" Type="int" />
+          <Property Name="Civil" Type="int" />
+          <Property Name="Facade" Type="int" />
+          <Property Name="BasicPackage" Type="int" />
+          <Property Name="AdvancePackage" Type="int" />
+          <Property Name="isPublish" Type="int" />
         </EntityType>
         <EntityType Name="02a_AppResults">
           <Key>
@@ -541,6 +553,18 @@
           <Property Name="SubImage3" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="SubImage4" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Name_EN" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Description_EN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Tender" Type="Int32" />
+          <Property Name="Design" Type="Int32" />
+          <Property Name="Construction" Type="Int32" />
+          <Property Name="Architech" Type="Int32" />
+          <Property Name="Structure" Type="Int32" />
+          <Property Name="MEP" Type="Int32" />
+          <Property Name="Civil" Type="Int32" />
+          <Property Name="Facade" Type="Int32" />
+          <Property Name="BasicPackage" Type="Int32" />
+          <Property Name="AdvancePackage" Type="Int32" />
+          <Property Name="isPublish" Type="Int32" />
         </EntityType>
         <EntityType Name="C02a_AppResults">
           <Key>
@@ -804,6 +828,18 @@
           <EntitySetMapping Name="C02_AppLists">
             <EntityTypeMapping TypeName="BIMApplicationForProjects.Models.C02_AppLists">
               <MappingFragment StoreEntitySet="02_AppLists">
+                <ScalarProperty Name="isPublish" ColumnName="isPublish" />
+                <ScalarProperty Name="AdvancePackage" ColumnName="AdvancePackage" />
+                <ScalarProperty Name="BasicPackage" ColumnName="BasicPackage" />
+                <ScalarProperty Name="Facade" ColumnName="Facade" />
+                <ScalarProperty Name="Civil" ColumnName="Civil" />
+                <ScalarProperty Name="MEP" ColumnName="MEP" />
+                <ScalarProperty Name="Structure" ColumnName="Structure" />
+                <ScalarProperty Name="Architech" ColumnName="Architech" />
+                <ScalarProperty Name="Construction" ColumnName="Construction" />
+                <ScalarProperty Name="Design" ColumnName="Design" />
+                <ScalarProperty Name="Tender" ColumnName="Tender" />
+                <ScalarProperty Name="Description_EN" ColumnName="Description-EN" />
                 <ScalarProperty Name="Name_EN" ColumnName="Name_EN" />
                 <ScalarProperty Name="SubImage4" ColumnName="SubImage4" />
                 <ScalarProperty Name="SubImage3" ColumnName="SubImage3" />

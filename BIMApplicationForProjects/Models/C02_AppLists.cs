@@ -32,6 +32,18 @@ namespace BIMApplicationForProjects.Models
         public string SubImage3 { get; set; }
         public string SubImage4 { get; set; }
         public string Name_EN { get; set; }
+        public string Description_EN { get; set; }
+        public Nullable<int> Tender { get; set; }
+        public Nullable<int> Design { get; set; }
+        public Nullable<int> Construction { get; set; }
+        public Nullable<int> Architech { get; set; }
+        public Nullable<int> Structure { get; set; }
+        public Nullable<int> MEP { get; set; }
+        public Nullable<int> Civil { get; set; }
+        public Nullable<int> Facade { get; set; }
+        public Nullable<int> BasicPackage { get; set; }
+        public Nullable<int> AdvancePackage { get; set; }
+        public Nullable<int> isPublish { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<C02a_AppResults> C02a_AppResults { get; set; }
