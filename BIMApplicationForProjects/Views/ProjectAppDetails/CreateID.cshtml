@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     string ProjectID = ViewBag.ProjectID;
     string ProjectName = ViewBag.ProjectName;
-    
+    //string ThongBao = Session["ThongBao"].ToString();
 }
 
 <h2>Thêm ứng dụng BIM cho dự án <small class="text-danger">Add new BIM applications</small></h2>
@@ -95,6 +95,7 @@
         </div>*@
 
     @* new *@
+    <h4 class="text-danger">@Session["ThongBao"].ToString()</h4>
     <div class="form-group form-inline" style="margin:5px">
         <div class="btn btn-warning col-sm-2">
             @Html.ActionLink("<< Back to List", "Index", "Projects")

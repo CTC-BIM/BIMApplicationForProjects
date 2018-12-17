@@ -253,6 +253,11 @@
     <Content Include="Assets\AppImages\Coordinate_Sub3.png" />
     <Content Include="Assets\AppImages\Coordinate_Sub4.png" />
     <Content Include="Assets\AppImages\NoImage.png" />
+    <Content Include="Assets\background\background wood 2.jpg" />
+    <Content Include="Assets\background\background wood.jpg" />
+    <Content Include="Assets\background\green_leafy_wood_background_hd_picture.jpg" />
+    <Content Include="Assets\background\no-image-available.jpg" />
+    <Content Include="Assets\background\NOX_Textures_402_2.jpg" />
     <Content Include="Assets\Icons\AddRecord.png" />
     <Content Include="Assets\Icons\R_icon.ico" />
     <Content Include="Assets\Logo\Lego.JPG" />

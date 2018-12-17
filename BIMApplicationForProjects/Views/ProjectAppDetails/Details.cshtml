@@ -21,10 +21,8 @@
     var ListAppResults = ViewBag.ListAppResults as List<BIMApplicationForProjects.Models.C02a_AppResults>;
 }
 
-<h2>Details</h2>
-
 <div>
-    <h3>Chi tiết Yêu cầu | <small class="text-primary text-center">Request details: </small><b class="bg-primary">@Model.AppCode</b></h3>
+    <h2>Chi tiết Yêu cầu | <small class="text-primary text-center">Request details: </small><b class="bg-primary">@Model.AppCode</b></h2>
     <h4>Người yêu cầu | <small class="text-primary">User Request</small>: <b class="text-danger">@Model.UserRequest</b></h4>
     <h4>Ngày tạo | <small class="text-primary">Date Request</small>: <b class="text-danger">@string.Format("{0:dd/MMM/yyyy}", Model.DateRequest)</b></h4>
     <table class="table table-condensed table-bordered table-hover" style="margin:0;margin-top:10px;">
@@ -40,6 +38,8 @@
 
             <th class="bg-success text-center">Phụ trách BIM</th>
             <th class="bg-success text-center">Kết quả</th>
+            <th class="bg-success text-center">Cập nhật</th>
+
         </tr>
         <tr>
             @*------------------TÊN ỨNG DỤNG--------------------*@
@@ -95,7 +95,8 @@
                     <td class="text-center">@ResultItem.Name</td>
                 }
             }
-
+            @*----------------CẬP NHẬT---------------------*@
+            <td>@Html.ActionLink("Edit", "Edit", new { id = Model.ID },null)</td>
         </tr>
     </table>
     <hr />
@@ -111,7 +112,6 @@
         </ol>
     </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index","Projects", new {id = Model.ProjectID })
+<p>     
+    @Html.ActionLink("<< Back to List","Index","Projects", new {id = Model.ProjectID },htmlAttributes: new { @class="btn btn-primary" })
 </p>

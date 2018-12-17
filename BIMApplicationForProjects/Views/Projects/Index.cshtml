@@ -104,7 +104,7 @@
 <div class="container-fluid table-bordered" style="margin:5px; border-color:#ff0000">
     @foreach (BIMApplicationForProjects.Models.C01_Projects item in Model)
     {
-        <table class="table table-condensed table-bordered table-hover" style="margin:0;margin-top:10px;">
+        <table class="table table-condensed table-bordered" style="margin:0;margin-top:10px;">
             <tr class="bg-primary text-danger">
                 <th>
                     @Html.ActionLink(item.ProjectID + "-" + item.ProjectName, "Details", new { id = item.ProjectID }, new { @class = "", @style = "color:white" })
@@ -133,7 +133,7 @@
 
         foreach (BIMApplicationForProjects.Models.C03_ProjectAppDetails Appitem in BIMprojects)
         {
-            <table class="table table-condensed table-bordered table-hover" style="margin:0">
+            <table class="table table-bordered table-hover" style="margin:0">
                 @if (Appitem.ProjectID == item.ProjectID)
                 {
                     <tr>
@@ -142,14 +142,18 @@
                         {
                             if (Appitem.AppID == appitem.ID)
                             {
-                                @*<td class="col-md-2"><b class="text-danger"> @Html.ActionLink(appitem.Name, "Details", "AppLists", new { id = appitem.ID }, null)</b></td>*@
-                                <td class="col-md-2"><b class="text-primary"> @appitem.Name</b></td>
+                                <td class="col-md-2">
+                                    <b class="text-danger">
+                                        @Html.ActionLink(appitem.Name, "Details", "ProjectAppDetails", new { id = Appitem.ID}, null)
+                                    </b>
+                                </td>
+                                @*<td class="col-md-2"><b class="text-primary"> @appitem.Name</b></td>*@
                             }
                         }
                         @* Thay thế Cột UserRequest khi Login *@
                         @*<td class="col-md-1 text-center">@Appitem.UserRequest</td>*@
 
-                        @*-----------------LOẠI YÊU CẦU---------------------*@
+                        @*-----------------LOẠI YÊU CẦU - SẢN PHẨM---------------------*@
                         @foreach (BIMApplicationForProjects.Models.C08_RequestType Requestitem in RequestType)
                         {
                             if (Appitem.RequestID == Requestitem.ID)

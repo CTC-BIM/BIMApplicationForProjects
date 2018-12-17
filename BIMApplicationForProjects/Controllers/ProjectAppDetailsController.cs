@@ -70,7 +70,7 @@ namespace BIMApplicationForProjects.Controllers
                 ViewBag.ProjectID = projectName.ProjectID;
                 ViewBag.ProjectName = projectName.ProjectName;
                 ViewBag.RequestID = new SelectList(db.C08_RequestType, "ID", "TypeName");
-
+                Session["ThongBao"] = "";
                 return View("CreateID");
             }
 
@@ -118,7 +118,9 @@ namespace BIMApplicationForProjects.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateID(C03_ProjectAppDetails curEnity, string id)
         {
-            if (ModelState.IsValid)
+            //kiểm tra đã có ứng dụng này trong dự án hay chưa
+            var curAppInProject = db.C03_ProjectAppDetails.FirstOrDefault(s => s.AppID == curEnity.AppID && s.ProjectID == id);
+            if (ModelState.IsValid && curAppInProject == null)
             {
                 C03_ProjectAppDetails newEnity = new C03_ProjectAppDetails();
                 newEnity.AppID = curEnity.AppID;
@@ -140,38 +142,47 @@ namespace BIMApplicationForProjects.Controllers
                 string TenUngDung = db.C02_AppLists.FirstOrDefault(s => s.ID == newEnity.AppID).Name;
 
                 #region Gui Email
-                using (MailsController email = new MailsController())
-                {
-                    try
-                    {
-                        string nguoiGui = "teamcbimtech@gmail.com";
-                        string UserEmail = "truongchinhan2010@gmail.com";
-                        string AdminEmail= "nhantc@coteccons.vn";
+                //using (MailsController email = new MailsController())
+                //{
+                //    try
+                //    {
+                //        string nguoiGui = "teamcbimtech@gmail.com";
+                //        string UserEmail = "truongchinhan2010@gmail.com";
+                //        string AdminEmail= "nhantc@coteccons.vn";
 
-                        if (email.SendToUserEmail(nguoiGui, UserEmail, TenUngDung, newEnity.ProjectID) == "OK")
-                        {
-                            Session["ThongBao"] = "Gửi Email to User thành công";
-                        }
-                        if (email.SendToAdminEmail(UserEmail, AdminEmail, TenUngDung,newEnity.ProjectID) == "OK"/* && email.SendToAdminEmail(UserEmail, "luatnkt@coteccons.vn", TenUngDung, newEnity.ProjectID) == "OK"*/)
-                        {
-                            Session["ThongBao"] += " - Gửi Email to Admin thành công";
-                        }
+                //        if (email.SendToUserEmail(nguoiGui, UserEmail, TenUngDung, newEnity.ProjectID) == "OK")
+                //        {
+                //            Session["ThongBao"] = "Gửi Email to User thành công";
+                //        }
+                //        if (email.SendToAdminEmail(UserEmail, AdminEmail, TenUngDung,newEnity.ProjectID) == "OK"/* && email.SendToAdminEmail(UserEmail, "luatnkt@coteccons.vn", TenUngDung, newEnity.ProjectID) == "OK"*/)
+                //        {
+                //            Session["ThongBao"] += " - Gửi Email to Admin thành công";
+                //        }
 
-                    }
-                    catch (Exception ex)
-                    {
-                        Session["ThongBao"] = "Gửi Email Thất bại vì " + ex.Message;
-                    }
+                //    }
+                //    catch (Exception ex)
+                //    {
+                //        Session["ThongBao"] = "Gửi Email Thất bại vì " + ex.Message;
+                //    }
 
-                }
+                //}
 
                 #endregion
+
                 return RedirectToAction("Index", "Projects");
             }
-
-            ViewBag.ProjectID = new SelectList(db.C01_Projects, "ProjectID", "ProjectName", curEnity.ProjectID);
+           
+            //ViewBag.ProjectID = new SelectList(db.C01_Projects, "ProjectID", "ProjectName", curEnity.ProjectID);
+            ViewBag.ProjectID = id;   
+            string ProjectName = db.C01_Projects.FirstOrDefault(s =>s.ProjectID == id).ProjectName;
+            ViewBag.ProjectName = ProjectName;
             ViewBag.AppID = new SelectList(db.C02_AppLists, "ID", "Name", curEnity.AppID);
-            return View(curEnity);
+            ViewBag.StatusID = new SelectList(db.C06_Status, "ID", "Name", curEnity.StatusID);
+            ViewBag.ResultID = new SelectList(db.C07_Result, "ID", "Name", curEnity.ResultID);
+            ViewBag.RequestID = new SelectList(db.C08_RequestType, "ID", "TypeName", curEnity.RequestID);
+
+            Session["ThongBao"] = "Dự án '" + ProjectName.ToUpper() + "' đã có ứng dụng này, vui lòng xem lại ";
+            return View("CreateID",curEnity);
         }
 
 

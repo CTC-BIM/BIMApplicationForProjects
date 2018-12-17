@@ -90,7 +90,7 @@ namespace BIMApplicationForProjects.Controllers
                 //Request Type
                 var RequestType = db.C08_RequestType.ToList();
                 ViewBag.RequestType = RequestType;
-                
+
                 C01_Projects project = db.C01_Projects.FirstOrDefault(s => s.ProjectID == id);
                 ViewBag.Project = project;
 
@@ -121,13 +121,23 @@ namespace BIMApplicationForProjects.Controllers
         public ActionResult Create(C01_Projects c01_Projects)
         {
             if (ModelState.IsValid)
-            {
-                db.C01_Projects.Add(c01_Projects);
-                db.SaveChanges();
+            {                
+                var curProjectID = db.C01_Projects.FirstOrDefault(s => s.ProjectID == c01_Projects.ProjectID);
+                
+                if (curProjectID == null)
+                {
+                    db.C01_Projects.Add(c01_Projects);
+                    db.SaveChanges();
 
-                string log = ChangeLog.WriteProjectLog(c01_Projects, "Test user", "Add new record");
-                Session["ThongBao"] = "Thêm Dự án " + c01_Projects.ProjectID + " thành công và ghi Log " + log;
-                return RedirectToAction("Index");
+                    string log = ChangeLog.WriteProjectLog(c01_Projects, "Test user", "Add new record");
+                    Session["ThongBao"] = "Thêm Dự án " + c01_Projects.ProjectID + " thành công và ghi Log " + log;
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    Session["ThongBao"] = "Đã có Dự án " + c01_Projects.ProjectID + " trong Database ";
+                    return RedirectToAction("Create");
+                }
             }
 
             ViewBag.Phase = new SelectList(db.C04_ProjectPhase, "PhaseID", "PhaseName", c01_Projects.Phase);
@@ -137,7 +147,7 @@ namespace BIMApplicationForProjects.Controllers
         // GET: Projects/Edit/5
         public ActionResult Edit(string id)
         {
-            if (id == null) return RedirectToAction("Details",new {id = id });
+            if (id == null) return RedirectToAction("Details", new { id = id });
 
             C01_Projects c01_Projects = db.C01_Projects.Find(id);
             if (c01_Projects == null)
@@ -169,7 +179,7 @@ namespace BIMApplicationForProjects.Controllers
                 //return RedirectToAction("Details","Projects", c01_Projects);
             }
             ViewBag.Phase = new SelectList(db.C04_ProjectPhase, "PhaseID", "PhaseName", c01_Projects.Phase);
-            return View("Details",c01_Projects);
+            return View("Details", c01_Projects);
         }
 
         // GET: Projects/Delete/5
