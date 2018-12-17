@@ -16,11 +16,7 @@
         @foreach (var item in Model)
         {
             <tr>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.C04_ProjectPhase.PhaseName)
-                    </td>*@
                 <td>
-                    @*<b>@Html.DisplayFor(modelItem => item.Name)</b>*@
                     <b>@Html.ActionLink(item.Name, "Details", "AppLists", new { id = item.ID }, new { @class = "text-primary" })</b>
                 </td>
                 <td>
@@ -29,11 +25,15 @@
                 <td>
                     @if (string.IsNullOrEmpty(item.MainImage))
                     {
-                        <img src="~/Assets/AppImages/NoImage.png" alt="Alternate Text" class="img" />
+                        <a href="@Url.Action("Details","AppLists",new {id = item.ID })">
+                            <img src="~/Assets/AppImages/NoImage.png" alt="Alternate Text" class="img" />
+                        </a>
                     }
                     else
                     {
-                        <img src="~/Assets/AppImages/@item.MainImage" alt="Alternate Text" class="img" />
+                        <a href="@Url.Action("Details","AppLists",new {id = item.ID })">
+                            <img src="~/Assets/AppImages/@item.MainImage" alt="Alternate Text" class="img" />
+                        </a>
                     }
 
                 </td>

@@ -60,7 +60,6 @@ namespace BIMApplicationForProjects.Controllers
 
         public ActionResult _ListApp(string id)
         {
-            string filter = "";
             try
             {
                 if (id == null || id.Trim() == "")
@@ -102,7 +101,7 @@ namespace BIMApplicationForProjects.Controllers
                         var items = db.C02_AppLists.Where(s => s.Construction == 1 && s.isPublish == 1).ToList();
                         ViewBag.PackageName = "for Construction Project";
                         return PartialView("_ListApp", items);
-                    }                    
+                    }
                     else if (id == "DA") //Architech Package
                     {
                         var items = db.C02_AppLists.Where(s => s.Architech == 1 && s.isPublish == 1).ToList();
@@ -182,14 +181,26 @@ namespace BIMApplicationForProjects.Controllers
 
         }
 
+        public ActionResult _Applications(int id)
+        {
+            if (id == null || id < 0) return RedirectToAction("UserIndex");
+
+            var items = db.C02a_AppResults.Where(s => s.AppListID == id).ToList();
+            ViewBag.AppResult = items;
+
+            return PartialView();
+        }
 
         // GET: AppLists/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            if (id == null) return RedirectToAction("UserIndex");
+
+            var items = db.C02a_AppResults.Where(s => s.AppListID == id).ToList();
+            ViewBag.AppResult = items;
+            var listApp = db.C02_AppLists.Where(s => s.isPublish == 1).ToList();
+            ViewBag.AppList = listApp;
+
             C02_AppLists c02_AppLists = db.C02_AppLists.Find(id);
             if (c02_AppLists == null)
             {

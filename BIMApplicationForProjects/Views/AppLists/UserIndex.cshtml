@@ -15,11 +15,11 @@
     int DF = ViewBag.DF;
 }
 
-<h2>Danh mục Ứng dụng BIM cho Dự án <small class="text-primary">BIM menulist for Project</small></h2>
+<h2>Danh mục Ứng dụng BIM cho Dự án <small class="text-primary">BIM Menulist for Project</small></h2>
 
 <div class="form-group col-lg-12">
-    <p>Các ứng dụng BIM được phân loại theo 3 nhóm: <b>Theo gói, Theo giai đoạn dự án và theo từng Bộ môn</b></p>
-    <p>Chọn các mục trong từng nhóm bên dưới:</p>
+    <p>Các ứng dụng BIM được phân loại theo 3 nhóm: <b class="text-danger">theo Gói, theo Giai đoạn dự án và theo từng Bộ môn</b></p>
+    <p>Chọn các mục trong nhóm đã được phân loại bên dưới để xem thông tin:</p>
     @*<label>Project state</label>
     <label class="checkbox-inline"><input type="checkbox" value="">Design</label>
     <label class="checkbox-inline"><input type="checkbox" value="">Tender</label>
@@ -56,54 +56,6 @@
 
     </div>
     @* Table content *@
-
-    <!--
-        <div class="form-group col-lg-10 bg-info">
-
-            <table class="table table-condensed table-bordered table-hover">
-                <tr>
-                    <th class="text-center bg-primary">
-                        Giai đoạn dự án | Project Phase
-                    </th>
-                    <th class="text-center bg-primary">
-                        @Html.DisplayNameFor(model => model.Name)
-                    </th>
-                    <th class="text-center bg-primary">
-                        @Html.DisplayNameFor(model => model.Description)
-                    </th>
-                    <th class="text-center bg-primary"></th>
-                </tr>
-
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.C04_ProjectPhase.PhaseName)
-                        </td>
-                        <td>
-                            @*<b>@Html.DisplayFor(modelItem => item.Name)</b>*@
-                            <b>@Html.ActionLink(item.Name, "Details", "AppLists", new { id = item.ID }, null)</b>
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </td>
-                        <td>
-                            @if (string.IsNullOrEmpty(item.MainImage))
-                            {
-                                <img src="~/Assets/AppImages/NoImage.png" alt="Alternate Text" class="img" />
-                            }
-                            else
-                            {
-                                <img src="~/Assets/AppImages/@item.MainImage" alt="Alternate Text" class="img" />
-                            }
-
-                        </td>
-                    </tr>
-                }
-
-            </table>
-        </div>
-    -->    
     @Html.Action("_ListApp","AppLists");
 </div>
 

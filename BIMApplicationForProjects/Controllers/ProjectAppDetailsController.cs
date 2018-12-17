@@ -1,5 +1,6 @@
 ﻿using BIMApplicationForProjects.Models;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
@@ -66,7 +67,12 @@ namespace BIMApplicationForProjects.Controllers
             {
                 if (id == null || id.Trim() == "") return RedirectToAction("Index", "Projects", "Không tìm thấy ID này");
                 C01_Projects projectName = db.C01_Projects.Find(id);
-                ViewBag.AppID = new SelectList(db.C02_AppLists, "ID", "Name");
+
+                //Lấy App được Publish
+                List<C02_AppLists> IssueApp = db.C02_AppLists.Where(s => s.isPublish == 1).ToList();
+                //ViewBag.AppID = new SelectList(db.C02_AppLists, "ID", "Name");
+
+                ViewBag.AppID = new SelectList(IssueApp, "ID", "Name");
                 ViewBag.ProjectID = projectName.ProjectID;
                 ViewBag.ProjectName = projectName.ProjectName;
                 ViewBag.RequestID = new SelectList(db.C08_RequestType, "ID", "TypeName");
