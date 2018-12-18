@@ -41,6 +41,7 @@ namespace BIMApplicationForProjects.Models
 
     public class ForgotViewModel
     {
+
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -60,10 +61,57 @@ namespace BIMApplicationForProjects.Models
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+
+        #region BIM Application User
+
+        [Required]
+        [Display(Name = "Tên người dùng | User Name")]
+        public string UserName { get; set; }
+
+
+        /// <summary>
+        /// Set quyền cho User
+        /// Admin và User
+        /// </summary>
+        private string _UserRole;
+        public string UserRole
+        {
+            get { return _UserRole; }
+            set
+            {
+                if (string.IsNullOrEmpty(_UserRole))
+                {
+                    _UserRole = "User";
+                }
+                else
+                {
+                    _UserRole = value;
+                }
+
+            }
+        }
+
+
+        /// Set tình trạng làm việc của User
+        /// 
+        [Display(Name = "Tình trạng làm việc")]
+        public int UserStatus { get; set; }
+
+        public string UserImage { get; set; }
+
+
+        #endregion
     }
 
     public class RegisterViewModel
     {
+        //Thêm
+        [Required]
+        [Display(Name = "User Name")]
+        [StringLength(30, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 3)]
+        public string UserName { get; set; }
+        //End
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -79,10 +127,12 @@ namespace BIMApplicationForProjects.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
     }
 
     public class ResetPasswordViewModel
     {
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -104,6 +154,7 @@ namespace BIMApplicationForProjects.Models
 
     public class ForgotPasswordViewModel
     {
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]

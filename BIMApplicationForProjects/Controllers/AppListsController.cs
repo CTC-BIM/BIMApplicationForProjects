@@ -65,71 +65,71 @@ namespace BIMApplicationForProjects.Controllers
                 if (id == null || id.Trim() == "")
                 {
                     var items = db.C02_AppLists.Where(s => s.isPublish == 1).ToList();
-                    ViewBag.PackageName = "All sets";
+                    ViewBag.PackageName = "BIM Menu list";
                     return PartialView("_ListApp", items);
                 }
                 else
                 {
                     var _items = db.C02_AppLists.Where(s => s.isPublish == 1).ToList();
-                    ViewBag.PackageName = "All sets";
+                    ViewBag.PackageName = "BIM Menu list";
                     if (id == "PA") //Advance Package
                     {
                         var items = db.C02_AppLists.Where(s => s.AdvancePackage == 1 && s.isPublish == 1).ToList();
-                        ViewBag.PackageName = "Advance package";
+                        ViewBag.PackageName = "Advance package items";
                         return PartialView("_ListApp", items);
                     }
                     else if (id == "PB") //Basic Package
                     {
                         var items = db.C02_AppLists.Where(s => s.BasicPackage == 1 && s.isPublish == 1).ToList();
-                        ViewBag.PackageName = "Basic";
+                        ViewBag.PackageName = "Basic package items";
                         return PartialView("_ListApp", items);
                     }
                     else if (id == "PSD") //Design Package
                     {
                         var items = db.C02_AppLists.Where(s => s.Design == 1 && s.isPublish == 1).ToList();
-                        ViewBag.PackageName = "for Design state";
+                        ViewBag.PackageName = "BIM menulist for Design state";
                         return PartialView("_ListApp", items);
                     }
                     else if (id == "PST") //Tender Package
                     {
                         var items = db.C02_AppLists.Where(s => s.Tender == 1 && s.isPublish == 1).ToList();
-                        ViewBag.PackageName = "for Tender state";
+                        ViewBag.PackageName = "BIM menulist for Tender state";
                         return PartialView("_ListApp", items);
                     }
                     else if (id == "PSC") //Construction Package
                     {
                         var items = db.C02_AppLists.Where(s => s.Construction == 1 && s.isPublish == 1).ToList();
-                        ViewBag.PackageName = "for Construction Project";
+                        ViewBag.PackageName = "BIM menulist for Construction Project";
                         return PartialView("_ListApp", items);
                     }
                     else if (id == "DA") //Architech Package
                     {
                         var items = db.C02_AppLists.Where(s => s.Architech == 1 && s.isPublish == 1).ToList();
-                        ViewBag.PackageName = "for Descipline: Architech";
+                        ViewBag.PackageName = "BIM menulist for Descipline: Architech";
                         return PartialView("_ListApp", items);
                     }
                     else if (id == "DS") //Structure Package
                     {
                         var items = db.C02_AppLists.Where(s => s.Structure == 1 && s.isPublish == 1).ToList();
-                        ViewBag.PackageName = "for Descipline: Structure";
+                        ViewBag.PackageName = "BIM menulist for Descipline: Structure";
                         return PartialView("_ListApp", items);
                     }
                     else if (id == "DM") //MEP Package
                     {
                         var items = db.C02_AppLists.Where(s => s.MEP == 1 && s.isPublish == 1).ToList();
-                        ViewBag.PackageName = "for Descipline: MEP";
+                        ViewBag.PackageName = "BIM menulist for Descipline: MEP";
                         return PartialView("_ListApp", items);
                     }
                     else if (id == "DC") //Civil Package
                     {
                         var items = db.C02_AppLists.Where(s => s.Civil == 1 && s.isPublish == 1).ToList();
-                        ViewBag.PackageName = "for Descipline: Civil";
+                        ViewBag.PackageName = "BIM menulist for Descipline: Civil";
                         return PartialView("_ListApp", items);
                     }
                     else if (id == "DF") //Facade Package
                     {
                         var items = db.C02_AppLists.Where(s => s.Facade == 1 && s.isPublish == 1).ToList();
-                        ViewBag.PackageName = "for Descipline: Facade";
+                        ViewBag.PackageName = "BIM menulist for Descipline: Facade";
                         return PartialView("_ListApp", items);
                     }
                     return PartialView(_items);
@@ -183,7 +183,7 @@ namespace BIMApplicationForProjects.Controllers
 
         public ActionResult _Applications(int id)
         {
-            if (id == null || id < 0) return RedirectToAction("UserIndex");
+            if (id < 0) return RedirectToAction("UserIndex");
 
             var items = db.C02a_AppResults.Where(s => s.AppListID == id).ToList();
             ViewBag.AppResult = items;

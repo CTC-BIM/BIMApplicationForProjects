@@ -6,6 +6,7 @@
     var Results = ViewBag.AppResult as List<BIMApplicationForProjects.Models.C02a_AppResults>;
     var AppList = ViewBag.AppList as List<BIMApplicationForProjects.Models.C02_AppLists>;
 }
+<link href="~/Assets/cscpda-scrollbar.css" rel="stylesheet" />
 
 <style>
     /* Make the image fully responsive */
@@ -19,8 +20,8 @@
 
 <div class="form-group form-inline">
     <div class="form-group col-lg-10">
-        <h2 class="text-left"><b>@Model.Name</b></h2>
-        <h2 class="text-left text-danger"><i>@Model.Name_EN</i></h2>
+        <h2 class="text-center"><b>@Model.Name</b></h2>
+        <h2 class="text-center text-danger"><i>@Model.Name_EN</i></h2>
     </div>
     <div class="col-lg-2 form-group">
 
@@ -30,39 +31,47 @@
 
 <br />
 <div class="form-group container-fluid form-inline col-lg-12">
-    <div class="form-group col-lg-2 navbar-left bg-primary" style="background-color:black">
-        <h4>Ứng dụng</h4>
-        <i style="color:yellow">Application list</i>
-        <hr />
-        <ul class="list-group">
-            @foreach (var item in AppList)
-            {
-                <li class="list-group-item text-primary">@Html.ActionLink(item.Name, "Details", "AppLists", new { id = item.ID }, new { @class = "text-primary" }) </li>
-            }
-        </ul>
-        <div class="form-group">
-            @Html.ActionLink("<< Back", "UserIndex", null, new { @class = "btn btn-primary" })
+    <div class="col-lg-12 form-inline">
+        @* Panel left *@
+        <div class="form-group col-lg-2 navbar-left bg-primary" style="background-color:black; height:350px">
+            <h4>Ứng dụng</h4>
+            <i style="color:yellow">Application list</i>
+            <hr />
+            <ul class="list-group scrollbar scrollbar-custom" style="height:230px">
+                @foreach (var item in AppList)
+                {
+                    <li class="list-group-item text-primary">@Html.ActionLink(item.Name, "Details", "AppLists", new { id = item.ID }, new { @class = "text-primary" }) </li>
+                }
+            </ul>
+        </div>
+        @* Content *@
+        <div class="col-lg-10 navbar-left bg-primary" style="background-color:black; height:350px">
+            <div class="form-group form-inline">
+                <div class="form-group col-lg-11" style="margin-top:5px;">
+                    <h4>Mục đích | <i style="color:yellow">Application for</i></h4>
+                </div>
+                <div class="col-lg-12">
+                    <h4>@Model.Description </h4>
+                    <i style="color:yellow">@Model.Description_EN</i>
+                </div>
+
+            </div>
+            <hr />
+            <div>
+                <h4>Kết quả đạt được <i style="color:yellow">App results</i></h4>
+                <ol>
+                    @foreach (var item in Results)
+                    {
+                        <li><h5 class="text-primary" style="color:yellow"><b>@item.Result</b></h5></li>
+                    }
+                </ol>
+            </div>
+            <hr />
         </div>
     </div>
-    <div class="form-group col-lg-10 navbar-right bg-primary" style="background-color:black">
-        <h4>Mục đích | <i style="color:yellow">Application for</i></h4>
-        <h4>@Model.Description </h4>
-        <i style="color:yellow">@Model.Description_EN</i>
-        <hr />
-        <div>
-            <h4>Kết quả đạt được <i class="text-primary">App results</i></h4>
-            <ol>
-                @foreach (var item in Results)
-                {
-                    <li><h5 class="text-primary"><b>@item.Result</b></h5></li>
-                }
-            </ol>
-        </div>
-        <hr />
-
-        @* Carousel *@
+    @* Carousel *@
+    <div class="col-lg-12">
         <div id="AppSlide" class="carousel slide" data-ride="carousel">
-
             <!-- Indicators -->
             <ul class="carousel-indicators">
                 <li data-target="#img0" data-slide-to="0" class="active"></li>
@@ -75,19 +84,19 @@
             <!-- The slideshow -->
             <div class="carousel-inner">
                 <div class="item active" id="img0">
-                    <img src="~/Assets/AppImages/@Model.MainImage" alt="img0">
+                    <img src="~/Assets/AppImages/@Model.MainImage" alt="MainImage">
                 </div>
                 <div class="item" id="img1">
-                    <img src="~/Assets/AppImages/@Model.SubImage1" alt="img1">
+                    <img src="~/Assets/AppImages/@Model.SubImage1" alt="SubImage1">
                 </div>
                 <div class="item">
-                    <img src="~/Assets/AppImages/@Model.SubImage2" alt="New York">
+                    <img src="~/Assets/AppImages/@Model.SubImage2" alt="SubImage2">
                 </div>
                 <div class="item">
-                    <img src="~/Assets/AppImages/@Model.SubImage3" alt="New York">
+                    <img src="~/Assets/AppImages/@Model.SubImage3" alt="SubImage3">
                 </div>
                 <div class="item">
-                    <img src="~/Assets/AppImages/@Model.SubImage4" alt="New York">
+                    <img src="~/Assets/AppImages/@Model.SubImage4" alt="SubImage4">
                 </div>
             </div>
 
@@ -100,14 +109,13 @@
                 <span class="glyphicon glyphicon-chevron-right"></span>
                 <span class="sr-only">Next</span>
             </a>
-
         </div>
-
-
         @* End Carousel *@
-        <hr />
-
-
+    </div>
+    <div class="col-lg-1">
+        <div class="form-group" style="margin:5px">
+            @Html.ActionLink("<< Danh mục Ứng dụng | Back to List", "UserIndex", null, new { @class = "btn btn-primary" })
+        </div>
     </div>
 </div>
 

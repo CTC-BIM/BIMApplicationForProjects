@@ -151,6 +151,7 @@ namespace BIMApplicationForProjects.Controllers
             if (id == null) return RedirectToAction("Details", new { id = id });
 
             C01_Projects c01_Projects = db.C01_Projects.Find(id);
+
             if (c01_Projects == null)
             {
                 return HttpNotFound();

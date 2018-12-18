@@ -18,7 +18,7 @@
 }
 
 <div>
-    <div class="row">
+    <div class="form-group row">
         <h2>Thông tin dự án <small class="text-primary">Project Info: </small></h2>
         <h1 class="text-center"> <b class="" style="margin:10px"> @Model.ProjectID - @Model.ProjectName </b></h1>
         <div class="col-lg-12 form-inline text-left">
@@ -38,7 +38,7 @@
         </div>
         <hr />
         <div class="form-group form-inline">
-            <div class="col-lg-9">
+            <div class="form-group col-lg-9">
                 <h4>Thông tin thiết kế <small class="text-primary">Designers information:</small></h4>
             </div>
             <div class="col-lg-3 form-inline">
@@ -48,136 +48,218 @@
                 </div>
             </div>
         </div>
-        <div class="container-fluid row">
-            <div class="col-lg-6">
-                <ul class="form-group">
-                    <li class="form-control">Kiến trúc | <small class="text-primary">Architech: </small><b>@Model.ARCdesigner</b></li>
-                    <li class="form-control">Kết cấu | <small class="text-primary">Structure: </small><b>@Model.STRdesigner</b></li>
-                    <li class="form-control">Cơ Điện | <small class="text-primary">MEP: </small><b>@Model.MEPdesigner</b></li>
-                    <li class="form-control">Hạ tầng | <small class="text-primary">Civil: </small><b>@Model.CIvilDesigner</b></li>
-                    <li class="form-control">Cảnh quan | <small class="text-primary">Landscape: </small><b>@Model.LandscapeDesigner</b></li>
-                </ul>
+        <hr />
+        @* Table *@
+        <form class="container-fluid col-lg-12 form-inline table-bordered" style="border-color:red">
+            <div class="form-group col-lg-4">
+                <div class="text-left well-sm">Kiến trúc | <small class="text-primary">Architech: </small><b>@Model.ARCdesigner</b></div>
+                <div class="text-left well-sm">Kết cấu | <small class="text-primary">Structure: </small><b>@Model.STRdesigner</b></div>
+                <div class="text-left well-sm">Cơ Điện | <small class="text-primary">MEP: </small><b>@Model.MEPdesigner</b></div>
+                <div class="text-left well-sm">Hạ tầng | <small class="text-primary">Civil: </small><b>@Model.CIvilDesigner</b></div>
+                <div class="text-left well-sm">Cảnh quan | <small class="text-primary">Landscape: </small><b>@Model.LandscapeDesigner</b></div>
             </div>
-            <div class="col-lg-6">
-                <ul class="form-group">
-                    <li class="form-control">
+            <div class="form-group col-lg-8">
+                @* Kiến trúc *@
+                <div class="form-group text-left form-inline col-md-12">
+                    <div class="col-md-5">
                         Mô hình Kiến trúc | <small class="text-primary">Architech Model: </small>
+                    </div>
+                    <div class="form-group col-md-7">
                         @if (@Model.ARCmakeModel.HasValue)
                         {
-                            if (Model.ARCmakeModel.Value)
+                            if (Model.ARCmakeModel.Value) //True value
                             {
-                                <b>Yes</b>
+                                <div class="form-inline col-sm-12">
+                                    <div class="col-sm-2">
+                                        <b class="text-primary">Yes</b>
+                                    </div>
+                                    <div class="col-sm-10 progress">
+                                        <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"
+                                             aria-valuenow=@Model.ARCmodelUsingPercent aria-valuemin="0" aria-valuemax="100" style="width:@Model.ARCmodelUsingPercent%">
+                                            <i style="color:black">@Model.ARCmodelUsingPercent %</i>
+                                        </div>
+                                    </div>
+                                </div>
                             }
-                            else
+                            else //False value
                             {
-                                <b> No </b>
+                                <b class="text-danger"> No </b>
                             }
                         }
-                        else
+                        else //NotSet value
                         {
                             <b>No information</b>
                         }
-                    </li>
-                    <li class="form-control">
+                    </div>
+                </div>
+
+                @* Kết cấu *@
+                <div class="form-group text-left form-inline col-md-12">
+                    <div class="col-md-5">
                         Mô hình Kết cấu | <small class="text-primary">Structure Model: </small>
+                    </div>
+                    <div class="form-group col-md-7">
                         @if (@Model.STRmakeModel.HasValue)
                         {
-                            if (Model.STRmakeModel.Value)
+                            if (Model.STRmakeModel.Value) //True value
                             {
-                                <b>Yes</b>
+                                <div class="form-inline col-sm-12">
+                                    <div class="col-sm-2">
+                                        <b class="text-primary">Yes</b>
+                                    </div>
+                                    <div class="col-sm-10 progress">
+                                        <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"
+                                             aria-valuenow=@Model.STRmodelUsingPercent aria-valuemin="0" aria-valuemax="100" style="width:@Model.STRmodelUsingPercent%">
+                                            <i style="color:black">@Model.STRmodelUsingPercent %</i>
+                                        </div>
+                                    </div>
+                                </div>
                             }
-                            else
+                            else //False value
                             {
-                                <b> No </b>
+                                <b class="text-danger"> No </b>
                             }
                         }
-                        else
+                        else //NotSet value
                         {
                             <b>No information</b>
                         }
-                    </li>
-                    <li class="form-control">
+                    </div>
+                </div>
+
+
+                @* MEP *@
+                <div class="form-group text-left form-inline col-md-12">
+                    <div class="col-md-5">
                         Mô hình Cơ Điện | <small class="text-primary">MEP Model: </small>
+                    </div>
+                    <div class="form-group col-md-7">
                         @if (@Model.MEPmakeModel.HasValue)
                         {
-                            if (Model.MEPmakeModel.Value)
+                            if (Model.MEPmakeModel.Value) //True value
                             {
-                                <b>Yes</b>
+                                <div class="form-inline col-sm-12">
+                                    <div class="col-sm-2">
+                                        <b class="text-primary">Yes</b>
+                                    </div>
+                                    <div class="col-sm-10 progress">
+                                        <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"
+                                             aria-valuenow=@Model.MEPmodelUsingPercent aria-valuemin="0" aria-valuemax="100" style="width:@Model.MEPmodelUsingPercent%">
+                                            <i style="color:black">@Model.MEPmodelUsingPercent %</i>
+                                        </div>
+                                    </div>
+                                </div>
                             }
-                            else
+                            else //False value
                             {
-                                <b> No </b>
+                                <b class="text-danger"> No </b>
                             }
                         }
-                        else
+                        else //NotSet value
                         {
                             <b>No information</b>
                         }
-                    </li>
-                    <li class="form-control">
+                    </div>
+                </div>
+
+                @* Civil *@
+                <div class="form-group text-left form-inline col-md-12">
+                    <div class="col-md-5">
                         Mô hình Hạ tầng | <small class="text-primary">Civil Model: </small>
+                    </div>
+                    <div class="form-group col-md-7">
                         @if (@Model.CivilMakeModel.HasValue)
                         {
-                            if (Model.CivilMakeModel.Value)
+                            if (Model.CivilMakeModel.Value) //True value
                             {
-                                <b>Yes</b>
+                                <div class="form-inline col-sm-12">
+                                    <div class="col-sm-2">
+                                        <b class="text-primary">Yes</b>
+                                    </div>
+                                    <div class="col-sm-10 progress">
+                                        <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"
+                                             aria-valuenow=@Model.CIVILmodelUsingPercent aria-valuemin="0" aria-valuemax="100" style="width:@Model.CIVILmodelUsingPercent%">
+                                            <i style="color:black">@Model.CIVILmodelUsingPercent %</i>
+                                        </div>
+                                    </div>
+                                </div>
                             }
-                            else
+                            else //False value
                             {
-                                <b> No </b>
+                                <b class="text-danger"> No </b>
                             }
                         }
-                        else
+                        else //NotSet value
                         {
                             <b>No information</b>
                         }
-                    </li>
-                    <li class="form-control">
-                        Mô hình Cảnh Quan | <small class="text-primary">Landscape Model: </small>
+                    </div>
+                </div>
+
+                @* Landscape *@
+                <div class="form-group text-left form-inline col-md-12">
+                    <div class="col-md-5">
+                        Mô hình Cảnh quan | <small class="text-primary">Landscape Model: </small>
+                    </div>
+                    <div class="form-group col-md-7">
                         @if (@Model.LandscapeMakeModel.HasValue)
                         {
-                            if (Model.LandscapeMakeModel.Value)
+                            if (Model.LandscapeMakeModel.Value) //True value
                             {
-                                <b>Yes</b>
+                                <div class="form-inline col-sm-12">
+                                    <div class="col-sm-2">
+                                        <b class="text-primary">Yes</b>
+                                    </div>
+                                    <div class="col-sm-10 progress">
+                                        <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar"
+                                             aria-valuenow=@Model.LANDSmodelUsingPercent aria-valuemin="0" aria-valuemax="100" style="width:@Model.LANDSmodelUsingPercent%">
+                                            <i style="color:black">@Model.LANDSmodelUsingPercent %</i>
+                                        </div>
+                                    </div>
+                                </div>
                             }
-                            else
+                            else //False value
                             {
-                                <b> No </b>
+                                <b class="text-danger"> No </b>
                             }
                         }
-                        else
+                        else //NotSet value
                         {
                             <b>No information</b>
                         }
-                    </li>
-                </ul>
+                    </div>
+                </div>
+
             </div>
-        </div>
+        </form>
     </div>
-    <div>
-        <h5 class="text-danger">@thongBao</h5>
-        <div class="col-lg-12 form-inline form-group">
-            <div class="col-lg-8">
-                <h4>Chi tiết các ứng dụng BIM trong dự án | <small class="text-primary">Detail BIM applications in project</small></h4>
-            </div>
-            <div class="col-lg-4 form-inline form-group">
-                @*<div class="form-group col-lg-6">
+</div>
+<hr />
+<div>
+    <h5 class="text-danger">@thongBao</h5>
+
+    <div class="row form-inline form-group">
+        <div class="col-lg-8">
+            <h4>Chi tiết các ứng dụng BIM trong dự án | <small class="text-primary">Detail BIM applications in project</small></h4>
+        </div>
+        <div class="col-lg-4 form-inline form-group">
+            @*<div class="form-group col-lg-6">
                     @Html.ActionLink("Cập nhật dự án", "Edit", new { id = Model.ProjectID }, new { @class = "btn btn-primary text-danger form-control" })
                 </div>*@
-                <div class="col-lg-offset-8 form-group col-lg-2">
-                    @Html.ActionLink("Thêm ứng dụng", "CreateID", "ProjectAppDetails", new { id = @Model.ProjectID }, new { @class = "btn btn-primary text-danger form-control" })
+            <div class="col-lg-offset-8 form-group col-lg-2">
+                @Html.ActionLink("Thêm ứng dụng", "CreateID", "ProjectAppDetails", new { id = @Model.ProjectID }, new { @class = "btn btn-primary text-danger form-control" })
 
-                </div>
             </div>
         </div>
     </div>
 </div>
-<div class="form-group container">
+
+<div class="row">
     @Html.Action("_AppListPartialView", "Projects", new { id = Model.ProjectID })
 </div>
 
-<p>
-    @Html.ActionLink("<< Danh sách dự án | Project List", "Index",null,htmlAttributes: new {@class = "btn btn-primary" })
+<p class="form-group" style="margin-top:10px">
+    @Html.ActionLink("<< Danh sách dự án | Project List", "Index", null, htmlAttributes: new { @class = "btn btn-primary" })
 </p>
 <style>
     .img50x50 {

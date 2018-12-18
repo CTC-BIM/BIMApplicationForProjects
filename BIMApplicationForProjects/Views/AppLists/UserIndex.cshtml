@@ -15,26 +15,28 @@
     int DF = ViewBag.DF;
 }
 
+
 <h2>Danh mục Ứng dụng BIM cho Dự án <small class="text-primary">BIM Menulist for Project</small></h2>
 
 <div class="form-group col-lg-12">
     <p>Các ứng dụng BIM được phân loại theo 3 nhóm: <b class="text-danger">theo Gói, theo Giai đoạn dự án và theo từng Bộ môn</b></p>
     <p>Chọn các mục trong nhóm đã được phân loại bên dưới để xem thông tin:</p>
-    @*<label>Project state</label>
-    <label class="checkbox-inline"><input type="checkbox" value="">Design</label>
-    <label class="checkbox-inline"><input type="checkbox" value="">Tender</label>
-    <label class="checkbox-inline"><input type="checkbox" value="">Construction</label>
-    <label class="checkbox-inline"><input type="checkbox" value="">As-built</label>*@
 </div>
-<div class="form-group form-inline col-lg-12 container">
+<div class="form-inline row container-fluid">
+
+    @* Table content *@
+    <div class="form-group col-lg-10">
+        @Html.Action("_ListApp", "AppLists")
+    </div>
+
     @* Left panel *@
-    <div class="form-group col-lg-2 navbar-left bg-primary">
+    <div class="form-group col-lg-2 navbar navbar-expand-lg bg-primary">
         <h4>Chọn theo loại</h4>
         <i style="color:yellow">Choose by type</i>
         <hr />
         <h4>by Package</h4>
         <ul class="list-group">
-            <li class="list-group-item text-primary">@Html.ActionLink("Basic", "UserIndex", "AppLists",new {id = "PB" }, new { @class = "text-primary" }) <span class="badge">@PB</span></li>
+            <li class="list-group-item text-primary">@Html.ActionLink("Basic", "UserIndex", "AppLists", new { id = "PB" }, new { @class = "text-primary" }) <span class="badge">@PB</span></li>
             <li class="list-group-item text-primary">@Html.ActionLink("Advance", "UserIndex", "AppLists", new { id = "PA" }, new { @class = "text-primary" }) <span class="badge">@PA</span></li>
         </ul>
         <hr />
@@ -55,8 +57,7 @@
         </ul>
 
     </div>
-    @* Table content *@
-    @Html.Action("_ListApp","AppLists");
+
 </div>
 
 

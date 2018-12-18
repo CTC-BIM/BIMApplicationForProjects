@@ -12,15 +12,8 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    @*<div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
-        </div>
-    </div>*@
-
-
     @* New Form *@
-    <h2></h2>
+
     <div class="form-horizontal table-bordered" style="margin:5px; border-color:#ff0000">
         <h4 style="margin:5px">Vui lòng điền một số thông tin <small class="text-danger">Please fill some infomations</small></h4>
         <hr />
@@ -160,18 +153,24 @@
                     </div>
                 </div>
             </div>
+
+            <div class="form-group">
+                <div class=" col-md-offset-3 col-sm-2" style="margin-bottom:5px; margin-left:10px">
+                    <input type="submit" name="" value="Lưu thông tin | Save" class="btn btn-success" />
+                </div>
+            </div>
         </div>
 
 
-        <div class="form-group form-inline" style="margin:5px">
+        @*<div class="form-group form-inline" style="margin:5px">
             <div class="btn btn-warning col-sm-2">
-                @Html.ActionLink("<< Back to List", "Details", new {id = Model.ProjectID })
+                @Html.ActionLink("<< Back to List", "Details", new { id = Model.ProjectID })
             </div>
             <div class="col-sm-offset-1 col-md-2">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </div>
-        <hr />
+        <hr />*@
     </div>
 
 }

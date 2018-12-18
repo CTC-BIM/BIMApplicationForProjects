@@ -246,14 +246,21 @@
     <Content Include="Assets\AppImages\Coordinate_Sub2.png" />
     <Content Include="Assets\AppImages\Coordinate_Sub3.png" />
     <Content Include="Assets\AppImages\Coordinate_Sub4.png" />
+    <Content Include="Assets\AppImages\Method_Main.gif" />
+    <Content Include="Assets\AppImages\Method_Sub2.jpg" />
+    <Content Include="Assets\AppImages\Method_Sub1.JPG" />
+    <Content Include="Assets\AppImages\Method_Sub3.JPG" />
+    <Content Include="Assets\AppImages\Method_Sub4.jpg" />
     <Content Include="Assets\AppImages\NoImage.png" />
     <Content Include="Assets\background\background wood 2.jpg" />
     <Content Include="Assets\background\background wood.jpg" />
     <Content Include="Assets\background\green_leafy_wood_background_hd_picture.jpg" />
     <Content Include="Assets\background\no-image-available.jpg" />
     <Content Include="Assets\background\NOX_Textures_402_2.jpg" />
+    <Content Include="Assets\cscpda-scrollbar.css" />
     <Content Include="Assets\Icons\AddRecord.png" />
     <Content Include="Assets\Icons\R_icon.ico" />
+    <Content Include="Assets\Logo\CTClogo.png" />
     <Content Include="Assets\Logo\Lego.JPG" />
     <Content Include="Assets\Logo\Lego.png" />
     <Content Include="Assets\Logo\Round.JPG" />
@@ -364,9 +371,12 @@
     <Content Include="Views\AppLists\UserIndex.cshtml" />
     <Content Include="Views\Mails\SendEmail.cshtml" />
     <Content Include="Views\AppLists\_ListApp.cshtml" />
+    <Content Include="Views\Home\AdminIndex.cshtml" />
+    <Content Include="Views\Account\AdminMemberList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Assets\UserImages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

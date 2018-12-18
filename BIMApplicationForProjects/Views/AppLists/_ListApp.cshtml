@@ -1,16 +1,16 @@
 ﻿@model List<BIMApplicationForProjects.Models.C02_AppLists>
 
 
-<div class="form-group col-lg-10">
+<div class="container-fluid">
     <h4><b>@ViewBag.PackageName</b></h4>
     <table class="table table-condensed table-bordered table-hover">
         <tr>
             @*<th class="text-center bg-primary">
                     Giai đoạn dự án | Project Phase
                 </th>*@
-            <th class="text-center bg-primary">Tên ứng dụng</th>
-            <th class="text-center bg-primary">Nội dung ứng dụng</th>
-            <th class="text-center bg-primary">Image</th>
+            <th class="text-center bg-primary col-lg-2">Tên ứng dụng</th>
+            <th class="text-center bg-primary col-lg-6">Nội dung ứng dụng</th>
+            <th class="text-center bg-primary col-lg-4">Image</th>
         </tr>
 
         @foreach (var item in Model)
@@ -32,7 +32,7 @@
                     else
                     {
                         <a href="@Url.Action("Details","AppLists",new {id = item.ID })">
-                            <img src="~/Assets/AppImages/@item.MainImage" alt="Alternate Text" class="img" />
+                            <img src="~/Assets/AppImages/@item.MainImage" alt="Alternate Text" class="imgSize" />
                         </a>
                     }
 
@@ -41,3 +41,8 @@
         }
     </table>
 </div>
+<style>
+    .imgSize{
+        width:300px; height:200px;
+    }
+</style>
