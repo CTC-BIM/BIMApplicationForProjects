@@ -199,6 +199,7 @@ namespace BIMApplicationForProjects.Controllers
             return View(c01_Projects);
         }
 
+
         // POST: Projects/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

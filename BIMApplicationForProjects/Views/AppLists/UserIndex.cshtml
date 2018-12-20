@@ -33,12 +33,7 @@
     <div class="form-group col-lg-2 navbar navbar-expand-lg bg-primary">
         <h4>Chọn theo loại</h4>
         <i style="color:yellow">Choose by type</i>
-        <hr />
-        <h4>by Package</h4>
-        <ul class="list-group">
-            <li class="list-group-item text-primary">@Html.ActionLink("Basic", "UserIndex", "AppLists", new { id = "PB" }, new { @class = "text-primary" }) <span class="badge">@PB</span></li>
-            <li class="list-group-item text-primary">@Html.ActionLink("Advance", "UserIndex", "AppLists", new { id = "PA" }, new { @class = "text-primary" }) <span class="badge">@PA</span></li>
-        </ul>
+
         <hr />
         <h4>by Project state</h4>
         <ul class="list-group">
@@ -55,7 +50,12 @@
             <li class="list-group-item text-primary">@Html.ActionLink("Civil", "UserIndex", "AppLists", new { id = "DC" }, new { @class = "text-primary" })<span class="badge">@DC</span></li>
             <li class="list-group-item text-primary">@Html.ActionLink("Facade", "UserIndex", "AppLists", new { id = "DF" }, new { @class = "text-primary" })<span class="badge">@DF</span></li>
         </ul>
-
+        <hr />
+        <h4>by Package</h4>
+        <ul class="list-group">
+            <li class="list-group-item text-primary">@Html.ActionLink("Basic", "UserIndex", "AppLists", new { id = "PB" }, new { @class = "text-primary" }) <span class="badge">@PB</span></li>
+            <li class="list-group-item text-primary">@Html.ActionLink("Advance", "UserIndex", "AppLists", new { id = "PA" }, new { @class = "text-primary" }) <span class="badge">@PA</span></li>
+        </ul>
     </div>
 
 </div>

@@ -1,0 +1,185 @@
+﻿@model BIMApplicationForProjects.Models.C01_Projects
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>C01_Projects</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ProjectName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProjectName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ARCdesigner)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ARCdesigner)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ARCmakeModel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ARCmakeModel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.STRdesigner)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.STRdesigner)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.STRmakeModel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.STRmakeModel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MEPdesigner)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MEPdesigner)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MEPmakeModel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MEPmakeModel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CIvilDesigner)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CIvilDesigner)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CivilMakeModel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CivilMakeModel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LandscapeDesigner)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LandscapeDesigner)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LandscapeMakeModel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LandscapeMakeModel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BIMtarget)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BIMtarget)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCreate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PMname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PMname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ARCmodelUsingPercent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ARCmodelUsingPercent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.STRmodelUsingPercent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.STRmodelUsingPercent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MEPmodelUsingPercent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MEPmodelUsingPercent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CIVILmodelUsingPercent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CIVILmodelUsingPercent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LANDSmodelUsingPercent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LANDSmodelUsingPercent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C04_ProjectPhase.PhaseName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C04_ProjectPhase.PhaseName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

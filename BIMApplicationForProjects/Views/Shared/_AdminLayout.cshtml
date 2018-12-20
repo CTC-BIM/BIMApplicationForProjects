@@ -21,12 +21,9 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @*<li>@Html.ActionLink("Projects", "Index", "Home")</li>*@
-                    <li>@Html.ActionLink("Projects","Index","Projects")</li>
-                    <li>@Html.ActionLink("Application Manage","","")</li>
-                    <li>@Html.ActionLink("BIM App for Projects", "About", "Home")</li>
-                    <li>@Html.ActionLink("Project Phase", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("BIM Target","","")</li>
+                    <li>@Html.ActionLink("Projects", "Index", "AdminProjects")</li>
+                    <li>@Html.ActionLink("Application Manage", "Index", "AdminProjectAppDetails")</li>
+                    <li>@Html.ActionLink("User Manage", "Index", "Admin_AspNetUsers")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

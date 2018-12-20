@@ -6,12 +6,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using BIMApplicationForProjects.Models;
+using System;
 
 namespace BIMApplicationForProjects.Controllers
 {
-    [Authorize]
+    [Authorize]    
     public class AccountController : Controller
     {
+        private AspUserDbContext uDb = new AspUserDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -22,6 +25,7 @@ namespace BIMApplicationForProjects.Controllers
         public ActionResult AdminMemberList()
         {
             var userlist = new ApplicationDbContext();
+            //var UserRoles = 
             return View(userlist.Users.ToList());
         }
 
@@ -65,15 +69,6 @@ namespace BIMApplicationForProjects.Controllers
             return View();
         }
 
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public ActionResult MemberLogin(LoginViewModel model)
-        {
-            return View();
-        }
-
-
 
         //
         // POST: /Account/Login
@@ -84,13 +79,33 @@ namespace BIMApplicationForProjects.Controllers
         {
             if (!ModelState.IsValid)
             {
+                ViewBag.ThongBao = "Sai mật khẩu hoặc Account đang Khóa <br/>Wrong password or Account block";
                 return View(model);
             }
+
+            //Thêm phần Confirm email
+            // Require the user to have a confirmed email before they can log on.
+            var user = await UserManager.FindByNameAsync(model.Email);
+            if (user != null)
+            {
+                if (!await UserManager.IsEmailConfirmedAsync(user.Id))
+                {
+                    ViewBag.errorMessage = "Bạn cần Active tài khoản bằng link trong Email " + model.Email + " trước khi Đăng nhập<br/>You must active account by link in a confirmed email "+ model.Email + " to log on.";
+                    
+                    return View("Error");
+                }
+            }
+
+            var User = uDb.AspNetUsers.FirstOrDefault(s => s.Email == model.Email);
+            //var loginResult = SignInManager.PasswordSignIn(User.UserName, model.Password, model.RememberMe, shouldLockout: true);
+
             #region Origin Design Code
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: true);
+            //var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: true);
+            var result = SignInManager.PasswordSignIn(User.UserName, model.Password, model.RememberMe, shouldLockout: true);
+
             switch (result)
             {
                 case SignInStatus.Success:
@@ -101,7 +116,7 @@ namespace BIMApplicationForProjects.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    ModelState.AddModelError("", "Sai thông tin đăng nhập! Sai quá 3 lần sẽ khóa tài khoản<br/ >Invalid login attempt! If wrong 3 times, account will be block");
                     return View(model);
             }
             #endregion
@@ -172,7 +187,7 @@ namespace BIMApplicationForProjects.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -180,7 +195,36 @@ namespace BIMApplicationForProjects.Controllers
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    //string log = ChangeLog.WriteAppLog(newEnity, "Test user", "Add new record");
+                    //Session["ThongBao"] = "Thêm Ứng dụng cho dự án " + id + " thành công và ghi Log " + log;
+                    using (MailsController email = new MailsController())
+                    {
+                        try
+                        {                            
+                            string RegisterEmail = model.Email;
+
+                            if (email.SendConfirmEmail(model.UserName,model.Password,RegisterEmail,callbackUrl) == "OK")
+                            {
+                                Session["ThongBao"] = "Gửi Email to User thành công";
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Session["ThongBao"] = "Gửi Email Thất bại vì " + ex.Message;
+                        }
+
+                    }
+                    
+                    //Thêm phần chờ confirm Email trước khi Login
+                    // Uncomment to debug locally 
+                    // TempData["ViewBagLink"] = callbackUrl;
+
+                    ViewBag.Message = "Check your email and confirm your account, you must be confirmed "
+                                    + "before you can log in.";
+
+                    return View("Info");
+                    //return RedirectToAction("Index", "Home");
+
                 }
                 AddErrors(result);
             }
@@ -199,6 +243,11 @@ namespace BIMApplicationForProjects.Controllers
                 return View("Error");
             }
             var result = await UserManager.ConfirmEmailAsync(userId, code);
+
+            //BIMAPP - Thêm Roles cho User Này
+            string userRole = "User";
+            var AddRole = await UserManager.AddToRoleAsync(userId, userRole);
+
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 

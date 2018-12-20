@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Info";
+    Layout = null;
+    string ThongBao = Session["ThongBao"].ToString();
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+</head>
+<body>
+    <div>
+        <h3>@ViewBag.Message</h3>
+    </div>
+    <div class="text-danger">@ThongBao"</div>
+</body>
+</html>

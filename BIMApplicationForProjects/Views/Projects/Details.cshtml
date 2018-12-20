@@ -1,7 +1,7 @@
 ﻿@model BIMApplicationForProjects.Models.C01_Projects
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Project Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var phase = ViewBag.Phase as List<BIMApplicationForProjects.Models.C04_ProjectPhase>;
@@ -16,14 +16,15 @@
     var RequestType = ViewBag.RequestType as List<BIMApplicationForProjects.Models.C08_RequestType>;
     string thongBao = Session["ThongBao"] as string;
 }
-
-<div>
-    <div class="form-group row">
-        <h2>Thông tin dự án <small class="text-primary">Project Info: </small></h2>
+<form action="/" method="post">
+    <div>
+        <h3>Thông tin dự án <small class="text-primary">@ViewBag.Title </small></h3>
         <h1 class="text-center"> <b class="" style="margin:10px"> @Model.ProjectID - @Model.ProjectName </b></h1>
-        <div class="col-lg-12 form-inline text-left">
-            <div class="col-lg-6"><h4>Chủ trì dự án <small class="text-primary">Project Manager: </small>@Model.PMname</h4></div>
-            <div class="col-lg-6">
+    </div>
+    <div>
+        <div class="form-group">
+            <div class="text-left form-group" style="border-color:red">
+                <h4>Chủ trì dự án <small class="text-primary">Project Manager: </small>@Model.PMname</h4>
                 <h4>
                     Giai đoạn dự án <small class="text-info">Project Phase:</small>
                     @foreach (BIMApplicationForProjects.Models.C04_ProjectPhase item in phase)
@@ -34,233 +35,302 @@
                         }
                     }
                 </h4>
-            </div>
-        </div>
-        <hr />
-        <div class="form-group form-inline">
-            <div class="form-group col-lg-9">
                 <h4>Thông tin thiết kế <small class="text-primary">Designers information:</small></h4>
+                <table class="table table-condensed table-bordered table-hover">
+                    <tr>
+                        <th class="text-center" style="background-color:#808080; color:white">Kiến trúc</th>
+                        <th class="text-center" style="background-color:#808080; color:white">Kết cấu</th>
+                        <th class="text-center" style="background-color:#808080; color:white">Cơ Điện</th>
+                        <th class="text-center" style="background-color:#808080; color:white">Hạ tầng</th>
+                        <th class="text-center" style="background-color:#808080; color:white">Cảnh quan</th>
+                    </tr>
+                    <tr>
+                        <td class="text-center"><b>@Model.ARCdesigner</b></td>
+                        <td class="text-center"><b>@Model.STRdesigner</b></td>
+                        <td class="text-center"><b>@Model.MEPdesigner</b></td>
+                        <td class="text-center"><b>@Model.CIvilDesigner</b></td>
+                        <td class="text-center"><b>@Model.LandscapeDesigner</b></td>
+                    </tr>
+                </table>
+
             </div>
-            <div class="col-lg-3 form-inline">
-                <div class="col-lg-8"></div>
-                <div class="form-group col-lg-offset-3 col-lg-4 form-inline ">
-                    @Html.ActionLink("Cập nhật thông tin dự án", "Edit", new { id = Model.ProjectID }, new { @class = "btn btn-primary text-danger form-control" })
-                </div>
-            </div>
-        </div>
-        <hr />
-        @* Table *@
-        <form class="container-fluid col-lg-12 form-inline table-bordered" style="border-color:red">
-            <div class="form-group col-lg-4">
-                <div class="text-left well-sm">Kiến trúc | <small class="text-primary">Architech: </small><b>@Model.ARCdesigner</b></div>
-                <div class="text-left well-sm">Kết cấu | <small class="text-primary">Structure: </small><b>@Model.STRdesigner</b></div>
-                <div class="text-left well-sm">Cơ Điện | <small class="text-primary">MEP: </small><b>@Model.MEPdesigner</b></div>
-                <div class="text-left well-sm">Hạ tầng | <small class="text-primary">Civil: </small><b>@Model.CIvilDesigner</b></div>
-                <div class="text-left well-sm">Cảnh quan | <small class="text-primary">Landscape: </small><b>@Model.LandscapeDesigner</b></div>
-            </div>
-            <div class="form-group col-lg-8">
-                @* Kiến trúc *@
-                <div class="form-group text-left form-inline col-md-12">
-                    <div class="col-md-5">
-                        Mô hình Kiến trúc | <small class="text-primary">Architech Model: </small>
-                    </div>
-                    <div class="form-group col-md-7">
-                        @if (@Model.ARCmakeModel.HasValue)
-                        {
-                            if (Model.ARCmakeModel.Value) //True value
+            <hr />
+            @* Table *@
+            <div class="form-group" style="border-color:#0026ff">
+                <table class="table table-bordered table-condensed">
+                    <tr>
+                        <th class="text-center bg-primary col-lg-3">Descipline Model</th>
+                        <th class="text-center bg-primary col-lg-2">Model?</th>
+                        <th class="text-center bg-primary col-lg-6">% using Model for BIM</th>
+                        <th class="text-center bg-primary col-lg-1">Details</th>
+                    </tr>
+                    @* Kiến trúc *@
+                    <tr>
+                        <td class="">Kiến trúc | <small class="text-primary">Architech Model</small></td>
+                        <td class="text-center">
+                            @if (@Model.ARCmakeModel.HasValue)
                             {
-                                <div class="form-inline col-sm-12">
-                                    <div class="col-sm-2">
-                                        <b class="text-primary">Yes</b>
-                                    </div>
-                                    <div class="col-sm-10 progress">
-                                        <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"
+                                if (Model.ARCmakeModel.Value) //True value
+                                {
+                                    <b class="text-success">Yes</b>
+                                }
+                                else //False value
+                                {
+                                    <b class="text-danger"> No </b>
+                                }
+                            }
+                            else //NotSet value
+                            {
+                                <i>No information</i>
+                            }
+                        </td>
+                        <td>
+                            @if (@Model.ARCmakeModel.HasValue)
+                            {
+                                if (Model.ARCmakeModel.Value) //True value
+                                {
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar"
                                              aria-valuenow=@Model.ARCmodelUsingPercent aria-valuemin="0" aria-valuemax="100" style="width:@Model.ARCmodelUsingPercent%">
                                             <i style="color:black">@Model.ARCmodelUsingPercent %</i>
                                         </div>
                                     </div>
-                                </div>
+                                }
+                                else //False value
+                                {
+                                    <b class="text-danger"> Not calculate </b>
+                                }
                             }
-                            else //False value
+                            else //NotSet value
                             {
-                                <b class="text-danger"> No </b>
+                                    <b class="text-danger">0 %</b>
                             }
-                        }
-                        else //NotSet value
-                        {
-                            <b>No information</b>
-                        }
-                    </div>
-                </div>
-
-                @* Kết cấu *@
-                <div class="form-group text-left form-inline col-md-12">
-                    <div class="col-md-5">
-                        Mô hình Kết cấu | <small class="text-primary">Structure Model: </small>
-                    </div>
-                    <div class="form-group col-md-7">
-                        @if (@Model.STRmakeModel.HasValue)
-                        {
-                            if (Model.STRmakeModel.Value) //True value
+                        </td>
+                        <td class="text-center">
+                            @Html.ActionLink("View", "Details", "Projects")
+                        </td>
+                    </tr>
+                    @* Kết cấu *@
+                    <tr>
+                        <td class="">Kết cấu | <small class="text-primary">Structure Model</small></td>
+                        <td class=" text-center">
+                            @if (@Model.STRmakeModel.HasValue)
                             {
-                                <div class="form-inline col-sm-12">
-                                    <div class="col-sm-2">
-                                        <b class="text-primary">Yes</b>
-                                    </div>
-                                    <div class="col-sm-10 progress">
-                                        <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"
+                                if (Model.STRmakeModel.Value) //True value
+                                {
+                                    <b class="text-success">Yes</b>
+                                }
+                                else //False value
+                                {
+                                    <b class="text-danger"> No </b>
+                                }
+                            }
+                            else //NotSet value
+                            {
+                                <i>No information</i>
+                            }
+                        </td>
+                        <td>
+                            @if (@Model.STRmakeModel.HasValue)
+                            {
+                                if (Model.STRmakeModel.Value) //True value
+                                {
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar"
                                              aria-valuenow=@Model.STRmodelUsingPercent aria-valuemin="0" aria-valuemax="100" style="width:@Model.STRmodelUsingPercent%">
                                             <i style="color:black">@Model.STRmodelUsingPercent %</i>
                                         </div>
                                     </div>
-                                </div>
+                                }
+                                else //False value
+                                {
+                                    <b class="text-danger"> Not calculate </b>
+                                }
                             }
-                            else //False value
+                            else //NotSet value
                             {
-                                <b class="text-danger"> No </b>
+                                    <b class="text-danger">0 %</b>
                             }
-                        }
-                        else //NotSet value
-                        {
-                            <b>No information</b>
-                        }
-                    </div>
-                </div>
-
-
-                @* MEP *@
-                <div class="form-group text-left form-inline col-md-12">
-                    <div class="col-md-5">
-                        Mô hình Cơ Điện | <small class="text-primary">MEP Model: </small>
-                    </div>
-                    <div class="form-group col-md-7">
-                        @if (@Model.MEPmakeModel.HasValue)
-                        {
-                            if (Model.MEPmakeModel.Value) //True value
+                        </td>
+                        <td class="text-center">
+                            @Html.ActionLink("View", "Details", "Projects")
+                        </td>
+                    </tr>
+                    @* MEP *@
+                    <tr>
+                        <td class="">Cơ điện | <small class="text-primary">MEP Model</small></td>
+                        <td class=" text-center">
+                            @if (@Model.MEPmakeModel.HasValue)
                             {
-                                <div class="form-inline col-sm-12">
-                                    <div class="col-sm-2">
-                                        <b class="text-primary">Yes</b>
-                                    </div>
-                                    <div class="col-sm-10 progress">
-                                        <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"
+                                if (Model.MEPmakeModel.Value) //True value
+                                {
+                                    <b class="text-success">Yes</b>
+                                }
+                                else //False value
+                                {
+                                    <b class="text-danger"> No </b>
+                                }
+                            }
+                            else //NotSet value
+                            {
+                                <i>No information</i>
+                            }
+                        </td>
+                        <td>
+                            @if (@Model.MEPmakeModel.HasValue)
+                            {
+                                if (Model.MEPmakeModel.Value) //True value
+                                {
+
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar"
                                              aria-valuenow=@Model.MEPmodelUsingPercent aria-valuemin="0" aria-valuemax="100" style="width:@Model.MEPmodelUsingPercent%">
                                             <i style="color:black">@Model.MEPmodelUsingPercent %</i>
                                         </div>
                                     </div>
-                                </div>
-                            }
-                            else //False value
-                            {
-                                <b class="text-danger"> No </b>
-                            }
-                        }
-                        else //NotSet value
-                        {
-                            <b>No information</b>
-                        }
-                    </div>
-                </div>
 
-                @* Civil *@
-                <div class="form-group text-left form-inline col-md-12">
-                    <div class="col-md-5">
-                        Mô hình Hạ tầng | <small class="text-primary">Civil Model: </small>
-                    </div>
-                    <div class="form-group col-md-7">
-                        @if (@Model.CivilMakeModel.HasValue)
-                        {
-                            if (Model.CivilMakeModel.Value) //True value
+                                }
+                                else //False value
+                                {
+                                    <b class="text-danger"> Not calculate </b>
+                                }
+                            }
+                            else //NotSet value
                             {
-                                <div class="form-inline col-sm-12">
-                                    <div class="col-sm-2">
-                                        <b class="text-primary">Yes</b>
-                                    </div>
-                                    <div class="col-sm-10 progress">
-                                        <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"
+                                <b class="text-danger">0 %</b>
+                            }
+                        </td>
+                        <td class="text-center">
+                            @Html.ActionLink("View", "Details", "Projects")
+                        </td>
+                    </tr>
+                    @* Civil *@
+                    <tr>
+                        <td class="">Hạ tầng | <small class="text-primary">Civil Model</small></td>
+                        <td class=" text-center">
+                            @if (@Model.CivilMakeModel.HasValue)
+                            {
+                                if (Model.CivilMakeModel.Value) //True value
+                                {
+                                    <b class="text-success">Yes</b>
+                                }
+                                else //False value
+                                {
+                                    <b class="text-danger"> No </b>
+                                }
+                            }
+                            else //NotSet value
+                            {
+                                <i>No information</i>
+                            }
+                        </td>
+                        <td>
+                            @if (@Model.CivilMakeModel.HasValue)
+                            {
+                                if (Model.CivilMakeModel.Value) //True value
+                                {
+
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar"
                                              aria-valuenow=@Model.CIVILmodelUsingPercent aria-valuemin="0" aria-valuemax="100" style="width:@Model.CIVILmodelUsingPercent%">
                                             <i style="color:black">@Model.CIVILmodelUsingPercent %</i>
                                         </div>
                                     </div>
-                                </div>
-                            }
-                            else //False value
-                            {
-                                <b class="text-danger"> No </b>
-                            }
-                        }
-                        else //NotSet value
-                        {
-                            <b>No information</b>
-                        }
-                    </div>
-                </div>
 
-                @* Landscape *@
-                <div class="form-group text-left form-inline col-md-12">
-                    <div class="col-md-5">
-                        Mô hình Cảnh quan | <small class="text-primary">Landscape Model: </small>
-                    </div>
-                    <div class="form-group col-md-7">
-                        @if (@Model.LandscapeMakeModel.HasValue)
-                        {
-                            if (Model.LandscapeMakeModel.Value) //True value
+                                }
+                                else //False value
+                                {
+                                    <b class="text-danger"> Not calculate </b>
+                                }
+                            }
+                            else //NotSet value
                             {
-                                <div class="form-inline col-sm-12">
-                                    <div class="col-sm-2">
-                                        <b class="text-primary">Yes</b>
-                                    </div>
-                                    <div class="col-sm-10 progress">
-                                        <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar"
+                                <b class="text-danger">0 %</b>
+                            }
+                        </td>
+                        <td class="text-center">
+                            @Html.ActionLink("View", "Details", "Projects")
+                        </td>
+                    </tr>
+                    @* Landscape *@
+                    <tr>
+                        <td class="">Cảnh quan | <small class="text-primary">Landscape Model</small></td>
+                        <td class=" text-center">
+                            @if (@Model.LandscapeMakeModel.HasValue)
+                            {
+                                if (Model.LandscapeMakeModel.Value) //True value
+                                {
+                                    <b class="text-success">Yes</b>
+                                }
+                                else //False value
+                                {
+                                    <b class="text-danger"> No </b>
+                                }
+                            }
+                            else //NotSet value
+                            {
+                                <i>No information</i>
+                            }
+                        </td>
+                        <td>
+                            @if (@Model.LandscapeMakeModel.HasValue)
+                            {
+                                if (Model.LandscapeMakeModel.Value) //True value
+                                {
+
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar"
                                              aria-valuenow=@Model.LANDSmodelUsingPercent aria-valuemin="0" aria-valuemax="100" style="width:@Model.LANDSmodelUsingPercent%">
                                             <i style="color:black">@Model.LANDSmodelUsingPercent %</i>
                                         </div>
                                     </div>
-                                </div>
+
+                                }
+                                else //False value
+                                {
+                                    <b class="text-danger"> Not calculate </b>
+                                }
                             }
-                            else //False value
+                            else //NotSet value
                             {
-                                <b class="text-danger"> No </b>
+                                <b class="text-danger">0 %</b>
                             }
-                        }
-                        else //NotSet value
-                        {
-                            <b>No information</b>
-                        }
-                    </div>
-                </div>
-
+                        </td>
+                        <td class="text-center">
+                            @Html.ActionLink("View", "Details", "Projects")
+                        </td>
+                    </tr>
+                </table>
             </div>
-        </form>
+        </div>
     </div>
-</div>
-<hr />
-<div>
-    <h5 class="text-danger">@thongBao</h5>
-
-    <div class="row form-inline form-group">
-        <div class="col-lg-8">
+    <div>
+        <h5 class="text-danger text-center">@thongBao</h5>
+        <br />
+        <div class="form-inline">
+            <a href="@Url.Action("Edit", "Projects", new { id = Model.ProjectID })" class="btn btn-primary">
+                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                Cập nhật thông tin dự án
+            </a>
+            <a href="@Url.Action("CreateID", "ProjectAppDetails", new { id = Model.ProjectID })" class="btn btn-success">
+                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                Thêm ứng dụng
+            </a>
+        </div>
+        <div>
             <h4>Chi tiết các ứng dụng BIM trong dự án | <small class="text-primary">Detail BIM applications in project</small></h4>
         </div>
-        <div class="col-lg-4 form-inline form-group">
-            @*<div class="form-group col-lg-6">
-                    @Html.ActionLink("Cập nhật dự án", "Edit", new { id = Model.ProjectID }, new { @class = "btn btn-primary text-danger form-control" })
-                </div>*@
-            <div class="col-lg-offset-8 form-group col-lg-2">
-                @Html.ActionLink("Thêm ứng dụng", "CreateID", "ProjectAppDetails", new { id = @Model.ProjectID }, new { @class = "btn btn-primary text-danger form-control" })
-
-            </div>
-        </div>
     </div>
-</div>
+    @* Danh sách ứng dụng theo dự án *@
+    <div class="row">
+        @Html.Action("_AppListPartialView", "Projects", new { id = Model.ProjectID })
+    </div>
 
-<div class="row">
-    @Html.Action("_AppListPartialView", "Projects", new { id = Model.ProjectID })
-</div>
-
-<p class="form-group" style="margin-top:10px">
-    @Html.ActionLink("<< Danh sách dự án | Project List", "Index", null, htmlAttributes: new { @class = "btn btn-primary" })
-</p>
+    <hr />
+    <p class="form-group" style="margin-top:10px">
+        @Html.ActionLink("<< Danh sách dự án | Project List", "Index", null, htmlAttributes: new { @class = "btn btn-primary" })
+    </p>
+</form>
 <style>
     .img50x50 {
         width: 50px;

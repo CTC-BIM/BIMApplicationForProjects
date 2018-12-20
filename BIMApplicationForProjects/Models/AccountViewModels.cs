@@ -62,45 +62,6 @@ namespace BIMApplicationForProjects.Models
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
 
-        #region BIM Application User
-
-        [Required]
-        [Display(Name = "Tên người dùng | User Name")]
-        public string UserName { get; set; }
-
-
-        /// <summary>
-        /// Set quyền cho User
-        /// Admin và User
-        /// </summary>
-        private string _UserRole;
-        public string UserRole
-        {
-            get { return _UserRole; }
-            set
-            {
-                if (string.IsNullOrEmpty(_UserRole))
-                {
-                    _UserRole = "User";
-                }
-                else
-                {
-                    _UserRole = value;
-                }
-
-            }
-        }
-
-
-        /// Set tình trạng làm việc của User
-        /// 
-        [Display(Name = "Tình trạng làm việc")]
-        public int UserStatus { get; set; }
-
-        public string UserImage { get; set; }
-
-
-        #endregion
     }
 
     public class RegisterViewModel

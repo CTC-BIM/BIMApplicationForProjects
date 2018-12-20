@@ -1,0 +1,148 @@
+﻿@model IEnumerable<BIMApplicationForProjects.Models.C01_Projects>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProjectName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ARCdesigner)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ARCmakeModel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.STRdesigner)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.STRmakeModel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MEPdesigner)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MEPmakeModel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CIvilDesigner)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CivilMakeModel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LandscapeDesigner)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LandscapeMakeModel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BIMtarget)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateCreate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PMname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ARCmodelUsingPercent)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.STRmodelUsingPercent)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MEPmodelUsingPercent)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CIVILmodelUsingPercent)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LANDSmodelUsingPercent)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.C04_ProjectPhase.PhaseName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProjectName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ARCdesigner)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ARCmakeModel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.STRdesigner)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.STRmakeModel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MEPdesigner)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MEPmakeModel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CIvilDesigner)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CivilMakeModel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LandscapeDesigner)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LandscapeMakeModel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BIMtarget)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateCreate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PMname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ARCmodelUsingPercent)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.STRmodelUsingPercent)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MEPmodelUsingPercent)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CIVILmodelUsingPercent)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LANDSmodelUsingPercent)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.C04_ProjectPhase.PhaseName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ProjectID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ProjectID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ProjectID })
+        </td>
+    </tr>
+}
+
+</table>

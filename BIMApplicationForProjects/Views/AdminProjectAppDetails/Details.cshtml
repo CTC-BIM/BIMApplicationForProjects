@@ -1,0 +1,123 @@
+﻿@model BIMApplicationForProjects.Models.C03_ProjectAppDetails
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>C03_ProjectAppDetails</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DateRequest)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateRequest)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserRequest)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserRequest)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isAccept)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isAccept)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OtherRequest)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OtherRequest)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BIMerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BIMerName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeadLine)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeadLine)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Resource)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Resource)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AppCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C01_Projects.ProjectName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C01_Projects.ProjectName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C02_AppLists.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C02_AppLists.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C06_Status.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C06_Status.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C07_Result.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C07_Result.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.C08_RequestType.TypeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.C08_RequestType.TypeName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
