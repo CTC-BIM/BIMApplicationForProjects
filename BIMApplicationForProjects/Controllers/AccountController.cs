@@ -13,7 +13,7 @@ namespace BIMApplicationForProjects.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        private AspUserDbContext uDb = new AspUserDbContext();
+        //private AspUserDbContext uDb = new AspUserDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -84,7 +84,8 @@ namespace BIMApplicationForProjects.Controllers
 
             //Thêm phần Confirm email
             // Require the user to have a confirmed email before they can log on.
-            var user = await UserManager.FindByNameAsync(model.Email);
+            //var user = await UserManager.FindByNameAsync(model.Email);
+            var user = UserManager.FindByEmail(model.Email);
             if (user != null)
             {
                 if (!await UserManager.IsEmailConfirmedAsync(user.Id))
@@ -95,7 +96,7 @@ namespace BIMApplicationForProjects.Controllers
                 }
             }
 
-            var User = uDb.AspNetUsers.FirstOrDefault(s => s.Email == model.Email);
+            //var User = uDb.AspNetUsers.FirstOrDefault(s => s.Email == model.Email);
             //var loginResult = SignInManager.PasswordSignIn(User.UserName, model.Password, model.RememberMe, shouldLockout: true);
 
             #region Origin Design Code
@@ -103,25 +104,13 @@ namespace BIMApplicationForProjects.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             //var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: true);
-            var result = SignInManager.PasswordSignIn(User.UserName, model.Password, model.RememberMe, shouldLockout: true);
 
-            try
-            {
-                string RoleOfUser = "";
-                var roleName = uDb.AspNetRoles.Where(s => s.Id == User.Id);
-
-            }
-            catch (Exception ex)
-            {
-                ViewBag.errorMessage = "Có lỗi đăng nhập, do " + ex.Message;
-                return View("Error");
-            }
-
+            var result = SignInManager.PasswordSignIn(user.UserName, model.Password, model.RememberMe, shouldLockout: true);
 
             switch (result)
             {
                 case SignInStatus.Success:
-                    Session["LoginUser"] = User;
+                    Session["LoginUser"] = user;
                     return RedirectToLocal(returnUrl);
                 //return RedirectToAction("Index", "AdminProjects");
                 case SignInStatus.LockedOut:
@@ -529,7 +518,8 @@ namespace BIMApplicationForProjects.Controllers
             {
                 return Redirect(returnUrl);
             }
-            var User = Session["LoginUser"] as AspNetUser;
+            //var User = Session["LoginUser"] as AspNetUser;
+            var User = Session["LoginUser"] as ApplicationUser;
             var userRole = UserManager.GetRoles(User.Id);
             foreach (var role in userRole)
             {

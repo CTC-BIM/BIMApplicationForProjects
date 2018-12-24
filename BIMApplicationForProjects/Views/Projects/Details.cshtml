@@ -89,12 +89,33 @@
                             {
                                 if (Model.ARCmakeModel.Value) //True value
                                 {
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar"
-                                             aria-valuenow=@Model.ARCmodelUsingPercent aria-valuemin="0" aria-valuemax="100" style="width:@Model.ARCmodelUsingPercent%">
-                                            <i style="color:black">@Model.ARCmodelUsingPercent %</i>
+                                    if (Model.ARCmodelUsingPercent <= 55)
+                                    {
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"
+                                                 aria-valuenow=@Model.ARCmodelUsingPercent aria-valuemin="0" aria-valuemax="100" style="width:@Model.ARCmodelUsingPercent%">
+                                                <i style="color:black">@Model.ARCmodelUsingPercent %</i>
+                                            </div>
                                         </div>
-                                    </div>
+                                    }
+                                    else if (Model.ARCmodelUsingPercent > 55 && Model.ARCmodelUsingPercent < 75)
+                                    {
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar"
+                                                 aria-valuenow=@Model.ARCmodelUsingPercent aria-valuemin="0" aria-valuemax="100" style="width:@Model.ARCmodelUsingPercent%">
+                                                <i style="color:black">@Model.ARCmodelUsingPercent %</i>
+                                            </div>
+                                        </div>
+                                    }
+                                    else if (Model.ARCmodelUsingPercent >= 75)
+                                    {
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar"
+                                                 aria-valuenow=@Model.ARCmodelUsingPercent aria-valuemin="0" aria-valuemax="100" style="width:@Model.ARCmodelUsingPercent%">
+                                                <i style="color:black">@Model.ARCmodelUsingPercent %</i>
+                                            </div>
+                                        </div>
+                                    }
                                 }
                                 else //False value
                                 {
@@ -103,7 +124,7 @@
                             }
                             else //NotSet value
                             {
-                                    <b class="text-danger">0 %</b>
+                                <b class="text-danger">0 %</b>
                             }
                         </td>
                         <td class="text-center">
@@ -135,12 +156,33 @@
                             {
                                 if (Model.STRmakeModel.Value) //True value
                                 {
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar"
-                                             aria-valuenow=@Model.STRmodelUsingPercent aria-valuemin="0" aria-valuemax="100" style="width:@Model.STRmodelUsingPercent%">
-                                            <i style="color:black">@Model.STRmodelUsingPercent %</i>
+                                    if (Model.STRmodelUsingPercent <= 55)
+                                    {
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"
+                                                 aria-valuenow=@Model.STRmodelUsingPercent aria-valuemin="0" aria-valuemax="100" style="width:@Model.STRmodelUsingPercent%">
+                                                <i style="color:black">@Model.STRmodelUsingPercent %</i>
+                                            </div>
                                         </div>
-                                    </div>
+                                    }
+                                    else if (Model.STRmodelUsingPercent > 55 && Model.STRmodelUsingPercent < 75)
+                                    {
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar"
+                                                 aria-valuenow=@Model.STRmodelUsingPercent aria-valuemin="0" aria-valuemax="100" style="width:@Model.STRmodelUsingPercent%">
+                                                <i style="color:black">@Model.STRmodelUsingPercent %</i>
+                                            </div>
+                                        </div>
+                                    }
+                                    else if (Model.STRmodelUsingPercent >= 75)
+                                    {
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar"
+                                                 aria-valuenow=@Model.STRmodelUsingPercent aria-valuemin="0" aria-valuemax="100" style="width:@Model.STRmodelUsingPercent%">
+                                                <i style="color:black">@Model.STRmodelUsingPercent %</i>
+                                            </div>
+                                        </div>
+                                    }
                                 }
                                 else //False value
                                 {
@@ -149,7 +191,7 @@
                             }
                             else //NotSet value
                             {
-                                    <b class="text-danger">0 %</b>
+                                <b class="text-danger">0 %</b>
                             }
                         </td>
                         <td class="text-center">
@@ -181,13 +223,33 @@
                             {
                                 if (Model.MEPmakeModel.Value) //True value
                                 {
-
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar"
-                                             aria-valuenow=@Model.MEPmodelUsingPercent aria-valuemin="0" aria-valuemax="100" style="width:@Model.MEPmodelUsingPercent%">
-                                            <i style="color:black">@Model.MEPmodelUsingPercent %</i>
+                                    if (Model.MEPmodelUsingPercent <= 55)
+                                    {
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"
+                                                 aria-valuenow=@Model.MEPmodelUsingPercent aria-valuemin="0" aria-valuemax="100" style="width:@Model.MEPmodelUsingPercent%">
+                                                <i style="color:black">@Model.MEPmodelUsingPercent %</i>
+                                            </div>
                                         </div>
-                                    </div>
+                                    }
+                                    else if (Model.MEPmodelUsingPercent > 55 && Model.MEPmodelUsingPercent < 75)
+                                    {
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar"
+                                                 aria-valuenow=@Model.MEPmodelUsingPercent aria-valuemin="0" aria-valuemax="100" style="width:@Model.MEPmodelUsingPercent%">
+                                                <i style="color:black">@Model.MEPmodelUsingPercent %</i>
+                                            </div>
+                                        </div>
+                                    }
+                                    else if (Model.MEPmodelUsingPercent >= 75)
+                                    {
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar"
+                                                 aria-valuenow=@Model.MEPmodelUsingPercent aria-valuemin="0" aria-valuemax="100" style="width:@Model.MEPmodelUsingPercent%">
+                                                <i style="color:black">@Model.MEPmodelUsingPercent %</i>
+                                            </div>
+                                        </div>
+                                    }
 
                                 }
                                 else //False value
@@ -229,23 +291,46 @@
                             {
                                 if (Model.CivilMakeModel.Value) //True value
                                 {
+                                    if (Model.CivilMakeModel.Value) //True value
+                                    {
+                                        if (Model.CIVILmodelUsingPercent <= 55)
+                                        {
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"
+                                                     aria-valuenow=@Model.CIVILmodelUsingPercent aria-valuemin="0" aria-valuemax="100" style="width:@Model.CIVILmodelUsingPercent%">
+                                                    <i style="color:black">@Model.CIVILmodelUsingPercent %</i>
+                                                </div>
+                                            </div>
+                                        }
+                                        else if (Model.CIVILmodelUsingPercent > 55 && Model.CIVILmodelUsingPercent < 75)
+                                        {
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar"
+                                                     aria-valuenow=@Model.CIVILmodelUsingPercent aria-valuemin="0" aria-valuemax="100" style="width:@Model.CIVILmodelUsingPercent%">
+                                                    <i style="color:black">@Model.CIVILmodelUsingPercent %</i>
+                                                </div>
+                                            </div>
+                                        }
+                                        else if (Model.CIVILmodelUsingPercent >= 75)
+                                        {
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar"
+                                                     aria-valuenow=@Model.CIVILmodelUsingPercent aria-valuemin="0" aria-valuemax="100" style="width:@Model.CIVILmodelUsingPercent%">
+                                                    <i style="color:black">@Model.CIVILmodelUsingPercent %</i>
+                                                </div>
+                                            </div>
+                                        }
 
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar"
-                                             aria-valuenow=@Model.CIVILmodelUsingPercent aria-valuemin="0" aria-valuemax="100" style="width:@Model.CIVILmodelUsingPercent%">
-                                            <i style="color:black">@Model.CIVILmodelUsingPercent %</i>
-                                        </div>
-                                    </div>
-
+                                    }
+                                    else //False value
+                                    {
+                                        <b class="text-danger"> Not calculate </b>
+                                    }
                                 }
-                                else //False value
+                                else //NotSet value
                                 {
-                                    <b class="text-danger"> Not calculate </b>
+                                    <b class="text-danger">0 %</b>
                                 }
-                            }
-                            else //NotSet value
-                            {
-                                <b class="text-danger">0 %</b>
                             }
                         </td>
                         <td class="text-center">
@@ -278,12 +363,33 @@
                                 if (Model.LandscapeMakeModel.Value) //True value
                                 {
 
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar"
-                                             aria-valuenow=@Model.LANDSmodelUsingPercent aria-valuemin="0" aria-valuemax="100" style="width:@Model.LANDSmodelUsingPercent%">
-                                            <i style="color:black">@Model.LANDSmodelUsingPercent %</i>
+                                    if (Model.LANDSmodelUsingPercent <= 55)
+                                    {
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar"
+                                                 aria-valuenow=@Model.LANDSmodelUsingPercent aria-valuemin="0" aria-valuemax="100" style="width:@Model.LANDSmodelUsingPercent%">
+                                                <i style="color:black">@Model.LANDSmodelUsingPercent %</i>
+                                            </div>
                                         </div>
-                                    </div>
+                                    }
+                                    else if (Model.LANDSmodelUsingPercent > 55 && Model.LANDSmodelUsingPercent < 75)
+                                    {
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar"
+                                                 aria-valuenow=@Model.LANDSmodelUsingPercent aria-valuemin="0" aria-valuemax="100" style="width:@Model.LANDSmodelUsingPercent%">
+                                                <i style="color:black">@Model.LANDSmodelUsingPercent %</i>
+                                            </div>
+                                        </div>
+                                    }
+                                    else if (Model.LANDSmodelUsingPercent >= 75)
+                                    {
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar"
+                                                 aria-valuenow=@Model.LANDSmodelUsingPercent aria-valuemin="0" aria-valuemax="100" style="width:@Model.LANDSmodelUsingPercent%">
+                                                <i style="color:black">@Model.LANDSmodelUsingPercent %</i>
+                                            </div>
+                                        </div>
+                                    }
 
                                 }
                                 else //False value

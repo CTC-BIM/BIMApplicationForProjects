@@ -173,7 +173,6 @@
     <Compile Include="Controllers\AdminProjectAppDetailsController.cs" />
     <Compile Include="Controllers\AdminProjectsController.cs" />
     <Compile Include="Controllers\AdminUsersController.cs" />
-    <Compile Include="Controllers\Admin_AspNetUsersController.cs" />
     <Compile Include="Controllers\AppListsController.cs" />
     <Compile Include="Controllers\AppResultsController.cs" />
     <Compile Include="Controllers\AppWorkDetailsController.cs" />
@@ -186,33 +185,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AspNetRole.cs">
-      <DependentUpon>AspUsers.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspNetUser.cs">
-      <DependentUpon>AspUsers.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspNetUserClaim.cs">
-      <DependentUpon>AspUsers.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspNetUserLogin.cs">
-      <DependentUpon>AspUsers.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspUsers.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AspUsers.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspUsers.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AspUsers.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspUsers.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AspUsers.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Models\BIMApps.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -266,14 +238,8 @@
       <DependentUpon>BIMApps.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ChangeLog.cs" />
-    <Compile Include="Models\C__MigrationHistory.cs">
-      <DependentUpon>AspUsers.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\UserInfo.cs">
-      <DependentUpon>AspUsers.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -312,16 +278,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\AspUsers.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>AspUsers.edmx</DependentUpon>
-      <LastGenOutput>AspUsers.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\AspUsers.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>AspUsers.edmx</DependentUpon>
-      <LastGenOutput>AspUsers.cs</LastGenOutput>
-    </Content>
     <Content Include="Models\BIMApps.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>BIMApps.edmx</DependentUpon>
@@ -340,13 +296,6 @@
     </EntityDeploy>
     <Content Include="Models\BIMApps.edmx.diagram">
       <DependentUpon>BIMApps.edmx</DependentUpon>
-    </Content>
-    <EntityDeploy Include="Models\AspUsers.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>AspUsers.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\AspUsers.edmx.diagram">
-      <DependentUpon>AspUsers.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />

@@ -10,11 +10,15 @@ namespace BIMApplicationForProjects.Controllers
     public class ProjectsController : Controller
     {
         private ProjectsDbContext db = new ProjectsDbContext();
-        private AspNetUser LoginUser = new AspNetUser();
+        //private AspNetUser LoginUser = new AspNetUser();
+        ApplicationUser LoginUser = new ApplicationUser();
         // GET: Projects
         public ActionResult Index()
         {
-            LoginUser = Session["LoginUser"] as AspNetUser;
+
+            //LoginUser = Session["LoginUser"] as AspNetUser;
+            LoginUser = Session["LoginUser"] as ApplicationUser;
+
             if (LoginUser != null)
             {
                 var c01_Projects = db.C01_Projects.Include(c => c.C04_ProjectPhase);
@@ -45,33 +49,40 @@ namespace BIMApplicationForProjects.Controllers
         // GET: Projects/Details/5
         public ActionResult Details(string id)
         {
-            if (id == null) return RedirectToAction("Index");
+            //LoginUser = Session["LoginUser"] as AspNetUser;
+            LoginUser = Session["LoginUser"] as ApplicationUser;
 
-            //Phase
-            var phase = db.C04_ProjectPhase.ToList();
-            ViewBag.Phase = phase;
-            //Project with BIM
-            var BIMproject = db.C03_ProjectAppDetails.ToList();
-            ViewBag.BIMProjects = BIMproject;
-            //AppList Detail
-            var AppList = db.C02_AppLists.ToList();
-            ViewBag.AppList = AppList;
-            //Tình trạng
-            var status = db.C06_Status.ToList();
-            ViewBag.Status = status;
-            //Kết quả - Result
-            var result = db.C07_Result.ToList();
-            ViewBag.Result = result;
-            //Request Type
-            var RequestType = db.C08_RequestType.ToList();
-            ViewBag.RequestType = RequestType;
-            C01_Projects c01_Projects = db.C01_Projects.Find(id);
-
-            if (c01_Projects == null)
+            if (LoginUser != null)
             {
-                return HttpNotFound();
+                if (id == null) return RedirectToAction("Index");
+
+                //Phase
+                var phase = db.C04_ProjectPhase.ToList();
+                ViewBag.Phase = phase;
+                //Project with BIM
+                var BIMproject = db.C03_ProjectAppDetails.ToList();
+                ViewBag.BIMProjects = BIMproject;
+                //AppList Detail
+                var AppList = db.C02_AppLists.ToList();
+                ViewBag.AppList = AppList;
+                //Tình trạng
+                var status = db.C06_Status.ToList();
+                ViewBag.Status = status;
+                //Kết quả - Result
+                var result = db.C07_Result.ToList();
+                ViewBag.Result = result;
+                //Request Type
+                var RequestType = db.C08_RequestType.ToList();
+                ViewBag.RequestType = RequestType;
+                C01_Projects c01_Projects = db.C01_Projects.Find(id);
+
+                if (c01_Projects == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(c01_Projects);
             }
-            return View(c01_Projects);
+            return RedirectToAction("Login", "Account");
         }
         public ActionResult _AppListPartialView(string id)
         {
@@ -126,28 +137,34 @@ namespace BIMApplicationForProjects.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(C01_Projects c01_Projects)
         {
-            if (ModelState.IsValid)
+            //LoginUser = Session["LoginUser"] as AspNetUser;
+            LoginUser = Session["LoginUser"] as ApplicationUser;
+            if (LoginUser != null)
             {
-                var curProjectID = db.C01_Projects.FirstOrDefault(s => s.ProjectID == c01_Projects.ProjectID);
-
-                if (curProjectID == null)
+                if (ModelState.IsValid)
                 {
-                    db.C01_Projects.Add(c01_Projects);
-                    db.SaveChanges();
+                    var curProjectID = db.C01_Projects.FirstOrDefault(s => s.ProjectID == c01_Projects.ProjectID);
 
-                    string log = ChangeLog.WriteProjectLog(c01_Projects, "Test user", "Add New Project");
-                    Session["ThongBao"] = "Thêm Dự án " + c01_Projects.ProjectID + " thành công và ghi Log " + log;
-                    return RedirectToAction("Index");
+                    if (curProjectID == null)
+                    {
+                        db.C01_Projects.Add(c01_Projects);
+                        db.SaveChanges();
+
+                        string log = ChangeLog.WriteProjectLog(c01_Projects, LoginUser.UserName, "Add New Project");
+                        Session["ThongBao"] = "Thêm Dự án " + c01_Projects.ProjectID + " thành công và ghi Log " + log;
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        Session["ThongBao"] = "Đã có Dự án " + c01_Projects.ProjectID + " trong Database ";
+                        return RedirectToAction("Create");
+                    }
                 }
-                else
-                {
-                    Session["ThongBao"] = "Đã có Dự án " + c01_Projects.ProjectID + " trong Database ";
-                    return RedirectToAction("Create");
-                }
+
+                ViewBag.Phase = new SelectList(db.C04_ProjectPhase, "PhaseID", "PhaseName", c01_Projects.Phase);
+                return View(c01_Projects);
             }
-
-            ViewBag.Phase = new SelectList(db.C04_ProjectPhase, "PhaseID", "PhaseName", c01_Projects.Phase);
-            return View(c01_Projects);
+            return RedirectToAction("Login", "Account");
         }
 
         // GET: Projects/Edit/5
@@ -172,21 +189,27 @@ namespace BIMApplicationForProjects.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(C01_Projects c01_Projects)
         {
-            if (ModelState.IsValid)
+            //LoginUser = Session["LoginUser"] as AspNetUser;
+            LoginUser = Session["LoginUser"] as ApplicationUser;
+            if (LoginUser != null)
             {
-                db.Entry(c01_Projects).State = EntityState.Modified;
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    db.Entry(c01_Projects).State = EntityState.Modified;
+                    db.SaveChanges();
 
-                string log = ChangeLog.WriteProjectLog(c01_Projects, "Test user", "Edit Project details");
-                Session["ThongBao"] = "Cập nhật thông tin dự án " + c01_Projects.ProjectID + " thành công và ghi Log " + log;
+                    string log = ChangeLog.WriteProjectLog(c01_Projects, LoginUser.UserName, "Edit Project details");
+                    Session["ThongBao"] = "Cập nhật thông tin dự án " + c01_Projects.ProjectID + " thành công và ghi Log " + log;
 
-                var phase = db.C04_ProjectPhase.ToList();
-                ViewBag.Phase = phase;
+                    var phase = db.C04_ProjectPhase.ToList();
+                    ViewBag.Phase = phase;
+                    return View("Details", c01_Projects);
+                    //return RedirectToAction("Details","Projects", c01_Projects);
+                }
+                ViewBag.Phase = new SelectList(db.C04_ProjectPhase, "PhaseID", "PhaseName", c01_Projects.Phase);
                 return View("Details", c01_Projects);
-                //return RedirectToAction("Details","Projects", c01_Projects);
             }
-            ViewBag.Phase = new SelectList(db.C04_ProjectPhase, "PhaseID", "PhaseName", c01_Projects.Phase);
-            return View("Details", c01_Projects);
+            return RedirectToAction("Login", "Account");
         }
 
         // GET: Projects/Delete/5
@@ -214,7 +237,7 @@ namespace BIMApplicationForProjects.Controllers
             db.C01_Projects.Remove(c01_Projects);
             db.SaveChanges();
 
-            string log = ChangeLog.WriteProjectLog(c01_Projects, "Test user", "Delete Project");
+            string log = ChangeLog.WriteProjectLog(c01_Projects, LoginUser.UserName, "Delete Project");
             Session["ThongBao"] = "Xóa dự án " + c01_Projects.ProjectID + " thành công và ghi Log " + log;
 
             return RedirectToAction("Index");

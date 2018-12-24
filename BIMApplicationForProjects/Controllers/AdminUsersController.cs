@@ -19,7 +19,9 @@ namespace BIMApplicationForProjects.Controllers
         public ActionResult Index()
         {
            
-            var userList = db.Users.ToList();            
+            var userList = db.Users.Include(c => c.Roles).ToList();
+            var RoleList = db.Roles.ToList();
+            ViewBag.RoleID = RoleList;
             return View(userList);
         }
 

@@ -12,7 +12,7 @@ namespace BIMApplicationForProjects.Controllers
 {
     public class Admin_AspNetUsersController : Controller
     {
-        private AspUserDbContext db = new AspUserDbContext();
+        //private AspUserDbContext db = new AspUserDbContext();
 
         // GET: Admin_AspNetUsers
         public ActionResult Index()
