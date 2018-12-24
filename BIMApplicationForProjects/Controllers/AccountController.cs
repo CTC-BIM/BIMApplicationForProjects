@@ -2,16 +2,15 @@
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using BIMApplicationForProjects.Models;
-using System;
 
 namespace BIMApplicationForProjects.Controllers
 {
-    [Authorize]    
+    [Authorize]
     public class AccountController : Controller
     {
         private AspUserDbContext uDb = new AspUserDbContext();
@@ -90,8 +89,8 @@ namespace BIMApplicationForProjects.Controllers
             {
                 if (!await UserManager.IsEmailConfirmedAsync(user.Id))
                 {
-                    ViewBag.errorMessage = "Bạn cần Active tài khoản bằng link trong Email " + model.Email + " trước khi Đăng nhập<br/>You must active account by link in a confirmed email "+ model.Email + " to log on.";
-                    
+                    ViewBag.errorMessage = "Bạn cần Active tài khoản bằng link trong Email " + model.Email + " trước khi Đăng nhập<br/>You must active account by link in a confirmed email " + model.Email + " to log on.";
+
                     return View("Error");
                 }
             }
@@ -106,10 +105,25 @@ namespace BIMApplicationForProjects.Controllers
             //var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: true);
             var result = SignInManager.PasswordSignIn(User.UserName, model.Password, model.RememberMe, shouldLockout: true);
 
+            try
+            {
+                string RoleOfUser = "";
+                var roleName = uDb.AspNetRoles.Where(s => s.Id == User.Id);
+
+            }
+            catch (Exception ex)
+            {
+                ViewBag.errorMessage = "Có lỗi đăng nhập, do " + ex.Message;
+                return View("Error");
+            }
+
+
             switch (result)
             {
                 case SignInStatus.Success:
+                    Session["LoginUser"] = User;
                     return RedirectToLocal(returnUrl);
+                //return RedirectToAction("Index", "AdminProjects");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -200,10 +214,10 @@ namespace BIMApplicationForProjects.Controllers
                     using (MailsController email = new MailsController())
                     {
                         try
-                        {                            
+                        {
                             string RegisterEmail = model.Email;
 
-                            if (email.SendConfirmEmail(model.UserName,model.Password,RegisterEmail,callbackUrl) == "OK")
+                            if (email.SendConfirmEmail(model.UserName, model.Password, RegisterEmail, callbackUrl) == "OK")
                             {
                                 Session["ThongBao"] = "Gửi Email to User thành công";
                             }
@@ -214,7 +228,7 @@ namespace BIMApplicationForProjects.Controllers
                         }
 
                     }
-                    
+
                     //Thêm phần chờ confirm Email trước khi Login
                     // Uncomment to debug locally 
                     // TempData["ViewBagLink"] = callbackUrl;
@@ -514,6 +528,15 @@ namespace BIMApplicationForProjects.Controllers
             if (Url.IsLocalUrl(returnUrl))
             {
                 return Redirect(returnUrl);
+            }
+            var User = Session["LoginUser"] as AspNetUser;
+            var userRole = UserManager.GetRoles(User.Id);
+            foreach (var role in userRole)
+            {
+                if (role.ToString() == "Admin")
+                {
+                    return RedirectToAction("Index", "AdminUsers");
+                }
             }
             return RedirectToAction("Index", "Home");
         }

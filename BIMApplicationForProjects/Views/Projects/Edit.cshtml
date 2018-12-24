@@ -24,14 +24,14 @@
                 <div class="col-md-5">
                     <label class="control-label col-md-7">Mã dự án | <small class="text-info">Project ID</small></label>
                     <div class="col-md-5">
-                        @Html.EditorFor(model => model.ProjectID, new { htmlAttributes = new { @class = "form-control" } })
+                        <b class="text-danger">@Html.EditorFor(model => model.ProjectID, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })</b>
                         @Html.ValidationMessageFor(model => model.ProjectID, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="col-md-7">
                     <label class="control-label col-md-7">Tên dự án | <small class="text-info">Project Name</small></label>
                     <div class="col-md-5">
-                        @Html.EditorFor(model => model.ProjectName, new { htmlAttributes = new { @class = "form-control" } })
+                        <b>@Html.EditorFor(model => model.ProjectName, new { htmlAttributes = new { @class = "form-control" } })</b>
                         @Html.ValidationMessageFor(model => model.ProjectName, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                 <div class="col-md-5">
                     <label class="control-label col-md-7">Chủ trì dự án | <small class="text-info">Project Manager</small></label>
                     <div class="col-md-5">
-                        @Html.EditorFor(model => model.PMname, new { htmlAttributes = new { @class = "form-control" } })
+                        <b>@Html.EditorFor(model => model.PMname, new { htmlAttributes = new { @class = "form-control" } })</b>
                         @Html.ValidationMessageFor(model => model.PMname, "", new { @class = "text-danger" })
                     </div>
                 </div>

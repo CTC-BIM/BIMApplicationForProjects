@@ -24,14 +24,14 @@
     <div>
         <div class="form-group">
             <div class="text-left form-group" style="border-color:red">
-                <h4>Chủ trì dự án <small class="text-primary">Project Manager: </small>@Model.PMname</h4>
+                <h4>Chủ trì dự án <small class="text-primary">Project Manager: </small><b>@Model.PMname</b></h4>
                 <h4>
                     Giai đoạn dự án <small class="text-info">Project Phase:</small>
                     @foreach (BIMApplicationForProjects.Models.C04_ProjectPhase item in phase)
                     {
                         if (Model.Phase == item.PhaseID)
                         {
-                            <b class="text-warning">@item.PhaseName</b>
+                            <b>@item.PhaseName</b>
                         }
                     }
                 </h4>
@@ -45,11 +45,11 @@
                         <th class="text-center" style="background-color:#808080; color:white">Cảnh quan</th>
                     </tr>
                     <tr>
-                        <td class="text-center"><b>@Model.ARCdesigner</b></td>
-                        <td class="text-center"><b>@Model.STRdesigner</b></td>
-                        <td class="text-center"><b>@Model.MEPdesigner</b></td>
-                        <td class="text-center"><b>@Model.CIvilDesigner</b></td>
-                        <td class="text-center"><b>@Model.LandscapeDesigner</b></td>
+                        <td class="text-center text-danger"><b>@Model.ARCdesigner</b></td>
+                        <td class="text-center text-danger"><b>@Model.STRdesigner</b></td>
+                        <td class="text-center text-danger"><b>@Model.MEPdesigner</b></td>
+                        <td class="text-center text-danger"><b>@Model.CIvilDesigner</b></td>
+                        <td class="text-center text-danger"><b>@Model.LandscapeDesigner</b></td>
                     </tr>
                 </table>
 

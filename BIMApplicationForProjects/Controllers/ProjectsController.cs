@@ -10,31 +10,36 @@ namespace BIMApplicationForProjects.Controllers
     public class ProjectsController : Controller
     {
         private ProjectsDbContext db = new ProjectsDbContext();
-
+        private AspNetUser LoginUser = new AspNetUser();
         // GET: Projects
         public ActionResult Index()
         {
-            var c01_Projects = db.C01_Projects.Include(c => c.C04_ProjectPhase);
-            //Phase
-            var phase = db.C04_ProjectPhase.ToList();
-            ViewBag.Phase = phase;
-            //Project with BIM
-            var BIMproject = db.C03_ProjectAppDetails.ToList();
-            ViewBag.BIMProjects = BIMproject;
-            //AppList Detail
-            var AppList = db.C02_AppLists.ToList();
-            ViewBag.AppList = AppList;
-            //Tình trạng
-            var status = db.C06_Status.ToList();
-            ViewBag.Status = status;
-            //Kết quả - Result
-            var result = db.C07_Result.ToList();
-            ViewBag.Result = result;
-            //Request Type
-            var RequestType = db.C08_RequestType.ToList();
-            ViewBag.RequestType = RequestType;
+            LoginUser = Session["LoginUser"] as AspNetUser;
+            if (LoginUser != null)
+            {
+                var c01_Projects = db.C01_Projects.Include(c => c.C04_ProjectPhase);
+                //Phase
+                var phase = db.C04_ProjectPhase.ToList();
+                ViewBag.Phase = phase;
+                //Project with BIM
+                var BIMproject = db.C03_ProjectAppDetails.ToList();
+                ViewBag.BIMProjects = BIMproject;
+                //AppList Detail
+                var AppList = db.C02_AppLists.ToList();
+                ViewBag.AppList = AppList;
+                //Tình trạng
+                var status = db.C06_Status.ToList();
+                ViewBag.Status = status;
+                //Kết quả - Result
+                var result = db.C07_Result.ToList();
+                ViewBag.Result = result;
+                //Request Type
+                var RequestType = db.C08_RequestType.ToList();
+                ViewBag.RequestType = RequestType;
 
-            return View(c01_Projects.ToList());
+                return View(c01_Projects.ToList());
+            }
+            return RedirectToAction("Login", "Account");
         }
 
         // GET: Projects/Details/5
@@ -122,9 +127,9 @@ namespace BIMApplicationForProjects.Controllers
         public ActionResult Create(C01_Projects c01_Projects)
         {
             if (ModelState.IsValid)
-            {                
+            {
                 var curProjectID = db.C01_Projects.FirstOrDefault(s => s.ProjectID == c01_Projects.ProjectID);
-                
+
                 if (curProjectID == null)
                 {
                     db.C01_Projects.Add(c01_Projects);
