@@ -10,8 +10,11 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table table-bordered table-condensed table-hover">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProjectID)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.DateRequest)
         </th>
@@ -56,8 +59,10 @@
 
 @foreach (var item in Model) {
     <tr>
+        <td> @Html.DisplayFor(modelItem => item.ProjectID)</td>
         <td>
-            @Html.DisplayFor(modelItem => item.DateRequest)
+            @string.Format("{0:dd/MMM}", item.DateRequest)
+            @*@Html.DisplayFor(modelItem => item.DateRequest)*@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.UserRequest)
@@ -72,7 +77,8 @@
             @Html.DisplayFor(modelItem => item.BIMerName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DeadLine)
+            @string.Format("{0:dd/MMM}", item.DeadLine)
+           @* @Html.DisplayFor(modelItem => item.DeadLine)*@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Resource)

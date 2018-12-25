@@ -61,11 +61,13 @@ namespace BIMApplicationForProjects.Controllers
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+                : message == ManageMessageId.ChangeUserNameSuccess ? "Your UserName has been changed."
                 : "";
 
             var userId = User.Identity.GetUserId();
             var model = new IndexViewModel
             {
+                UserName = User.Identity.GetUserName(),
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
@@ -212,6 +214,44 @@ namespace BIMApplicationForProjects.Controllers
             }
             return RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
         }
+
+        //
+        //GET: //Manage/ChangeUserName
+        public ActionResult ChangeUserName()
+        {            
+            return View();
+        }
+
+        //POST: /Manage/ChangeUserName
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ChangeUserName(ChangeUserNameViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            ApplicationUser Loginuser = await UserManager.FindByEmailAsync(model.Email);
+            //ApplicationUser updateUser = new ApplicationUser();
+            //updateUser = Loginuser;
+            Loginuser.UserName = model.UserName;
+            //updateUser.UserName = model.UserName;
+
+            var result = await UserManager.UpdateAsync(Loginuser);
+            if (result.Succeeded)
+            {
+                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                if (user != null)
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                }
+                return RedirectToAction("Index", new { Message = ManageMessageId.ChangeUserNameSuccess});
+            }
+            AddErrors(result);
+            return View(model);
+        }
+
+
 
         //
         // GET: /Manage/ChangePassword
@@ -381,7 +421,8 @@ namespace BIMApplicationForProjects.Controllers
             SetPasswordSuccess,
             RemoveLoginSuccess,
             RemovePhoneSuccess,
-            Error
+            Error,
+            ChangeUserNameSuccess,
         }
 
 #endregion

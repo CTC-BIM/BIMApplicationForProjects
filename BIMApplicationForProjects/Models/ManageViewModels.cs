@@ -12,6 +12,20 @@ namespace BIMApplicationForProjects.Models
         public string PhoneNumber { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
+        public string UserName { get; set; }
+    }
+
+    public class ChangeUserNameViewModel
+    {
+        [Required]
+        [Display(Name = "Email")]
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "User Name")]
+        [StringLength(30, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 3)]
+        public string UserName { get; set; }
     }
 
     public class ManageLoginsViewModel
@@ -35,7 +49,7 @@ namespace BIMApplicationForProjects.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [Compare("NewPassword", ErrorMessage = "Password chưa khớp - The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
 
@@ -54,7 +68,7 @@ namespace BIMApplicationForProjects.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [Compare("NewPassword", ErrorMessage = "Password chưa khớp - The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
 

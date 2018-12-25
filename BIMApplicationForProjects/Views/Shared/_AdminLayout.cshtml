@@ -4,11 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - BIM Application for Project</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-
+    @*@Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")*@
+    <!-- CSS INCLUDE -->
+    <link rel="stylesheet" type="text/css" id="theme" href="../Assets/Template/css/theme-default.css" />
+    <!-- EOF CSS INCLUDE -->
 </head>
 <body>
+    <!--
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -17,28 +20,124 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("BIM Applications", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <a href=@Url.Action("Index","AdminProjects")>
+                    <img src="~/Assets/Logo/Lego.png" class="img50x50" />
+                    @*@Html.ActionLink("BIM Apps", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+                </a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Projects", "Index", "AdminProjects")</li>
-                    <li>@Html.ActionLink("Application Manage", "Index", "AdminProjectAppDetails")</li>
-                    <li>@Html.ActionLink("User Manage", "Index", "Admin_AspNetUsers")</li>
+                    <li>@Html.ActionLink("Quản lý Projects", "Index", "AdminProjects")</li>
+                    <li>@Html.ActionLink("Quàn lý Ứng dụng", "Index", "AdminProjectAppDetails")</li>
+                    <li>@Html.ActionLink("Quản lý người dùng", "Index", "AdminUsers")</li>
                 </ul>
-                @Html.Partial("_LoginPartial")
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                    <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                </ul>
+
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+    <!--
+       <div>
+            <div class="nav nav-tabs navbar-left form-group">
+                @* Dự án *@
+                <div class="dropdown form-group">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="background-color:#808080">
+                        Quản lý Dự án
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("Index","AdminProjects")">Dự án Đăng ký</a></li>
+                        <li><a href="#">Ban BIM</a></li>
+                    </ul>
+                </div>
+                @* Người dùng *@
+                <div class="dropdown form-group">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" style="background-color:#808080">
+                        Quản lý Nhân sự
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Ban BIM</a></li>
+                        <li><a href="@Url.Action("Index","AdminUsers")">Người dùng Ứng dụng</a></li>
+                    </ul>
+                </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+            </div>
+        </div>
+    -->
+    
+    <div class="page-container">
+        <!-- START PAGE SIDEBAR -->
+        <div class="page-sidebar">
+            @Html.Partial("_LeftSideBar")
+        </div>
+        <!-- END PAGE SIDEBAR -->
+        <div class="page-content">
+            @* Topbar *@
+            @Html.Partial("_TopBar")
+            @* Nội dung trang *@
+            <div class="page-content-wrap">
+                @RenderBody()
+            </div>           
+            <hr />
+            <footer class="nav navbar-fixed-bottom navbar-inverse form-inline container-fluid">
+                <div class="col-lg-11 text-center">
+                    <p style="color:white">&copy; @DateTime.Now.Year - Coteccons BIM team - version 1.1</p>
+                </div>
+
+            </footer>
+        </div>
+    </div>
+    
+    @*@Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")*@
     @RenderSection("scripts", required: false)
+    <style>
+        .img50x50 {
+            height: 50px;
+            width: 50px;
+        }
+    </style>
+
+    <!-- START PRELOADS -->
+    <audio id="audio-alert" src="../Assets/Template/audio/alert.mp3" preload="auto"></audio>
+    <audio id="audio-fail" src="../Assets/Template/audio/fail.mp3" preload="auto"></audio>
+    <!-- END PRELOADS -->
+    <!-- START SCRIPTS -->
+    <!-- START PLUGINS -->
+    <script type="text/javascript" src="../Assets/Template/js/plugins/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="../Assets/Template/js/plugins/jquery/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../Assets/Template/js/plugins/bootstrap/bootstrap.min.js"></script>
+    <!-- END PLUGINS -->
+    <!-- START THIS PAGE PLUGINS-->
+    <script type='text/javascript' src='../Assets/Template/js/plugins/icheck/icheck.min.js'></script>
+    <script type="text/javascript" src="../Assets/Template/js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
+    <script type="text/javascript" src="../Assets/Template/js/plugins/scrolltotop/scrolltopcontrol.js"></script>
+
+    <script type="text/javascript" src="../Assets/Template/js/plugins/morris/raphael-min.js"></script>
+    <script type="text/javascript" src="../Assets/Template/js/plugins/morris/morris.min.js"></script>
+    <script type="text/javascript" src="../Assets/Template/js/plugins/rickshaw/d3.v3.js"></script>
+    <script type="text/javascript" src="../Assets/Template/js/plugins/rickshaw/rickshaw.min.js"></script>
+    <script type='text/javascript' src='../Assets/Template/js/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js'></script>
+    <script type='text/javascript' src='../Assets/Template/js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js'></script>
+    <script type='text/javascript' src='../Assets/Template/js/plugins/bootstrap/bootstrap-datepicker.js'></script>
+    <script type="text/javascript" src="../Assets/Template/js/plugins/owl/owl.carousel.min.js"></script>
+
+    <script type="text/javascript" src="../Assets/Template/js/plugins/moment.min.js"></script>
+    <script type="text/javascript" src="../Assets/Template/js/plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- END THIS PAGE PLUGINS-->
+    <!-- START TEMPLATE -->
+    <script type="text/javascript" src="../Assets/Template/js/settings.js"></script>
+
+    <script type="text/javascript" src="../Assets/Template/js/plugins.js"></script>
+    <script type="text/javascript" src="../Assets/Template/js/actions.js"></script>
+
+    <script type="text/javascript" src="../Assets/Template/js/demo_dashboard.js"></script>
+    <!-- END TEMPLATE -->
+    <!-- END SCRIPTS -->
 </body>
 </html>

@@ -199,5 +199,51 @@ namespace BIMApplicationForProjects.Controllers
         }
 
 
+        public string SendForgotPassEmail(string userName, string EmailNguoiNhan, string LinkActive)
+        {
+            string kq = "NotOK";
+            try
+            {
+                #region Format Email
+                StringBuilder Body = new StringBuilder();
+                Body.Append("<p>Bạn cần Click vào đường link này để Đăng nhập lại Tài khoản của bạn</p>");
+                Body.Append("<table>");
+                Body.Append("<tr><td colspan='2'><h4>Thông tin UserName: <i>" + userName + "</i></h4></td></tr>");
+                Body.Append("<tr><td colspan='2'><h4>Link Active tài khoản:</h4></td></tr>");
+                Body.Append("<tr><td colspan='2'>" + LinkActive + "</td></tr>");
+                Body.Append("<tr><td colspan='2'></td></tr>");
+                Body.Append("<tr><td colspan='2'></td></tr>");
+                Body.Append("<tr><td colspan='2'>---------------------------------------------------------------------------------</td></tr>");
+                Body.Append("<tr><td colspan='2'></td></tr>");
+                Body.Append("<tr><td colspan='2'>Cập nhật tình trạng ứng dụng qua trang web: http://projects.cbimtech.com</td></tr>");
+                Body.Append("</table>");
+
+                #endregion
+
+                #region Send Email
+                MailMessage mail = new MailMessage();
+                mail.To.Add(EmailNguoiNhan);
+                mail.From = new MailAddress("teamcbimtech@gmail.com");
+                mail.Subject = "BIMAPP - QUÊN MẬT KHẨU ĐĂNG NHẬP";
+                mail.Body = Body.ToString();// phần thân của mail ở trên
+                mail.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.UseDefaultCredentials = true;
+                smtp.Credentials = new System.Net.NetworkCredential("teamcbimtech@gmail.com", "Ctc@2018");// tài khoản Gmail của bạn
+                smtp.EnableSsl = true;
+                smtp.Send(mail);
+                return kq = "OK";
+                #endregion
+
+            }
+            catch (Exception ex)
+            {
+                return kq + ex.Message;
+            }
+
+        }
+
     }
 }
