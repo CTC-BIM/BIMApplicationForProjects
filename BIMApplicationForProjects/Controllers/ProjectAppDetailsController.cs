@@ -188,6 +188,7 @@ namespace BIMApplicationForProjects.Controllers
                     newEnity.OtherRequest = curEnity.OtherRequest;
                     newEnity.Resource = curEnity.Resource;
                     newEnity.isAccept = false;
+                    newEnity.AppCode = curEnity.ProjectID + "-" + curEnity.ID;
                     newEnity.StatusID = 1;
 
                     if (curEnity.UserRequest == null)
