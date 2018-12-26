@@ -6,6 +6,9 @@
     string ProjectID = ViewBag.ProjectID;
     string ProjectName = ViewBag.ProjectName;
     //string ThongBao = Session["ThongBao"].ToString();
+    BIMApplicationForProjects.Models.ApplicationUser userLogin = Session["LoginUser"] as BIMApplicationForProjects.Models.ApplicationUser;
+    DateTime requestDate = (DateTime)ViewBag.DateRequest;
+    DateTime reqDate = (DateTime)Session["DateCreate"];
 }
 
 <h2>Thêm ứng dụng BIM cho dự án <small class="text-danger">Add new BIM applications</small></h2>
@@ -24,7 +27,8 @@
     <div class="form-group">
         @Html.LabelFor(model => model.UserRequest, "Người yêu cầu", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.UserRequest, new { htmlAttributes = new { @class = "form-control", placeholder = "Tên người yêu cầu" } })
+            @Html.TextBox(userLogin.UserName, userLogin.UserName, new { @class = "form-control", @readonly = "readonly" })
+            @*@Html.EditorFor(model => model.UserRequest, new { htmlAttributes = new { @class = "form-control", placeholder = "Tên người yêu cầu" } })*@
             @Html.ValidationMessageFor(model => model.UserRequest, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -57,7 +61,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.DateRequest, "Ngày yêu cầu", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.DateRequest, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.DateRequest, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.DateRequest } })
             @Html.ValidationMessageFor(model => model.DateRequest, "", new { @class = "text-danger" })
         </div>
     </div>

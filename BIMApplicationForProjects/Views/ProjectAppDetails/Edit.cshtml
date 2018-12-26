@@ -4,6 +4,8 @@
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<BIMApplicationForProjects.Models.C02_AppLists> Apps = ViewBag.AppList as List<BIMApplicationForProjects.Models.C02_AppLists>;
+    BIMApplicationForProjects.Models.ApplicationUser userLogin = Session["LoginUser"] as BIMApplicationForProjects.Models.ApplicationUser;
+
 }
 
 <h2>Cập nhật thông tin yêu cầu <i class="text-primary">Edit request</i></h2>

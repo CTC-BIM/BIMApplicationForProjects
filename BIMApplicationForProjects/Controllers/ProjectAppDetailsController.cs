@@ -120,6 +120,7 @@ namespace BIMApplicationForProjects.Controllers
                 {
                     if (id == null || id.Trim() == "") return RedirectToAction("Index", "Projects", "Không tìm thấy ID này");
                     C01_Projects projectName = db.C01_Projects.Find(id);
+                    ViewBag.DateRequest = projectName.DateCreate;
 
                     //Lấy App được Publish
                     List<C02_AppLists> IssueApp = db.C02_AppLists.Where(s => s.isPublish == 1).ToList();
@@ -127,12 +128,14 @@ namespace BIMApplicationForProjects.Controllers
                     ViewBag.ProjectID = projectName.ProjectID;
                     ViewBag.ProjectName = projectName.ProjectName;
 
+
                     ViewBag.AppID = new SelectList(IssueApp, "ID", "Name");
                     ViewBag.StatusID = new SelectList(db.C06_Status, "ID", "Name");
                     ViewBag.ResultID = new SelectList(db.C07_Result, "ID", "Name");
                     ViewBag.RequestID = new SelectList(db.C08_RequestType, "ID", "TypeName");
 
                     Session["ThongBao"] = "";
+                    Session["DateCreate"] = projectName.DateCreate;
                     return View("CreateID");
                 }
                 catch (Exception ex)
@@ -164,11 +167,38 @@ namespace BIMApplicationForProjects.Controllers
                     C03_ProjectAppDetails newEnity = new C03_ProjectAppDetails();
                     newEnity.AppID = curEnity.AppID;
                     newEnity.ProjectID = id;
-                    newEnity.DateRequest = curEnity.DateRequest;
+                    if (curEnity.DateRequest == null)
+                    {
+                        newEnity.DateRequest = DateTime.Now;
+                    }
+                    else
+                    {
+                        newEnity.DateRequest = curEnity.DateRequest;
+                    }
+                    if (curEnity.DeadLine == null)
+                    {
+                        DateTime date = newEnity.DateRequest.Value;
+                        newEnity.DeadLine = date.AddDays(7);
+                    }
+                    else
+                    {
+                        newEnity.DeadLine = curEnity.DeadLine;
+                    }
+
                     newEnity.OtherRequest = curEnity.OtherRequest;
-                    newEnity.DeadLine = curEnity.DeadLine;
+                    newEnity.Resource = curEnity.Resource;
+                    newEnity.isAccept = false;
                     newEnity.StatusID = 1;
-                    newEnity.UserRequest = curEnity.UserRequest;
+
+                    if (curEnity.UserRequest == null)
+                    {
+                        newEnity.UserRequest = LoginUser.UserName;
+                    }
+                    else
+                    {
+                        newEnity.UserRequest = curEnity.UserRequest;
+                    }
+
                     newEnity.ResultID = 1;
                     newEnity.RequestID = curEnity.RequestID;
 

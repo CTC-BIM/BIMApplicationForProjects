@@ -38,5 +38,10 @@ namespace BIMApplicationForProjects.Models
         public virtual DbSet<C07_Result> C07_Result { get; set; }
         public virtual DbSet<C08_RequestType> C08_RequestType { get; set; }
         public virtual DbSet<C99_History> C99_History { get; set; }
+        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
+        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
     }
 }

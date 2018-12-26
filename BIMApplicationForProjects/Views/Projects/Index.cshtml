@@ -14,11 +14,11 @@
 
     var RequestType = ViewBag.RequestType as List<BIMApplicationForProjects.Models.C08_RequestType>;
 
-    string ThongBao = Session["ThongBao"] as string;
+   
 }
 
 <h2>Danh sách dự án <small class="text-info">Project List</small></h2>
-
+<h5 class="text-danger">@Session["ThongBao"]</h5>
 <p class="form-group" style="margin-bottom:10px">
     @Html.ActionLink("Đăng ký dự án", "Create",null,new {@class="btn btn-primary" })
 </p>
@@ -28,11 +28,11 @@
     </p>*@
 
 <h3>@ViewBag.Error</h3>
-<h5 class="text-danger">@ThongBao</h5>
+
 @*Danh sách dự án*@
 
 <div class="container-fluid table table-bordered" style="margin:3px;border-color:blue">
-    <h4 class="text-center">Project List</h4>
+    <h4 class="text-center form-control-static" style="background-color:#000000; color:yellowgreen">Danh sách dự án - Project List</h4>
     <table class="table table-condensed table-bordered table-hover">
         <tr>
             <th class="bg-primary text-center col-md-1">#</th>
@@ -70,10 +70,10 @@
 @*Danh sách ứng dụng cho từng dự án*@
 <div class="container-fluid table table-bordered" style="margin:3px; border-color:#ff0000">
     <div class="">
-        <h4 class="text-center">Application list</h4>
+        <h4 class="text-center form-control-static" style="background-color:#000000; color:yellowgreen">Danh sách các ứng dụng đã đăng ký - BIM Application List</h4>
         @foreach (BIMApplicationForProjects.Models.C01_Projects item in Model)
         {
-            <table class="table table-condensed table-bordered" style="margin:0;margin-top:10px;">
+            <table class="table table-condensed table-bordered" style="margin-bottom:10px;margin-top:10px;">
                 <tr class="bg-primary text-danger">
                     <th>
                         @Html.ActionLink(item.ProjectID + "-" + item.ProjectName, "Details", new { id = item.ProjectID }, new { @class = "", @style = "color:white" })

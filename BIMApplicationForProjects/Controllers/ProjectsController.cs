@@ -1,4 +1,5 @@
 ﻿using BIMApplicationForProjects.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -21,7 +22,15 @@ namespace BIMApplicationForProjects.Controllers
 
             if (LoginUser != null)
             {
-                var c01_Projects = db.C01_Projects.Include(c => c.C04_ProjectPhase);
+                //Lọc danh sách các dự án theo User Login 
+                var c01_Projects = db.C01_Projects.Include(c => c.C04_ProjectPhase).Where(s => s.PMname == LoginUser.UserName);
+                //Nếu ko có dự án nào, thông báo và Direct tới trang Tạo dự án
+                if (c01_Projects == null || c01_Projects.Count() == 0)
+                {
+                    Session["ThongBao"] = "Bạn chưa có dự án, vui lòng đăng ký dự án";
+                    return RedirectToAction("Create", "Projects");
+                }
+                //Nếu đã có dự án
                 //Phase
                 var phase = db.C04_ProjectPhase.ToList();
                 ViewBag.Phase = phase;
@@ -51,7 +60,7 @@ namespace BIMApplicationForProjects.Controllers
         {
             //LoginUser = Session["LoginUser"] as AspNetUser;
             LoginUser = Session["LoginUser"] as ApplicationUser;
-
+            Session["ThongBao"] = "Trang thông tin của dự án.";
             if (LoginUser != null)
             {
                 if (id == null) return RedirectToAction("Index");
@@ -147,6 +156,16 @@ namespace BIMApplicationForProjects.Controllers
 
                     if (curProjectID == null)
                     {
+                        if (c01_Projects.PMname == null)
+                        {
+                            c01_Projects.PMname = LoginUser.UserName;
+                            c01_Projects.DateCreate = DateTime.Now;
+                        }
+                        else
+                        {
+                            c01_Projects.PMname = "Chưa cập nhật";
+                        }
+                         
                         db.C01_Projects.Add(c01_Projects);
                         db.SaveChanges();
 
@@ -156,7 +175,7 @@ namespace BIMApplicationForProjects.Controllers
                     }
                     else
                     {
-                        Session["ThongBao"] = "Đã có Dự án " + c01_Projects.ProjectID + " trong Database ";
+                        Session["ThongBao"] = "Đã có Dự án " + c01_Projects.ProjectID + " - " + c01_Projects.ProjectName + " trong Database ";
                         return RedirectToAction("Create");
                     }
                 }
@@ -178,6 +197,8 @@ namespace BIMApplicationForProjects.Controllers
             {
                 return HttpNotFound();
             }
+            Session["ThongBao"] = "Vì tính toàn vẹn dữ liệu nên một số trường sẽ không cho phép chỉnh sửa";
+
             ViewBag.Phase = new SelectList(db.C04_ProjectPhase, "PhaseID", "PhaseName", c01_Projects.Phase);
             return View(c01_Projects);
         }

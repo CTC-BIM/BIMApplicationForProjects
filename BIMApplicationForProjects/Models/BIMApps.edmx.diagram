@@ -28,6 +28,14 @@
         <AssociationConnector Association="BIMApplicationForProjects.Models.FK_03_ProjectAppDetails_07_Result" />
         <AssociationConnector Association="BIMApplicationForProjects.Models.FK_03_ProjectAppDetails_08_RequestType" />
         <EntityTypeShape EntityType="BIMApplicationForProjects.Models.C99_History" Width="1.5" PointX="10.375" PointY="5.875" />
+        <EntityTypeShape EntityType="BIMApplicationForProjects.Models.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="BIMApplicationForProjects.Models.AspNetRole" Width="1.5" PointX="10.75" PointY="11.5" />
+        <EntityTypeShape EntityType="BIMApplicationForProjects.Models.AspNetUserClaim" Width="1.5" PointX="15.25" PointY="12.625" />
+        <EntityTypeShape EntityType="BIMApplicationForProjects.Models.AspNetUserLogin" Width="1.5" PointX="15.25" PointY="10" />
+        <EntityTypeShape EntityType="BIMApplicationForProjects.Models.AspNetUser" Width="1.5" PointX="13" PointY="10.375" />
+        <AssociationConnector Association="BIMApplicationForProjects.Models.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="BIMApplicationForProjects.Models.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="BIMApplicationForProjects.Models.AspNetUserRoles" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

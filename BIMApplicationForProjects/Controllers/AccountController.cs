@@ -85,14 +85,17 @@ namespace BIMApplicationForProjects.Controllers
 
             //Thêm phần Confirm email
             // Require the user to have a confirmed email before they can log on.
-            var user = await UserManager.FindByNameAsync(model.Email);
+            //var user = await UserManager.FindByNameAsync(model.Email);
+
+            var user = await UserManager.FindByEmailAsync(model.Email);
             //var user = UserManager.FindByEmail(model.Email);
             if (user != null)
             {
                 if (!await UserManager.IsEmailConfirmedAsync(user.Id))
                 {
-                    ViewBag.errorMessage = "Bạn cần Active tài khoản bằng link trong Email " + model.Email + " trước khi Đăng nhập<br/>You must active account by link in a confirmed email " + model.Email + " to log on.";
-
+                    ViewBag.errorMessage = "Bạn cần Active tài khoản bằng link trong Email " + model.Email + " trước khi Đăng nhập";
+                    ViewBag.errorMessage += "You must active account by link in a confirmed email " + model.Email + " to log on.";
+                    
                     return View("Error");
                 }
             }
@@ -105,9 +108,9 @@ namespace BIMApplicationForProjects.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
 
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: true);
+            //var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: true);
 
-            //var result = SignInManager.PasswordSignIn(user.UserName, model.Password, model.RememberMe, shouldLockout: true);
+            var result = SignInManager.PasswordSignIn(user.UserName, model.Password, model.RememberMe, shouldLockout: true);
 
             switch (result)
             {
@@ -121,9 +124,9 @@ namespace BIMApplicationForProjects.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Sai thông tin đăng nhập! Lần thứ :"+ user.AccessFailedCount +" Sai quá 3 lần sẽ khóa tài khoản");
+                    ModelState.AddModelError("", "Sai thông tin đăng nhập! Sai quá 3 lần sẽ khóa tài khoản");
                     ModelState.AddModelError("", "Invalid login attempt! If wrong 3 times, account will be block");
-
+                    ModelState.AddModelError("", "Access Failed Count: " + user.AccessFailedCount + " time");
                     return View(model);
             }
             #endregion
@@ -557,7 +560,7 @@ namespace BIMApplicationForProjects.Controllers
                     return RedirectToAction("Index", "AdminProjects");
                 }
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Projects");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult
