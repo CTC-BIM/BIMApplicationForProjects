@@ -12,14 +12,12 @@ namespace BIMApplicationForProjects.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class C05a_TargetDetail
+    public partial class C22_CheckList
     {
         public int ID { get; set; }
         public string ProjectID { get; set; }
-        public string TargetID { get; set; }
-        public string Description { get; set; }
+        public string Detail { get; set; }
     
         public virtual C01_DesignProject C01_DesignProject { get; set; }
-        public virtual C05_BIMtarget C05_BIMtarget { get; set; }
     }
 }

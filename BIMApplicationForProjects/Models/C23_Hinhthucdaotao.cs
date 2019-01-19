@@ -12,14 +12,18 @@ namespace BIMApplicationForProjects.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class C05a_TargetDetail
+    public partial class C23_Hinhthucdaotao
     {
-        public int ID { get; set; }
-        public string ProjectID { get; set; }
-        public string TargetID { get; set; }
-        public string Description { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public C23_Hinhthucdaotao()
+        {
+            this.C18_CourseList_Detail = new HashSet<C18_CourseList_Detail>();
+        }
     
-        public virtual C01_DesignProject C01_DesignProject { get; set; }
-        public virtual C05_BIMtarget C05_BIMtarget { get; set; }
+        public int ID { get; set; }
+        public string HinhThucDaotao { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<C18_CourseList_Detail> C18_CourseList_Detail { get; set; }
     }
 }

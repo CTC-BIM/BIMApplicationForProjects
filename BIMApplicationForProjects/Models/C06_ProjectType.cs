@@ -12,14 +12,21 @@ namespace BIMApplicationForProjects.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class C05a_TargetDetail
+    public partial class C06_ProjectType
     {
-        public int ID { get; set; }
         public string ProjectID { get; set; }
-        public string TargetID { get; set; }
-        public string Description { get; set; }
+        public string ProjectName { get; set; }
+        public string ProjectShortName { get; set; }
+        public string ProjectManager { get; set; }
+        public string Type { get; set; }
+        public Nullable<int> Number_of_Basement { get; set; }
+        public string Basement_Method_statement { get; set; }
+        public Nullable<bool> Podium { get; set; }
+        public Nullable<byte> SuperStructure { get; set; }
+        public Nullable<int> Typical_Level { get; set; }
+        public Nullable<int> Technical_room { get; set; }
+        public byte[] SSMA_TimeStamp { get; set; }
     
         public virtual C01_DesignProject C01_DesignProject { get; set; }
-        public virtual C05_BIMtarget C05_BIMtarget { get; set; }
     }
 }

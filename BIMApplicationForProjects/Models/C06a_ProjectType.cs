@@ -12,14 +12,19 @@ namespace BIMApplicationForProjects.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class C05a_TargetDetail
+    public partial class C06a_ProjectType
     {
-        public int ID { get; set; }
-        public string ProjectID { get; set; }
-        public string TargetID { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public C06a_ProjectType()
+        {
+            this.C01_DesignProject = new HashSet<C01_DesignProject>();
+        }
+    
+        public int TypeID { get; set; }
+        public string TypeName { get; set; }
         public string Description { get; set; }
     
-        public virtual C01_DesignProject C01_DesignProject { get; set; }
-        public virtual C05_BIMtarget C05_BIMtarget { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<C01_DesignProject> C01_DesignProject { get; set; }
     }
 }

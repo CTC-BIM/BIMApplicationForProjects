@@ -203,6 +203,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AppVersion.cs">
+      <DependentUpon>Timesheet.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AspNetRole.cs">
       <DependentUpon>BIMApps.tt</DependentUpon>
     </Compile>
@@ -231,6 +234,9 @@
       <DependentUpon>BIMApps.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\BIMAppsMetadata.cs" />
+    <Compile Include="Models\C01_DesignProject.cs">
+      <DependentUpon>Timesheet.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\C01_Projects.cs">
       <DependentUpon>BIMApps.tt</DependentUpon>
     </Compile>
@@ -243,26 +249,113 @@
     <Compile Include="Models\C02_AppLists.cs">
       <DependentUpon>BIMApps.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\C02_BIMstaff.cs">
+      <DependentUpon>Timesheet.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\C03_ProjectAppDetails.cs">
       <DependentUpon>BIMApps.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C04_DMC_PMlist.cs">
+      <DependentUpon>Timesheet.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\C04_ProjectPhase.cs">
       <DependentUpon>BIMApps.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\C05a_TargetDetail.cs">
-      <DependentUpon>BIMApps.tt</DependentUpon>
+      <DependentUpon>Timesheet.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\C05_BIMtarget.cs">
-      <DependentUpon>BIMApps.tt</DependentUpon>
+      <DependentUpon>Timesheet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C06a_ProjectType.cs">
+      <DependentUpon>Timesheet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C06_ProjectType.cs">
+      <DependentUpon>Timesheet.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\C06_Status.cs">
       <DependentUpon>BIMApps.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C07_CTCCompanyList.cs">
+      <DependentUpon>Timesheet.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\C07_Result.cs">
       <DependentUpon>BIMApps.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\C08_RequestType.cs">
       <DependentUpon>BIMApps.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C11_OutsourceList.cs">
+      <DependentUpon>Timesheet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C12_SiteList.cs">
+      <DependentUpon>Timesheet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C13_Location.cs">
+      <DependentUpon>Timesheet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C14_Descipline.cs">
+      <DependentUpon>Timesheet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C15_TimeSheet.cs">
+      <DependentUpon>Timesheet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C16a_WorkTypeGroup.cs">
+      <DependentUpon>Timesheet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C16_WorkType.cs">
+      <DependentUpon>Timesheet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C17_CTCDepartment.cs">
+      <DependentUpon>Timesheet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C18_CourseList.cs">
+      <DependentUpon>Timesheet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C18_CourseList_Detail.cs">
+      <DependentUpon>Timesheet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C19_SubContractList.cs">
+      <DependentUpon>Timesheet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C20_StudentList.cs">
+      <DependentUpon>Timesheet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C21_SubjectList.cs">
+      <DependentUpon>Timesheet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C22_CheckList.cs">
+      <DependentUpon>Timesheet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C23_Hinhthucdaotao.cs">
+      <DependentUpon>Timesheet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C24_IssueList.cs">
+      <DependentUpon>Timesheet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C25_BIM_RnDproject.cs">
+      <DependentUpon>Timesheet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C27_Topic.cs">
+      <DependentUpon>Timesheet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C28_NTP.cs">
+      <DependentUpon>Timesheet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C29_MucTieuTraining.cs">
+      <DependentUpon>Timesheet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C30_NTP_ProjectDetails.cs">
+      <DependentUpon>Timesheet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C31_ProjectPhaseDetails.cs">
+      <DependentUpon>Timesheet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C32_ProjectPhase.cs">
+      <DependentUpon>Timesheet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C33_SolutionOffer.cs">
+      <DependentUpon>Timesheet.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\C99_History.cs">
       <DependentUpon>BIMApps.tt</DependentUpon>
@@ -273,6 +366,21 @@
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Timesheet.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Timesheet.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Timesheet.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Timesheet.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Timesheet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Timesheet.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -947,6 +1055,16 @@
       <DependentUpon>BIMApps.edmx</DependentUpon>
       <LastGenOutput>BIMApps.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\Timesheet.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Timesheet.edmx</DependentUpon>
+      <LastGenOutput>Timesheet.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Timesheet.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Timesheet.edmx</DependentUpon>
+      <LastGenOutput>Timesheet.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\BIMApps.edmx">
@@ -982,6 +1100,13 @@
     <Content Include="Assets\Template\css\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Assets\Template\css\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Assets\Template\js\plugins\jquery\jquery-2.1.1.min.map" />
+    <EntityDeploy Include="Models\Timesheet.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Timesheet.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Timesheet.edmx.diagram">
+      <DependentUpon>Timesheet.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
